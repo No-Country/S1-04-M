@@ -1,11 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import {useDispatch} from 'react-redux'
-import { Transactions } from './Transactions'
+/* import {useDispatch} from 'react-redux'
+import { Transactions } from './Transactions' */
 
 const NewTransaction = () => {
 
-const dispatch = useDispatch()
+/* const dispatch = useDispatch() */
 
 const [transaction, setTansaction] = React.useState({
     amount: '',

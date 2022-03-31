@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Transactions } from './Transactions'
 
 export const HistoryTransactions = () => {
   return (
