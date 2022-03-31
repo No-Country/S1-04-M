@@ -18,10 +18,8 @@ export const Pages = () => {
         <Route path="/balans" element={<Balans/>} />   
         <Route path="/history" element={<HistoryTransactions/>} />
         <Route path="/confirm" element={<ConfirmTransaction/>} />
-        <Route path="/about" element={<About/>} />
         <Route path="/closesesion" element={<Sesion/>} />
         <Route path="/newtransaction" element={<NewTransaction/>} /> 
-
     </Routes>
   )
 }
