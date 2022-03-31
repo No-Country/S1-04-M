@@ -33,6 +33,7 @@ Integrantes del equipo:
 - FRONT-END:
     Erik Rangel 
     Leticia Funes
+    Enzo Ramirez
 
 - BACK-END:
     Joaquin Gorosito 
