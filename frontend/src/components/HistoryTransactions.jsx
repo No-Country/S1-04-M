@@ -1,12 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+<<<<<<< HEAD
+=======
+/* import { Transactions } from './Transactions' */
+>>>>>>> 611d5f2f875df9242f68849627f8369353f25f65
 
 export const HistoryTransactions = () => {
   return (
 
     <div>
-          <h1>History Transactions</h1>
-
             <section>
                 <h2>Transactions</h2>
                 <ul>
