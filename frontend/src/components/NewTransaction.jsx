@@ -42,6 +42,7 @@ const [transaction, setTansaction] = React.useState({
       <h1>NewTransaction</h1>
 
       <form onSubmit={handleSubmit}>
+      
         <label>
           <span>Count</span>
           <input

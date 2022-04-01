@@ -1,0 +1,25 @@
+  
+:root {
+  --firstblue: #0070ba;
+  --lightblue: #d1f1ff;
+
+}
+
+.navbar-color{
+    background-color: var(--firstblue);
+}
+
+.logo {
+    width: 45px;
+    height: 45px;
+    margin-block-end: 1em;
+    color: white;
+  }
+
+.button:hover{
+    background-color: rgb(0, 50, 186);
+  }
+  
+ .navmenu-textcolor {
+  color: var(--lightblue);
+ } 
