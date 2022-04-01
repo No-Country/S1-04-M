@@ -6,6 +6,7 @@ export const ConfirmTransaction = () => {
 const navigate = useNavigate()
 
   const transaction = JSON.parse(sessionStorage.getItem("transaction"));
+  const Count = transaction.count;
   const amount = transaction.amount;
   const description = transaction.description;
   const date = transaction.date;
@@ -23,6 +24,19 @@ const handleSubmit = (e) => {
       <h1>ConfirmTransaction</h1>
 
       <form onSubmit={handleSubmit}>
+        <label>
+          <span>Count</span>
+           <input
+          type="tel"
+          inputMode="numeric"
+          pattern="[0-9\s]{13,16}"
+          maxLength="16"
+          name="count"
+          value={Count}
+          placeholder="Número de tarjeta"
+        />
+        </label>
+
         <label>
           <span>Amount</span>
           <input type="text"  value={amount}/>

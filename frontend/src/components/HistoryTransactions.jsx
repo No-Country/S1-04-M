@@ -6,8 +6,6 @@ export const HistoryTransactions = () => {
   return (
 
     <div>
-          <h1>History Transactions</h1>
-
             <section>
                 <h2>Transactions</h2>
                 <ul>

@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 /* import {useDispatch} from 'react-redux'
 import { Transactions } from './Transactions' */
 import { useNavigate } from 'react-router-dom'
@@ -28,10 +27,12 @@ const [transaction, setTansaction] = React.useState({
         e.preventDefault()
         sessionStorage.setItem('transaction', JSON.stringify(transaction))
         setTansaction({
+            count: '',
             amount: '',
             description: '',
             date: '',
             type: ''
+
         })
         navigate('/confirm')        
     }
@@ -41,6 +42,19 @@ const [transaction, setTansaction] = React.useState({
       <h1>NewTransaction</h1>
 
       <form onSubmit={handleSubmit}>
+        <label>
+          <span>Count</span>
+          <input
+            type="tel"
+            inputMode="numeric"
+            pattern="[0-9\s]{13,16}"
+            maxLength="16"
+            name="count"
+            value={transaction.count}
+            onChange={handleChange}
+            placeholder="Número de tarjeta"
+          />
+        </label>
         <label>
           <span>Amount</span>
           <input
@@ -75,9 +89,7 @@ const [transaction, setTansaction] = React.useState({
             <option value="outcome">Outcome</option>
           </select>
         </label>
-        <button type="submit">
-          Confirm
-        </button>
+        <button type="submit">Confirm</button>
       </form>
     </div>
   );
