@@ -4,7 +4,8 @@ const router = express.Router();
 const User = require('../models/users');
 const passport = require('passport');
 
-router.get('/users/signin', (req,res)=>{
+
+router.get('/users/signin', (req,res) => {
     res.render('users/signin');
 });
 
@@ -14,11 +15,13 @@ router.post('/users/signin', passport.authenticate('local', {
     // ,
     // failureFlash: true
 }));
-router.get('/users/signup', (req,res)=>{
+
+
+router.get('/users/signup', (req,res) => {
     res.render('users/signup');
 });
 
-router.post('/users/signup', async (req,res)=>{
+router.post('/users/signup', async (req,res) => {
     const {name, email, password, confirm_password} = req.body; // DATA REQUERIDA DEL FORMULARIO DE REGISTRO
     const errors = [];
     const PASSWORD_LENGTH = 4;
