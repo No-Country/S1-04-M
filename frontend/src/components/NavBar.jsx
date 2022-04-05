@@ -31,19 +31,19 @@ export default function NavBar( { navigationStatus, setNavigationStatus }) {
       <ul className="navbar-nav">
       <li class="nav-item dropdown">
           <a className="nav-link dropdown-toggle text-info" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Transactions
+            Transacciones
           </a>
           <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a className="dropdown-item" href="/newtransaction">New Transaction</a></li>
-            <li><a className="dropdown-item" href="#">Transactions History</a></li>
-            <li><a className="dropdown-item" href="#">Transactions Diagram</a></li>
+            <li><a className="dropdown-item" href="/newtransaction">Nueva Transacción</a></li>
+            <li><a className="dropdown-item" href="#">Historia de Transacciones</a></li>
+            <li><a className="dropdown-item" href="#">Gráfica de Transacciones</a></li>
           </ul>
         </li>
         <li className="nav-item">
-          <a className="nav-link text-info" href="#">Account Settings</a>
+          <a className="nav-link text-info" href="#">Configuración de Cuenta</a>
         </li>
         <li className="nav-item">
-          <a className="nav-link text-info" href="/">Close Session</a>
+          <a className="nav-link text-info" href="/">Cerrar Sesión</a>
         </li>
         
       </ul>
