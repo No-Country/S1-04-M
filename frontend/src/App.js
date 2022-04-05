@@ -8,8 +8,8 @@ import { Pages } from './pages/pages'
 export const App = () => {
   return (
     <Provider store={Store}>
-      <BrowserRouter>      
-    <Pages/>
+    <BrowserRouter>      
+      <Pages/>
     </BrowserRouter>
     </Provider>
   )

@@ -1,5 +1,6 @@
 import React from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
+
 import { About } from '../components/About'
 import { Balans } from '../components/Balans'
 import { ConfirmTransaction } from '../components/ConfirmTransaction'
@@ -8,18 +9,39 @@ import { Home } from '../components/Home'
 import NewTransaction from '../components/NewTransaction'
 import { Sesion } from '../components/Sesion'
 import { Transactions } from '../components/Transactions'
+import NavBar from '../components/NavBar'
+import { useLocation } from "react-router-dom";
+
 
 export const Pages = () => {
+
+  let location = useLocation(); 
+
   return (
-    <Routes>
+    <div>
+       {location.pathname != "/"  && <NavBar/>}   
+       <Routes>
+        
         <Route path="/" element={<Home/>} />
         <Route path="/about" element={<About/>} />  
+       
+       
         <Route path="/transactions" element={<Transactions/>} />
         <Route path="/balans" element={<Balans/>} />   
         <Route path="/history" element={<HistoryTransactions/>} />
         <Route path="/confirm" element={<ConfirmTransaction/>} />
         <Route path="/closesesion" element={<Sesion/>} />
         <Route path="/newtransaction" element={<NewTransaction/>} /> 
-    </Routes>
+       
+    
+     </Routes>
+      
+
+
+
+    </div> 
+
+         
+ 
   )
 }

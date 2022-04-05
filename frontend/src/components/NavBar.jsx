@@ -10,26 +10,9 @@ export default function NavBar( { navigationStatus, setNavigationStatus }) {
 
    const navigate = useNavigate();
 
-  const handleClick = () => {
-    setClick(!click);
-    setNavigationStatus(!click);
-  };
-
-  const closeMobileMenu = () => {
-    setClick(false);
-    setNavigationStatus(false);
-  };
-
-  const aLogin = () => {
-    closeMobileMenu();
-  };
-
-  const loginTitulo = () => {
- 
-  };
-
-  const volverEmprendedores = () => {
-    navigate("/emprendedores");
+   
+  const goHome = () => {
+    navigate("/");
   };
 
   return (
@@ -39,11 +22,7 @@ export default function NavBar( { navigationStatus, setNavigationStatus }) {
   <div className="container-fluid">
     <a className="navbar-brand" href="#">   <img className = "logo"
           src="https://images.vexels.com/media/users/3/129286/isolated/preview/f71f09d3aa7db678ee884a2cdea1a435-simbolo-del-edificio-del-banco.png"
-          alt="logo-banco"
-    /></a>
-
- 
-
+          alt="logo-banco" onClick={goHome}/></a>
 
     <button className="navbar-toggler text-info" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span className="navbar-toggler-icon "></span>
@@ -51,13 +30,13 @@ export default function NavBar( { navigationStatus, setNavigationStatus }) {
     <div className="collapse navbar-collapse" id="navbarNav">
       <ul className="navbar-nav">
       <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle text-info" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a className="nav-link dropdown-toggle text-info" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Transactions
           </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="/newtransaction">New Transaction</a></li>
-            <li><a class="dropdown-item" href="#">Transactions History</a></li>
-            <li><a class="dropdown-item" href="#">Transactions Diagram</a></li>
+          <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li><a className="dropdown-item" href="/newtransaction">New Transaction</a></li>
+            <li><a className="dropdown-item" href="#">Transactions History</a></li>
+            <li><a className="dropdown-item" href="#">Transactions Diagram</a></li>
           </ul>
         </li>
         <li className="nav-item">
