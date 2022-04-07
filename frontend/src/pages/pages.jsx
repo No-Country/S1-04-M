@@ -5,6 +5,7 @@ import { Balans } from '../components/Balans'
 import { ConfirmTransaction } from '../components/ConfirmTransaction'
 import { HistoryTransactions } from '../components/HistoryTransactions'
 import { Home } from '../components/Home'
+import  {NewCard}  from '../components/NewCard'
 import NewTransaction from '../components/NewTransaction'
 import { Sesion } from '../components/Sesion'
 import { Transactions } from '../components/Transactions'
@@ -20,6 +21,7 @@ export const Pages = () => {
         <Route path="/confirm" element={<ConfirmTransaction/>} />
         <Route path="/closesesion" element={<Sesion/>} />
         <Route path="/newtransaction" element={<NewTransaction/>} /> 
+        <Route path="/newcard" element={<NewCard/>} />
     </Routes>
   )
 }
