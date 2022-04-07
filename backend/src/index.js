@@ -39,16 +39,17 @@ app.use(passport.session());
 
 //Global Variables
 
-app.use((req, res, next) => {
-    res.locals.user = req.user || null;
-    next(); 
-})
+// app.use((req, res, next) => {
+//     res.locals.user = req.user || null;
+//     next(); 
+// })
 
 
 //Routes
 
 app.use(require('./routes/index'));
-app.use(require('./routes/users'));
+// app.use(require('./routes/users'));
+app.use(require('./routes/User'));
 
 //Server is listening
 
