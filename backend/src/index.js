@@ -26,10 +26,11 @@ app.set('port', PORT || 3000);
 
 //Middlewares
 
-app.use(express.urlencoded({extended:false}));
+app.use (express.json());
+app.use(express.urlencoded({extended:true}));
 app.use(methodOverride('_method'));
 app.use(session({
-    secret:SESSIONS_SECRET,
+    secret:SESSIONS_SECRET, //'mySecretApp'
     resave:true,
     saveUninitialized:true
 }));
@@ -48,7 +49,6 @@ app.use(passport.session());
 //Routes
 
 app.use(require('./routes/index'));
-// app.use(require('./routes/users'));
 app.use(require('./routes/User'));
 
 //Server is listening

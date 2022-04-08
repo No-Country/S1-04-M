@@ -1,6 +1,7 @@
 const usersCtrl = {};
 const User = require('../models/users');
 const passport = require('passport');
+const auth = require('../helpers/auth');
 
 
 usersCtrl.createNewUser = async (req, res) => {
@@ -65,35 +66,50 @@ usersCtrl.createNewUser = async (req, res) => {
         }
     }
 
-    // usersCtrl.login = async (req, res, next) => {
+    usersCtrl.login = async (req, res, next) => {
+        const { userField, password } = req.body;
 
-    //     console.log (req.body);
-    //     const { email, password } = req.body;
-      
-    //     passport.authenticate('login', async (err, user, info) => {
-    //       try {
+        const userQuery = await User.findOne({username: userField}) || await User.findOne({email: userField}) || false;
+            // console.log(userQuery);
+
+        if (userQuery) {
+            const isValidated = await userQuery.validatePassword(password);
+            console.log("is validated: " + isValidated);
+            if (isValidated) {
+                res.json({type: 'ok', text: 'Validation Successful!'});
+            } else {
+                res.json({type: 'error', text: 'Wrong password, please try again!'});      
+            }
+        } else {
+            res.json({type: 'error', text: 'User does not exist, please Sign up!'});
+        }
+
+
+        // passport.authenticate('login', async (err, user, info) => {
+        //   try {
            
-    //         if (err) {
-    //           //return next(err); // will generate a 500 error
-    //           return res.json({error: err })
-    //         }
-    //         if (! user) {
-    //          // return res.send({ success : false, message : 'authentication failed' });
-    //           return res.json({user: "user" })
-    //         }
+        //     if (err) {
+        //       //return next(err); // will generate a 500 error
+        //       return res.json({error: err })
+        //     }
+        //     if (! user) {
+        //      // return res.send({ success : false, message : 'authentication failed' });
+        //       return res.json({user: "user" })
+        //     }
       
-    //         //Passport exposes a login() function on req (also aliased as logIn()) that can be used to establish a login session.
-    //         req.login(user, { session: false }, async (err) => {
-    //           if (err) return next(err)
-    //           const body = { _id: user._id, email: user.email }
-    //           const token = jwt.sign({ user: body }, 'top_secret')
-    //           return res.json({user_token: token })
-    //         })
-    //       }
-    //       catch(e) {
-    //         return next(e)
-    //       }
-    //     })(req, res, next)
-    //   }
-    
+        //     //Passport exposes a login() function on req (also aliased as logIn()) that can be used to establish a login session.
+        //     req.login(user, { session: false }, async (err) => {
+        //       if (err) return next(err)
+        //       const body = { _id: user._id, email: user.email }
+
+        //     //   const token = jwt.sign({ user: body }, 'top_secret')
+        //     //   return res.json({user_token: token })
+        //     })
+        //   }
+        //   catch(e) {
+        //     return next(e)
+        //   }
+        // })(req, res, next)
+      }
+
 module.exports = usersCtrl;

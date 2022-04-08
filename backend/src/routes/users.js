@@ -6,7 +6,8 @@ const passport = require('passport');
 
 
 router.get('/users/signin', (req,res) => {
-    res.render('users/signin');
+    res.json({type: 'ok'});
+    // res.render('users/signin');
 });
 
 router.post('/users/signin', passport.authenticate('local', {
@@ -19,6 +20,10 @@ router.post('/users/signin', passport.authenticate('local', {
 
 router.get('/users/signup', (req,res) => {
     res.render('users/signup');
+});
+
+router.post('/users/test', (req,res) => {
+    res.json({type:"ok"});
 });
 
 router.post('/users/signup', async (req,res) => {
