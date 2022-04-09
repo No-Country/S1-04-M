@@ -17,23 +17,17 @@ cardsCtrl.createCard = async (req, res) => {
     res.json(cards);
 };
 
-cardsCtrl.firstCardNumber = async (req, res) => {
-   await NextCardNumber.save((err) => {
-    if (err)
-      return res
-        .status(500)
-        .send({ message: `Error creating firs Number Card: ${err}`});
-   }
 
-   )
-  }
-
+  //Este end-point es parte de la configuración inicial del sistema. Hay que llamarlo antes de su uso definitivo
+  
   cardsCtrl.firstCardNumber = async (req, res) => {
 
-    const {nextCarNumber} =  req.body;
- 
-  
-      const nextCardNumber = new NextCardNumber({nextCarNumber});
+     
+      await NextCardNumber.deleteMany();
+      const {firstCardNumber} =  req.body;
+      const cardNumber = await NextCardNumber.find();
+         
+      const nextCardNumber = new NextCardNumber({"nextCardNumber": firstCardNumber});
   
         await nextCardNumber.save((err) => {
           if (err)
@@ -50,45 +44,34 @@ cardsCtrl.firstCardNumber = async (req, res) => {
 
 
 
-
-
-
-
-
 cardsCtrl.lastCardNumber = async (req, res) => {
-    //const { } = req.body;
-
-    //const cardNumber = await NextCardNumber.find();
-    let cardNumber = 0
-    console.log (cardNumber);
-
-
+    
+    let nextCardNumber = await NextCardNumber.find();
+    let cardNumber = Number(nextCardNumber[0].nextCardNumber)
+    const cardNumberid = nextCardNumber[0]._id
+    
         cardNumber++
         const last = (cardNumber % 10000).toString().split('')
         while(last.length < 4) last.unshift('0')
         const prev =(Math.floor(cardNumber / 10000)).toString().split('')
-        while(prev.length < 4) prev.unshift('5')
+        while(prev.length < 4) prev.unshift('0')
         const prev2 =(Math.floor(cardNumber / 100000)).toString().split('')
-        while(prev2.length < 4) prev2.unshift('3')
+        while(prev2.length < 4) prev2.unshift('0')
         const prev3 =(Math.floor(cardNumber / 1000000)).toString().split('')
-        while(prev3.length < 4) prev3.unshift('2')
+        while(prev3.length < 4) prev3.unshift('0')
         const newCardNumber = prev.join('') +' '+ prev2.join('')+ ' ' + prev3.join('')+ ' ' + last.join('')
-    
-
-
-    console.log ('nueva tarjeta: ' + newCardNumber); 
-/*
-    const filter = { _id: req.params.id };
-    const result = NextCardNumber.update(
+     
+        const filter = { _id: cardNumberid };
+        const result = NextCardNumber.findOneAndUpdate(
         filter,
-        { },
+        { "nextCardNumber": cardNumber.toString() },
         (err, {}) => {
           if (err)
             return res
               .status(500)
               .send({ message: `Error generating new card number: ${err}` });
 
-    res.json(handleCreateCard);
+    res.json(newCardNumber);
     
     }
 
@@ -96,10 +79,8 @@ cardsCtrl.lastCardNumber = async (req, res) => {
     )}
 
 
-  
-*/
 
-  }
+  
     
     cardsCtrl.createNew = async (req, res) => {
     

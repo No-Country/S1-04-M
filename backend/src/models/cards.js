@@ -15,7 +15,7 @@ const cardSchema = new Schema({
 });
 
 const NextCardNumberSchema = new Schema({
-    nextCarNumber: { type: String, required: true}
+    nextCardNumber: { type: String, required: true}
 })
 
 
