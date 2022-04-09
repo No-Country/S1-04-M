@@ -12,6 +12,8 @@ import { Sesion } from '../components/Sesion'
 import { Transactions } from '../components/Transactions'
 import NavBar from '../components/NavBar'
 import { useLocation } from "react-router-dom";
+import { Register } from '../components/Register'
+import { Card } from '../components/Card'
 
 
 export const Pages = () => {
@@ -20,7 +22,7 @@ export const Pages = () => {
 
   return (
     <div>
-       {location.pathname != "/"  && <NavBar/>}   
+       {location.pathname !== "/"  && <NavBar/>}   
        <Routes>
         
         <Route path="/" element={<Home/>} />
@@ -34,6 +36,9 @@ export const Pages = () => {
         <Route path="/closesesion" element={<Sesion/>} />
         <Route path="/newtransaction" element={<NewTransaction/>} /> 
         <Route path="/newcard" element={<NewCard/>} />
+        <Route path="/register" element={<Register/>} />
+        <Route path="card" element={<Card/>} />|
     </Routes>
+    </div>
   )
 }
