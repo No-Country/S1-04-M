@@ -112,4 +112,10 @@ usersCtrl.createNewUser = async (req, res) => {
         // })(req, res, next)
       }
 
+
+usersCtrl.getUsers = async (req, res) => {
+  const users = await User.find();
+  res.json(users);
+};
+
 module.exports = usersCtrl;
