@@ -5,7 +5,7 @@ const auth = require('../helpers/auth');
 
 
 usersCtrl.createNewUser = async (req, res) => {
-    const {username, name, lastname, email, password, password_confirmation} = req.body;
+    const {name, lastname, birthdate, dni, location, email, password, password_confirmation} = req.body;
     let messages = [];
 
     if (password !== password_confirmation) {
@@ -20,9 +20,11 @@ usersCtrl.createNewUser = async (req, res) => {
     if (messages.length > 0 ) {
         const user_errors = {
             messages: messages,
-            username: username,
             name: name,
             lastname: lastname,
+            birthdate: birthdate,
+            dni: dni,
+            location, location,
             email: email,
             password: password,
             password_confirmation: password_confirmation
@@ -40,10 +42,12 @@ usersCtrl.createNewUser = async (req, res) => {
 
             } else {
                 const newUser = new User({
-                    username,
-                    email,
                     name,
                     lastname,
+                    birthdate,
+                    dni,
+                    location,
+                    email,
                     password
                 });
                 newUser.password = await newUser.encryptPassword(password);
@@ -66,50 +70,26 @@ usersCtrl.createNewUser = async (req, res) => {
         }
     }
 
-    usersCtrl.login = async (req, res, next) => {
-        const { userField, password } = req.body;
+    usersCtrl.login = async (req, res) => {
+        const { email, password } = req.body;
 
-        const userQuery = await User.findOne({username: userField}) || await User.findOne({email: userField}) || false;
-            // console.log(userQuery);
+        const userQuery = await User.findOne({email: email}) || false;
 
         if (userQuery) {
             const isValidated = await userQuery.validatePassword(password);
-            console.log("is validated: " + isValidated);
+            // console.log("is validated: " + isValidated);
+
             if (isValidated) {
                 res.json({type: 'ok', text: 'Validation Successful!'});
+
             } else {
-                res.json({type: 'error', text: 'Wrong password, please try again!'});      
+                res.json({type: 'error', text: 'Wrong password, please try again!'});   
+
             }
         } else {
             res.json({type: 'error', text: 'User does not exist, please Sign up!'});
+
         }
-
-
-        // passport.authenticate('login', async (err, user, info) => {
-        //   try {
-           
-        //     if (err) {
-        //       //return next(err); // will generate a 500 error
-        //       return res.json({error: err })
-        //     }
-        //     if (! user) {
-        //      // return res.send({ success : false, message : 'authentication failed' });
-        //       return res.json({user: "user" })
-        //     }
-      
-        //     //Passport exposes a login() function on req (also aliased as logIn()) that can be used to establish a login session.
-        //     req.login(user, { session: false }, async (err) => {
-        //       if (err) return next(err)
-        //       const body = { _id: user._id, email: user.email }
-
-        //     //   const token = jwt.sign({ user: body }, 'top_secret')
-        //     //   return res.json({user_token: token })
-        //     })
-        //   }
-        //   catch(e) {
-        //     return next(e)
-        //   }
-        // })(req, res, next)
       }
 
 module.exports = usersCtrl;

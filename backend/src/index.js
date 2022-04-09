@@ -8,8 +8,8 @@ const passport = require('passport');
 
 //Enviromental variables
 
-const PORT = process.env.PORT;
-const SESSIONS_SECRET = process.env.SESSIONS_SECRET;
+const PORT = process.env.PORT || 5000;
+const SESSIONS_SECRET = process.env.SESSIONS_SECRET // || 'mySecretApp';
 
 
 //Initializations
@@ -30,7 +30,7 @@ app.use (express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(methodOverride('_method'));
 app.use(session({
-    secret:SESSIONS_SECRET, //'mySecretApp'
+    secret:SESSIONS_SECRET, 
     resave:true,
     saveUninitialized:true
 }));
