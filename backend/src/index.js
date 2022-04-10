@@ -1,8 +1,11 @@
-require('dotenv').config();
+require("dotenv").config();
 
+const app = require("./app");
+const database = require("./database");
 
-const app = require ('./app');
-const database= require ('./database');
+function main() {
+  app.use(require("./routes/index"));
+  app.use(require("./routes/User"));
 
 const PORT = process.env.PORT || 5000;
 const SESSIONS_SECRET = process.env.SESSIONS_SECRET // || 'mySecretApp';
@@ -17,7 +20,7 @@ require('./config/passport');
 
 //Settings
 
-app.set('port', PORT || 3000);
+app.set('port', PORT || 3001);
 
 
 //Middlewares
@@ -43,7 +46,7 @@ app.use(passport.session());
 
 
 
-function main () {
+/* function main () {
 app.use(require('./routes/index'));
 app.use(require('./routes/User'));
 
@@ -51,6 +54,6 @@ app.use(require('./routes/User'));
     app.listen (app.get ('port')); 
     console.log ('Server on port: ' + app.get ('port'));
     
+} */
 }
-
 main();

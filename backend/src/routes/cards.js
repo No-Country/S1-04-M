@@ -1,27 +1,35 @@
-
-const {Router} = require ('express');
+const { Router } = require("express");
 const router = Router();
-const { getCards,  createCard, lastCardNumber, firstCardNumber} = require('../controllers/cards.controller');
-const auth = require ('../middlewares/auth')
-const passport = require('passport')
-const jwt = require('jsonwebtoken')
+const {
+  getCards,
+  createNew,
+  lastCardNumber,
+  firstCardNumber,
+  deleteCards,
+} = require("../controllers/cards.controller");
+const auth = require("../middlewares/auth");
+const passport = require("passport");
+const jwt = require("jsonwebtoken");
 
+router
+  .route("/")
 
-router.route ('/')
+  .get(getCards)
+  .post(createNew)
+  .delete(deleteCards);
 
-.get (getCards)
+router
+  .route("/lastCardNumber")
 
-router.route ('/lastCardNumber')
+  .post(lastCardNumber);
 
-.post (lastCardNumber)
+router
+  .route("/firstCardNumber")
 
-router.route ('/firstCardNumber')
-
-.post (firstCardNumber)
+  .post(firstCardNumber);
 
 //.get ( passport.authenticate('jwt', { session: false }), getCards)
 
-//.post (createCard)
 //.post (passport.authenticate('jwt', { session: false }), createCard )
 
 module.exports = router;
