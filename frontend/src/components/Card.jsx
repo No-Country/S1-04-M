@@ -1,58 +1,98 @@
-import React from "react";
+import React, { useState } from "react";
+import Cards from "react-credit-cards";
+import "react-credit-cards/es/styles-compiled.css";
 import "../css/estilos.css";
-import visa from "../img/logos/visa.png";
-import chip from "../img/chip-tarjeta.png";
 
 export const Card = () => {
+  const [state, setState] = useState({
+    number: "",
+    name: "",
+    expiry: "",
+    cvc: "",
+    focus: "",
+  });
+
+  const handleInputChange = (e) => {
+    setState({
+      ...state,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleFocusChange = (e) => {
+    setState({
+      ...state,
+      focus: e.target.name,
+    });
+  };
+
+  
+
   return (
     <div className="contenedor">
-      <section className="tarjeta " id="tarjeta">
-        
-    <div className="delantera">
-          <div className="logo-marca">
-            <img src={visa} alt=" " />
-          </div>
-          <img src={chip} className="chip" alt="" />
-          <div className="grupo" id="numero">
-            <p className="label">Numero tarjeta</p>
-            <p className="numero">Numero</p>
-          </div>
-          <div className="flexbox">
-            <div className="grupo" id="nombre">
-              <p className="label">Nombre Tarjeta</p>
-              <p className="nombre">Nombre</p>
-            </div>
-            <div className="grupo" id="expiracion">
-              <p className="label">Expiracion</p>
-              <p className="expiracion">
-                <span className="mes">MM</span> /{" "}
-                <span className="year">AA</span>
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div className="trasera">
-          <div className="barra-magnetica"></div>
-          <div className="datos">
-            <div className="grupo" id="firma">
-              <p className="label">Firma</p>
-              <div className="firma">
-                <p></p>
+      <section className="tarjeta">
+        <div className="card">
+          <div className="card-body">
+            <Cards
+              number={state.number}
+              name={state.name}
+              expiry={state.expiry}
+              cvc={state.cvc}
+              focused={state.focus}
+            />
+            <form>
+              <div className="form-group">
+                <label htmlFor="number">Número de la tarjeta</label>
+                <input
+                  type="text"
+                  name="number"
+                  id="number"
+                  maxLength="16"
+                  className="form-control"
+                  onChange={handleInputChange}
+                  onFocus={handleFocusChange}
+                />
               </div>
-            </div>
-            <div className="grupo" id="ccv">
-              <p className="label">CCV</p>
-              <p className="ccv"></p>
-            </div>
+              <div className="form-group">
+                <label htmlFor="name">Nombre</label>
+                <input
+                  type="text"
+                  name="name"
+                  id="name"
+                  maxLength="30"
+                  className="form-control"
+                  onChange={handleInputChange}
+                  onFocus={handleFocusChange}
+                />
+              </div>
+              <div className="form-row">
+                <div className="form-group col-md-6">
+                  <label htmlFor="expiry">Fecha de expiración</label>
+                  <input
+                    type="text"
+                    name="expiry"
+                    id="expiry"
+                    maxLength="4"
+                    className="form-control"
+                    onChange={handleInputChange}
+                    onFocus={handleFocusChange}
+                  />
+                </div>
+                <div className="form-group col-md-6">
+                  <label htmlFor="cvc">CVC</label>
+                  <input
+                    type="text"
+                    name="cvc"
+                    id="cvc"
+                    maxLength="4"
+                    className="form-control"
+                    onChange={handleInputChange}
+                    onFocus={handleFocusChange}
+                  />
+                </div>
+              </div>
+            </form>
           </div>
-          <p className="leyenda">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus
-            exercitationem, voluptates illo.
-          </p>
-          <a href="#" className="link-banco">
-            www.tubanco.com
-          </a>
         </div>
       </section>
     </div>
