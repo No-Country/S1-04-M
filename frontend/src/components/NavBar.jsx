@@ -1,12 +1,12 @@
 
-import React, { useContext } from "react";
-import { useState } from "react";
+import React/* , { useContext } */ from "react";
+/* import { useState } from "react"; */
 import "./NavBar.css";
 import { useNavigate } from "react-router-dom"; //hook
 
 export default function NavBar( { navigationStatus, setNavigationStatus }) {
   
-  const [click, setClick] = useState(false);
+  /* const [click, setClick] = useState(false); */
 
    const navigate = useNavigate();
 
