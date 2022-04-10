@@ -2,9 +2,9 @@ const cardsCtrl = {};
 const Card = require("../models/cards");
 const NextCardNumber = require("../models/cards");
 
-const passport = require("passport");
+/* const passport = require("passport");
 const jwt = require("jsonwebtoken");
-const auth = require("../middlewares/auth");
+const auth = require("../middlewares/auth"); */
 
 cardsCtrl.getCards = async (req, res) => {
   const cards = await Card.Card.find();
