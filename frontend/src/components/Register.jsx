@@ -17,6 +17,7 @@ export const Register = () => {
     cp: "",
     password: "",
     password2: "",
+    date: "",
   });
 
   const handleSubmit = (e) => {
@@ -77,6 +78,14 @@ export const Register = () => {
           name="phone"
           onChange={handleChange}
         />
+        <input
+          type="date"
+          placeholder="Fecha de nacimiento"
+          value={user.date}
+          name="date"
+          onChange={handleChange}
+        />
+
         <input
           type="text"
           placeholder="Direccion"
