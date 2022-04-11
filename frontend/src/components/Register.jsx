@@ -1,12 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Home/styles.css";
-import {useDispatch} from "react-redux";
-import { register } from "../actions/Actions";
+import { useDispatch, useSelector } from "react-redux";
+import { lastCardNumber, register } from "../actions/Actions";
 
 export const Register = () => {
   const navigate = useNavigate();
-const dispatch = useDispatch()
+
+  const [card, setCard] = useState({
+    number: "",
+  });
+  const CardNumber = sessionStorage.getItem("CardNumber");
+  if(CardNumber){
+  setCard({ number: CardNumber });
+  }
+
+  const dispatch = useDispatch();
   const [user, setUser] = useState({
     name: "",
     lastname: "",
@@ -17,16 +26,26 @@ const dispatch = useDispatch()
     city: "",
     country: "",
     cp: "",
+    cardNumber: "",
     password: "",
     password2: "",
     date: "",
   });
 
+  const handleCreateCardNumber = (e) => {
+    dispatch(lastCardNumber());
+      setUser({
+        ...user,
+        cardNumber: card.number,
+      });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-   dispatch(register(user))
-   console.log(user)
+    dispatch(register(user));
+    console.log(user);
     navigate("/balans");
+   
   };
 
   const handleChange = (e) => {
@@ -133,7 +152,16 @@ const dispatch = useDispatch()
           name="password2"
           onChange={handleChange}
         />
-        <button type="submit">Registrar</button>
+        <input
+          type="checkbox"
+          onClick={handleCreateCardNumber}
+          /* style={{ display: "none" }} */
+          value={card.number}
+          name="cardNumber"
+          checked={true}
+        />
+
+        <button type="submit">Registrarse</button>
       </form>
     </section>
   );

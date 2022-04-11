@@ -25,6 +25,12 @@ export const Reducer = (state = initialState, action) => {
                 isLoading: true,
                 data: action.payload,
             }
+            case Types.lastCardNumber:
+                return {
+                    ...state,
+                    data: action.payload,
+                }
+                
         default:
             return state
     }

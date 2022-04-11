@@ -25,12 +25,14 @@ export const login = (usuario) => async () => {
   };
 };
 
-export const createNewCard = (card) => async () => {
-    const post = await axios.post("http://localhost:4000/api/cards/createNew", card);
-    const json = post.data.text;
+export const lastCardNumber = () => async () => {
+    const post = await axios.post("http://localhost:4000/api/cards/lastCardNumber");
+    const json = post.data;
     console.log(json);
+    sessionStorage.setItem("CardNumber", json);
     return {
-        type: Types.createNewCard,
+        type: Types.lastCardNumber,
         payload: json,
     };
     }
+

@@ -4,10 +4,7 @@ import { HistoryTransactions } from './HistoryTransactions'
 
 export const Balans = () => {
 
-  const [card,setCard] = useState({
-    
-  })
-
+ sessionStorage.removeItem("CardNumber");
 
   return (
 
