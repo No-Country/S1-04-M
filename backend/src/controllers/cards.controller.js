@@ -46,28 +46,23 @@ cardsCtrl.lastCardNumber = async (req, res) => {
   const cardNumberid = nextCardNumber[0]._id;
 
   cardNumber++;
-  const last = (cardNumber % 10000).toString().split("");
-  while (last.length < 4) last.unshift("0");
-  const prev = Math.floor(cardNumber / 10000)
-    .toString()
-    .split("");
-  while (prev.length < 4) prev.unshift("0");
-  const prev2 = Math.floor(cardNumber / 10000)
-    .toString()
-    .split("");
-  while (prev2.length < 4) prev2.unshift("0");
-  const prev3 = Math.floor(cardNumber / 10000)
-    .toString()
-    .split("");
-  while (prev3.length < 4) prev3.unshift("0");
+  cardNumberString = cardNumber.toString();
+  const newNumber = cardNumberString.padStart(16, "0"); 
+  
+  const last =  newNumber.substring(12,16);
+  const prev =  newNumber.substring(8,12);
+  const prev2 = newNumber.substring(4,8);
+  const prev3 = newNumber.substring(0,4);
+  
+
   const newCardNumber =
-    prev.join("") +
+    prev3 +
     " " +
-    prev2.join("") +
+    prev2 +
     " " +
-    prev3.join("") +
+    prev +
     " " +
-    last.join("");
+    last;
 
   const filter = { _id: cardNumberid };
   const result = NextCardNumber.NextCardNumber.findOneAndUpdate(
