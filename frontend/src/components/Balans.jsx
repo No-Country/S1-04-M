@@ -1,8 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { HistoryTransactions } from './HistoryTransactions'
 
 
 export const Balans = () => {
+
+  const [card,setCard] = useState({
+    
+  })
+
+
   return (
 
     <div>
