@@ -19,11 +19,14 @@ cardsCtrl.deleteCards = async (req, res) => {
 //Este end-point es parte de la configuración inicial del sistema. Hay que llamarlo antes de su uso definitivo
 
 cardsCtrl.firstCardNumber = async (req, res) => {
-  await NextCardNumber.deleteMany();
-  const { firstCardNumber } = req.body;
-  const cardNumber = await NextCardNumber.find();
+  
+  await NextCardNumber.NextCardNumber.deleteMany();
 
-  const nextCardNumber = new NextCardNumber({
+
+  const { firstCardNumber } = req.body;
+  const cardNumber = await NextCardNumber.NextCardNumber.find();
+
+  const nextCardNumber = new NextCardNumber.NextCardNumber({
     nextCardNumber: firstCardNumber,
   });
 
@@ -38,7 +41,7 @@ cardsCtrl.firstCardNumber = async (req, res) => {
 };
 
 cardsCtrl.lastCardNumber = async (req, res) => {
-  let nextCardNumber = await NextCardNumber.find();
+  let nextCardNumber = await NextCardNumber.NextCardNumber.find();
   let cardNumber = Number(nextCardNumber[0].nextCardNumber);
   const cardNumberid = nextCardNumber[0]._id;
 
@@ -67,7 +70,7 @@ cardsCtrl.lastCardNumber = async (req, res) => {
     last.join("");
 
   const filter = { _id: cardNumberid };
-  const result = NextCardNumber.findOneAndUpdate(
+  const result = NextCardNumber.NextCardNumber.findOneAndUpdate(
     filter,
     { nextCardNumber: cardNumber.toString() },
     (err, {}) => {

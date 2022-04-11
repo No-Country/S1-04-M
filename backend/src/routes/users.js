@@ -6,12 +6,6 @@ const {
   getUsers,
 } = require("../controllers/users.controllers");
 
-// router.route('/users/login')
-//     .post (passport.authenticate('local', {
-//         successRedirect: "/dashboard",
-//         failureRedirect: "/login",
-//     }));
-
 router.route("/login").post(login);
 
 router.route("/signup").post(createNewUser);
