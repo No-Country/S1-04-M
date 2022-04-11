@@ -16,7 +16,7 @@ usersCtrl.createNewUser = async (req, res) => {
   }
 
   const passwordLength = 4;
-  if (password.length < passwordLength) {
+  if(password?.length < passwordLength) {
     messages.push({
       type: "error",
       text: `Passwords must be, at least, ${passwordLength} characters long.`,

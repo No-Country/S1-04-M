@@ -49,11 +49,11 @@ cardsCtrl.lastCardNumber = async (req, res) => {
     .toString()
     .split("");
   while (prev.length < 4) prev.unshift("0");
-  const prev2 = Math.floor(cardNumber / 100000)
+  const prev2 = Math.floor(cardNumber / 10000)
     .toString()
     .split("");
   while (prev2.length < 4) prev2.unshift("0");
-  const prev3 = Math.floor(cardNumber / 1000000)
+  const prev3 = Math.floor(cardNumber / 10000)
     .toString()
     .split("");
   while (prev3.length < 4) prev3.unshift("0");

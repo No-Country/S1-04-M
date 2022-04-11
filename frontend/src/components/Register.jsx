@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Home/styles.css";
+import {useDispatch} from "react-redux";
+import { register } from "../actions/Actions";
 
 export const Register = () => {
   const navigate = useNavigate();
-
-  const [user, setUser] = React.useState({
+const dispatch = useDispatch()
+  const [user, setUser] = useState({
     name: "",
     lastname: "",
     email: "",
@@ -22,7 +24,8 @@ export const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(user);
+   dispatch(register(user))
+   console.log(user)
     navigate("/balans");
   };
 

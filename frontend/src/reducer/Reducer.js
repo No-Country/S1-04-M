@@ -7,13 +7,19 @@ const initialState = {
 
 export const Reducer = (state = initialState, action) => {
     switch (action.type){
-        case Types.USER_LOGIN:
+        case Types.register:
             return {
                 ...state,
                 isLoading: true,
+                data: action.payload
     }
-
-        case Types.CARDS_GET_ALL:
+        case Types.login:
+            return {
+                ...state,
+                isLoading: true,
+                data: action.payload,
+            }
+        case Types.createNewCard:
             return {
                 ...state,
                 isLoading: true,
