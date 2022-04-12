@@ -27,7 +27,7 @@ const path = require('path');
 //Enviromental variables
 
 //const PORT = process.env.PORT || 5000;
-const SESSIONS_SECRET = process.env.SESSIONS_SECRET  || 'mySecretApp';
+const SESSIONS_SECRET = process.env.CLAVE_ESTRATEGIA_LOCAL  || 'mySecretApp';
 
 //Initializations
 

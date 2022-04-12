@@ -14,7 +14,7 @@ const transactionSchema = new Schema({
 });
 
 const Transaction = model("Transaction", cardSchema);
-module.exports = { Card, NextCardNumber };
+module.exports = { Transaction };
 
 
 
