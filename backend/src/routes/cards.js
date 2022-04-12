@@ -30,14 +30,13 @@ router
 
   .post(firstCardNumber);
 
-  router
+router
   .route("/byUser:id")
-
   .get(getCardsbyUser);
 
-  router
+router
   .route("/byUser/destinationCards")
-  .get(getDestinationCardsbyUser)
+  .get(getDestinationCardsbyUser);
 
 //.get ( passport.authenticate('jwt', { session: false }), getCards)
 

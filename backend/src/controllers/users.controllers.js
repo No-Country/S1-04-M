@@ -86,10 +86,9 @@ usersCtrl.createNewUser = async (req, res) => {
 };
 
 usersCtrl.login = async (req, res, next) => {
+  
 
-  const { email, password } = req.body;
-
-  passport.authenticate('login', async (err, user, info) => {
+ passport.authenticate('login', async (err, user, info) => {
     try {
      
       if (err) {
@@ -98,7 +97,7 @@ usersCtrl.login = async (req, res, next) => {
       }
       if (! user) {
        // return res.send({ success : false, message : 'authentication failed' });
-        return res.json({user: "user" })
+        return res.json({error: "User not found" })
       }
 
       //Passport exposes a login() function on req (also aliased as logIn()) that can be used to establish a login session.
@@ -120,5 +119,7 @@ usersCtrl.getUsers = async (req, res) => {
   const users = await User.find();
   res.json(users);
 };
+
+
 
 module.exports = usersCtrl;

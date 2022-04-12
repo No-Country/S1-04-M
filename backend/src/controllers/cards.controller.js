@@ -11,6 +11,21 @@ cardsCtrl.getCards = async (req, res) => {
   res.json(cards);
 };
 
+cardsCtrl.getCardsbyUser = async (req, res) => {
+  const cards = await Card.Card.find();
+  res.json(cards);
+};
+
+cardsCtrl.getDestinationCardsbyUser = async (req, res) => {
+  const cards = await Card.Card.find();
+  res.json(cards);
+};
+
+
+
+
+
+
 cardsCtrl.deleteCards = async (req, res) => {
   const cards = await Card.Card.deleteMany();
   res.json("Cards deleted");
