@@ -1,9 +1,9 @@
 
 export const Types = {
-    // User
-    USER_LOGIN: 'USER_LOGIN',
-    
-    // Cards    
-    CARDS_GET_ALL: 'CARDS_GET_ALL',
-
-}
+  register: "REGISTER",
+  login: "LOGIN",
+  createNewCard: "CREATE_NEW_CARD",
+  lastCardNumber: "LAST_CARD_NUMBER",
+  getUserId: "GET_USER_ID",
+  
+};
