@@ -3,6 +3,8 @@ import { Types } from "../actions/types"
 const initialState = {
   isLoading: false,
   data: [],
+  user: {},
+
 };
 
 export const Reducer = (state = initialState, action) => {
@@ -30,6 +32,11 @@ export const Reducer = (state = initialState, action) => {
                     ...state,
                     data: action.payload,
                 }
+                case Types.getUserId:
+                    return {
+                        ...state,
+                        user: action.payload,
+                    }
                 
         default:
             return state

@@ -1,8 +1,13 @@
 import React, { useState } from 'react'
 import { HistoryTransactions } from './HistoryTransactions'
+import {useSelector}  from 'react-redux'
 
 
 export const Balans = () => {
+
+const {user} = useSelector(state => state.user)
+
+
 
  sessionStorage.removeItem("CardNumber");
 

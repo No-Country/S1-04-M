@@ -36,3 +36,12 @@ export const lastCardNumber = () => async () => {
     };
     }
 
+    export const getUserId = (id) => async () => {
+        const post = await axios.get(`http://localhost/api/users/+${id}`);
+        const json = post.data;
+        sessionStorage.setItem("data", json);
+        return {
+            type: Types.getUserId,
+            payload: json,
+        };
+        }

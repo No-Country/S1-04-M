@@ -4,4 +4,6 @@ export const Types = {
   login: "LOGIN",
   createNewCard: "CREATE_NEW_CARD",
   lastCardNumber: "LAST_CARD_NUMBER",
+  getUserId: "GET_USER_ID",
+  
 };
