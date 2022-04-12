@@ -28,6 +28,13 @@ router
 
   .post(firstCardNumber);
 
+  router
+  .route("/byUser")
+
+  //.get(getCardsbyUser:_id);
+
+
+
 //.get ( passport.authenticate('jwt', { session: false }), getCards)
 
 //.post (passport.authenticate('jwt', { session: false }), createCard )
