@@ -1,7 +1,9 @@
 const usersCtrl = {};
 const User = require("../models/users");
 const passport = require("passport");
-const auth = require("../helpers/auth");
+const auth = require ('../middlewares/auth')
+const jwt = require('jsonwebtoken')
+
 
 usersCtrl.createNewUser = async (req, res) => {
   const { name, lastname, email, dni, phone, adress, city, country, cp,  password, password2, date } =
@@ -84,50 +86,35 @@ usersCtrl.createNewUser = async (req, res) => {
 };
 
 usersCtrl.login = async (req, res, next) => {
+
   const { email, password } = req.body;
 
-  const userQuery =
-    (await User.findOne({ email: email })) ||
-    false;
+  passport.authenticate('login', async (err, user, info) => {
+    try {
+     
+      if (err) {
+        //return next(err); // will generate a 500 error
+        return res.json({error: "error" })
+      }
+      if (! user) {
+       // return res.send({ success : false, message : 'authentication failed' });
+        return res.json({user: "user" })
+      }
 
-  if (userQuery) {
-    const isValidated = await userQuery.validatePassword(password);
-    console.log("is validated: " + isValidated);
-    if (isValidated) {
-      res.json({ type: "ok", text: "Validation Successful!" });
-    } else {
-      res.json({ type: "error", text: "Wrong password, please try again!" });
+      //Passport exposes a login() function on req (also aliased as logIn()) that can be used to establish a login session.
+      req.login(user, { session: false }, async (err) => {
+        if (err) return next(err)
+        const body = { _id: user._id, email: user.email }
+        const token = jwt.sign({ user: body }, 'top_secret')
+        return res.json({user_token: token })
+      })
     }
-  } else {
-    res.json({ type: "error", text: "User does not exist, please Sign up!" });
-  }
+    catch(e) {
+      return next(e)
+    }
+  })(req, res, next)
+}
 
-  // passport.authenticate('login', async (err, user, info) => {
-  //   try {
-
-  //     if (err) {
-  //       //return next(err); // will generate a 500 error
-  //       return res.json({error: err })
-  //     }
-  //     if (! user) {
-  //      // return res.send({ success : false, message : 'authentication failed' });
-  //       return res.json({user: "user" })
-  //     }
-
-  //     //Passport exposes a login() function on req (also aliased as logIn()) that can be used to establish a login session.
-  //     req.login(user, { session: false }, async (err) => {
-  //       if (err) return next(err)
-  //       const body = { _id: user._id, email: user.email }
-
-  //     //   const token = jwt.sign({ user: body }, 'top_secret')
-  //     //   return res.json({user_token: token })
-  //     })
-  //   }
-  //   catch(e) {
-  //     return next(e)
-  //   }
-  // })(req, res, next)
-};
 
 usersCtrl.getUsers = async (req, res) => {
   const users = await User.find();

@@ -17,15 +17,38 @@ const UserSchema = new Schema({
   date: { type: Date, default: Date.now },
 });
 
-UserSchema.methods.encryptPassword = async (password) => {
-  const salt = await bcrypt.genSalt(10);
-  const hash = bcrypt.hash(password, salt);
-  return hash;
+ /*Hook: Se ejecuta antes de crear un nuevo usuario*/
+
+ UserSchema.pre('save', async function (next) {
+  const hash = await bcrypt.hash(this.password, 10)
+  this.password = hash
+  next()
+})
+
+UserSchema.methods.isValidPassword = async function(password) {
+  console.log ('isvalidPassword');
+  const user = this;
+  const compare = await bcrypt.compare(password, user.password)
+  return compare
+}
+
+
+UserSchema.methods.encryptPassword = async password => {
+  const salt = await bcrypt.genSalt (10);
+  return await bcrypt.compare (password, salt);
+
+}
+
+
+//Compara datos cifrados...no strings. Si hay algún dato de prueba sin cifrar guardado dará error.
+UserSchema.methods.matchPassword = async function (password) {
+  const user = this;
+  return await bcrypt.compare(password, user.password);
 };
 
-UserSchema.methods.validatePassword = async function (password) {
-  const user = this;
-  const comparation = await bcrypt.compare(password, user.password);
-  return comparation;
-};
-module.exports = model("User", UserSchema);
+
+
+
+
+
+module.exports =  model ('User', UserSchema);

@@ -17,4 +17,5 @@ router.route("/logout").post((req, res) => {
 
 router.route("/").get(getUsers);
 
+
 module.exports = router;
