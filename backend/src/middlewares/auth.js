@@ -47,13 +47,3 @@ passport.use('login', new localStrategy({
     }
 }))
 
-passport.use(new JWTStrategy({
-    secretOrKey: process.env.CLAVE_ESTRATEGIA_LOCAL,
-    jwtFromRequest: ExtractJWT.fromHeader(process.env.LLAVE_ESTRATEGIA_LOCAL)
-}, async (token, done) => {
-    try {
-        return done(null, token.user)
-    } catch (e) {
-        done(error)
-    }
-}))
