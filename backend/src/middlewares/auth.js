@@ -46,4 +46,3 @@ passport.use('login', new localStrategy({
         return done(e)
     }
 }))
-

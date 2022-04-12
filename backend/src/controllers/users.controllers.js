@@ -1,13 +1,24 @@
 const usersCtrl = {};
 const User = require("../models/users");
 const passport = require("passport");
-const auth = require ('../middlewares/auth')
-const jwt = require('jsonwebtoken')
-
+const auth = require("../middlewares/auth");
+const jwt = require("jsonwebtoken");
 
 usersCtrl.createNewUser = async (req, res) => {
-  const { name, lastname, email, dni, phone, adress, city, country, cp,  password, password2, date } =
-    req.body;
+  const {
+    name,
+    lastname,
+    email,
+    dni,
+    phone,
+    adress,
+    city,
+    country,
+    cp,
+    password,
+    password2,
+    date,
+  } = req.body;
   let messages = [];
 
   if (password !== password2) {
@@ -69,6 +80,7 @@ usersCtrl.createNewUser = async (req, res) => {
         date: date,
       });
       newUser.password = await newUser.encryptPassword(password);
+      newUser.password2 = await newUser.encryptPassword(password2);
 
       await newUser.save((err) => {
         if (err) {
@@ -86,40 +98,63 @@ usersCtrl.createNewUser = async (req, res) => {
 };
 
 usersCtrl.login = async (req, res, next) => {
+
   
 
- passport.authenticate('login', async (err, user, info) => {
+
+
+  passport.authenticate("login", async (err, user, info) => {
+
     try {
-     
       if (err) {
         //return next(err); // will generate a 500 error
-        return res.json({error: "error" })
+        return res.json({ error: "error" });
       }
+
       if (! user) {
        // return res.send({ success : false, message : 'authentication failed' });
         return res.json({error: "User not found" })
+
+      
       }
 
       //Passport exposes a login() function on req (also aliased as logIn()) that can be used to establish a login session.
       req.login(user, { session: false }, async (err) => {
-        if (err) return next(err)
-        const body = { _id: user._id, email: user.email }
-        const token = jwt.sign({ user: body }, 'top_secret')
-        return res.json({user_token: token })
-      })
+        if (err) return next(err);
+        const body = { _id: user._id, email: user.email };
+        const token = jwt.sign({ user: body }, "top_secret");
+        return res.json({ user_token: token, user: user._id });
+      });
+    } catch (e) {
+      return next(e);
     }
-    catch(e) {
-      return next(e)
-    }
-  })(req, res, next)
-}
-
+  })(req, res, next);
+};
 
 usersCtrl.getUsers = async (req, res) => {
   const users = await User.find();
   res.json(users);
 };
 
+
+usersCtrl.getUserById = async (req, res) => {
+  const userId = req.params.id;
+
+  if (userId.length === 24) {
+    const userQuery = (await User.findById({ _id: userId })) || false;
+
+    if (userQuery) {
+      console.log("Query successfull");
+      res.json({ userQuery });
+    } else {
+      console.log("User not found in db");
+      res.json({ type: "error", text: "User not found in db." });
+    }
+  } else {
+    console.log("User ID length not valid.");
+    res.json({ type: "error", text: "User ID length not valid." });
+  }
+};
 
 
 module.exports = usersCtrl;
