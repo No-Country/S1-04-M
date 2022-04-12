@@ -6,6 +6,8 @@ const {
   lastCardNumber,
   firstCardNumber,
   deleteCards,
+  getCardsbyUser,
+  getDestinationCardsbyUser,
 } = require("../controllers/cards.controller");
 const auth = require("../middlewares/auth");
 const passport = require("passport");
@@ -29,11 +31,13 @@ router
   .post(firstCardNumber);
 
   router
-  .route("/byUser")
+  .route("/byUser:id")
 
-  //.get(getCardsbyUser:_id);
+  .get(getCardsbyUser);
 
-
+  router
+  .route("/byUser/destinationCards")
+  .get(getDestinationCardsbyUser)
 
 //.get ( passport.authenticate('jwt', { session: false }), getCards)
 
