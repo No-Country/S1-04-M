@@ -17,8 +17,9 @@ export const login = (usuario) => async () => {
     "http://localhost:4000/api/users/login",
     usuario
   );
-  const json = post.data.text;
-  console.log(json);
+  const json = post.data;
+   const token = json._id;
+   sessionStorage.setItem("token", token);
   return {
     type: Types.login,
     payload: json,
@@ -28,7 +29,6 @@ export const login = (usuario) => async () => {
 export const lastCardNumber = () => async () => {
     const post = await axios.post("http://localhost:4000/api/cards/lastCardNumber");
     const json = post.data;
-    console.log(json);
     sessionStorage.setItem("CardNumber", json);
     return {
         type: Types.lastCardNumber,

@@ -8,19 +8,19 @@ export const Balans = () => {
 
   return (
 
-    <div>
-    
-       
+    <div className="container">
+      <div className="row">
+        <h1>Balanse</h1>
 
-
-       <h1>Balans</h1>
-       <HistoryTransactions/>
-
-    <h2>Available</h2>
-
-    <h2>Pending</h2>
-
-    
+        <div className="col-md-6">
+          <div className="card">
+            <div className="card-body">
+              <h5 className="card-title">Transactions</h5>
+              <HistoryTransactions />
+              </div>
+              </div>
+              </div>
+              </div>
     </div>
 
 
