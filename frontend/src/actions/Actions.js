@@ -17,8 +17,10 @@ export const login = (usuario) => async () => {
     "http://localhost:4000/api/users/login",
     usuario
   );
-  const json = post.data;
-   const token = json._id;
+  const json = post;
+  console.log(json) 
+  const token = json._id;
+   
    sessionStorage.setItem("token", token);
   return {
     type: Types.login,
