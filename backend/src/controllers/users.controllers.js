@@ -134,4 +134,25 @@ usersCtrl.getUsers = async (req, res) => {
   res.json(users);
 };
 
+usersCtrl.getUserById = async (req, res) => {
+  const userId = req.params.id;
+
+  if (userId.length === 24) {
+      const userQuery = await User.findById({_id: userId}) || false;
+
+      if (userQuery) {
+        console.log('Query successfull');
+        res.json({userQuery});
+    
+      } else {
+          console.log('User not found in db');
+          res.json({type: 'error', text: 'User not found in db.'});
+    
+      }
+  } else {
+      console.log('User ID length not valid.')
+      res.json({type: 'error', text: 'User ID length not valid.'})
+  }
+}
+
 module.exports = usersCtrl;

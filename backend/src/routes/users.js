@@ -4,6 +4,7 @@ const {
   createNewUser,
   login,
   getUsers,
+  getUserById
 } = require("../controllers/users.controllers");
 
 // router.route('/users/login')
@@ -22,5 +23,7 @@ router.route("/logout").post((req, res) => {
 });
 
 router.route("/").get(getUsers);
+
+router.route("/:id").get(getUserById);
 
 module.exports = router;
