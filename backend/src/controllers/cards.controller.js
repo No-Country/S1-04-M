@@ -61,20 +61,28 @@ cardsCtrl.getDestinationCardsbyUser = async (req, res) => {
 };
 
 
-
-
-
-
-
-
-
-
-
-
 cardsCtrl.deleteCards = async (req, res) => {
   const cards = await Card.Card.deleteMany();
   res.json("Cards deleted");
 };
+
+
+
+cardsCtrl.deleteDestinationCards = async (req, res) => {
+  const cards = await DestinationCard.DestinationCard.deleteMany();
+  res.json("Destination Cards deleted");
+};
+
+
+cardsCtrl.deleteDestinationCardsbyId = async (req, res) => {
+
+  const {id} = req.body;
+  const filter = {"_id": id};
+  const cards = await DestinationCard.DestinationCard.findByIdAndDelete(filter);
+  res.json("Destination Card deleted: " + filter);
+};
+
+
 
 //Este end-point es parte de la configuración inicial del sistema. Hay que llamarlo antes de su uso definitivo
 
