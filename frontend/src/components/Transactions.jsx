@@ -1,48 +1,56 @@
-import React from 'react'
+import React from "react";
 
 export const Transactions = () => {
   return (
-    <div>
-        <h1>Transactions</h1>
-        <form>
-            <label>
-                Select Card:
-                <select>
-                    <option value="1">Card 1</option>
-                    <option value="2">Card 2</option>
-                    <option value="3">Card 3</option>
-                </select>
-            </label>
-            <input type="submit" value="Submit" />
+    <section className="sections">
+      <h1>Transacciones</h1>
+      <hr />
+      <form className="form-transactions">
+        <label>
+          <span className="label-special">Tarjeta</span>
+          <select className="input-special">
+            <option value="1">Card 1</option>
+            <option value="2">Card 2</option>
+            <option value="3">Card 3</option>
+          </select>
+        </label>
+        <input type="submit" value="Elegir" className=" button button-blue" />
 
         <label>
-            Select Date:
-            <input type="date" name="date" />
+          <span className="label-special">Fecha</span>
+          <input type="date" name="date" className="input-special" />
         </label>
 
         <label>
-            Fate Card:
-            <select>
-                <option value="1">Card 1</option>
-                <option value="2">Card 2</option>
-                <option value="3">Card 3</option>
-            </select>
+          <span className="label-special">Destino</span>
+          <select className="input-special">
+            <option value="1">Card 1</option>
+            <option value="2">Card 2</option>
+            <option value="3">Card 3</option>
+          </select>
         </label>
 
         <label>
-            Amount:
-            <input type="number" name="amount" min={0} />
+          <input
+            type="number"
+            name="amount"
+            min={0}
+            className="input-text"
+            placeholder="Cantidad"
+          />
         </label>
 
         <label>
-            Description:
-            <input type="text" name="description" />
+          <input
+            type="text"
+            name="description"
+            placeholder="Descripción"
+            className="input-text"
+          />
         </label>
 
-        <input type="submit" value="Submit" />
-
-
-        </form>
-    </div>
-  )
-}
+        <input type="submit" value="Filtrar" className="button button-blue" />
+      </form>
+    </section>
+  );
+};

@@ -36,8 +36,8 @@ const NewTransaction = () => {
   };
 
   return (
-    <div>
-      <h1>NewTransaction</h1>
+    <section className="sections">
+      <h1>Nueva transacción</h1>
 
       <form onSubmit={handleSubmit} className="form-transactions">
         <label>
@@ -95,9 +95,9 @@ const NewTransaction = () => {
             <option value="outcome">Outcome</option>
           </select>
         </label>
-        <button className="button-blue">Confirm</button>
+        <button className="button button-blue">Confirmar</button>
       </form>
-    </div>
+    </section>
   );
 };
 

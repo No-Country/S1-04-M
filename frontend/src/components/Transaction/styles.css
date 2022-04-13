@@ -1,0 +1,9 @@
+.transaction{
+  border-top: 1px solid #cccc;
+  border-bottom: 1px solid #cccc;
+  padding: 1em;
+}
+
+.transaction > p {
+  margin: 0;
+}

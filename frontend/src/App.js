@@ -6,6 +6,7 @@ import { Pages } from "./pages/pages";
 import "./css/inputs-labels.css";
 import "./css/buttons.css";
 import "./css/forms.css";
+import "./css/sections.css";
 
 export const App = () => {
   return (
