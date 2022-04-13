@@ -1,6 +1,7 @@
 const cardsCtrl = {};
 const Card = require("../models/cards");
 const NextCardNumber = require("../models/cards");
+const DestinationCard = require("../models/cards");
 
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
@@ -11,15 +12,59 @@ cardsCtrl.getCards = async (req, res) => {
   res.json(cards);
 };
 
-cardsCtrl.getCardsbyUser = async (req, res) => {
-  const cards = await Card.Card.find();
+
+cardsCtrl.getDestinationCards = async (req, res) => {
+  const cards = await DestinationCard.DestinationCard.find();
   res.json(cards);
 };
 
-cardsCtrl.getDestinationCardsbyUser = async (req, res) => {
-  const cards = await Card.Card.find();
-  res.json(cards);
+
+cardsCtrl.getCardsbyUser = async (req, res) => {
+
+  try {
+  const { id } = req.body;
+  const filter = {"user_id": id};
+  if(id){ 
+  const cards = await Card.Card.find(filter);
+  if (cards.length > 0) res.json(cards)
+  else res.json({error: "Cards not found for this user"})
+  }
+  else {
+    res.json({error: "No name query found inside request"})
+  }
+}catch(error){
+  throw error
+}
+
 };
+
+
+
+cardsCtrl.getDestinationCardsbyUser = async (req, res) => {
+
+  try {
+  const { id } = req.body;
+  const filter = {"user_id": id};
+  if(id){ 
+  const cards = await DestinationCard.DestinationCard.find(filter);
+
+  if (cards.length > 0) res.json(cards)
+  else res.json({error: "Destinations not found for this user"})
+  }
+  else {
+    res.json({error: "No name query found inside request"})
+  }
+}catch(error){
+  throw error
+}
+
+};
+
+
+
+
+
+
 
 
 
@@ -116,5 +161,34 @@ cardsCtrl.createNew = async (req, res) => {
     return res.json({ message: `New card was created` });
   });
 };
+
+
+
+cardsCtrl.createNewDestinationCard = async (req, res) => {
+  const { user_id, card_number, destination_name, internal} = req.body;
+
+  const destinationCard = new DestinationCard.DestinationCard({
+  user_id,
+  card_number,
+  destination_name,
+  internal
+  });
+
+  await destinationCard.save((err) => {
+    if (err)
+      return res.status(500).send({ message: `Error creating destination card: ${err}` });
+
+    return res.json({ message: `New destination was created` });
+  });
+};
+
+
+
+
+
+
+
+
+
 
 module.exports = cardsCtrl;
