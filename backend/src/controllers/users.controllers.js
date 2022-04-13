@@ -102,17 +102,24 @@ usersCtrl.createNewUser = async (req, res) => {
 };
 
 usersCtrl.login = async (req, res, next) => {
-  const { email, password } = req.body;
+
+  
+
+
 
   passport.authenticate("login", async (err, user, info) => {
+
     try {
       if (err) {
         //return next(err); // will generate a 500 error
         return res.json({ error: "error" });
       }
-      if (!user) {
-        // return res.send({ success : false, message : 'authentication failed' });
-        return res.json({ user: "user" });
+
+      if (! user) {
+       // return res.send({ success : false, message : 'authentication failed' });
+        return res.json({error: "User not found" })
+
+      
       }
 
       //Passport exposes a login() function on req (also aliased as logIn()) that can be used to establish a login session.
@@ -133,6 +140,7 @@ usersCtrl.getUsers = async (req, res) => {
   res.json(users);
 };
 
+
 usersCtrl.getUserById = async (req, res) => {
   const userId = req.params.id;
 const _id = userId;
@@ -152,5 +160,6 @@ console.log(_id)
     res.json({ type: "error", text: "User ID length not valid." });
   }
 };
+
 
 module.exports = usersCtrl;
