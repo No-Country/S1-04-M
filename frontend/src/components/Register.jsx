@@ -31,15 +31,13 @@ export const Register = () => {
   const handleCreateCardNumber = (e) => {
     e.preventDefault();
     dispatch(lastCardNumber()).then((res) => {
-      setUser({ ...user, cardNumber: res.payload });
-      console.log(user.cardNumber);
+      setUser({ ...user, cardNumber: res.payload.replace(/ /g, "")});
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(register(user));
-    console.log(user);
     navigate("/balans");
   };
 
@@ -156,7 +154,7 @@ export const Register = () => {
               value={user.cardNumber}
               disabled
               onChange={handleCreateCardNumber}
-              onClick={handleCreateCardNumber}
+            /*   onClick={handleCreateCardNumber} */
             />
           ) : (
             <input
@@ -167,12 +165,6 @@ export const Register = () => {
           )
 
         }
-      {/*   <input
-          type="checkbox"
-         onChange={handleCreateCardNumber}
-          value={user.cardNumber}
-          name="cardNumber"
-        /> */}
 
         <button type="submit">Registrarse</button>
       </form>

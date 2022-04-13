@@ -91,8 +91,8 @@ usersCtrl.createNewUser = async (req, res) => {
             .json({ messages: `Error creating user: ${err}` });
         } else {
           messages.push({ type: "ok", text: "User Registered successfully!", 
+          user: newUser._id
         });
-        console.log("newUser",newUser);
 
           return res.json({ messages });
         }

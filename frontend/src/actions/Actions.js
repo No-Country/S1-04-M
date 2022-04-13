@@ -2,10 +2,11 @@ import { Types } from "./types";
 import axios from "axios";
 
 export const register = (usuario) => async () => {
-  console.log(usuario);
   const post = await axios.post("http://localhost:4000/api/users/signup", usuario)
-const json = post.data.text
-console.log(json)
+const json = post.data.messages[0]
+const user = json.user;
+sessionStorage.setItem("user", user)
+console.log(user)
 return{
     type: Types.register,
     payload: json
