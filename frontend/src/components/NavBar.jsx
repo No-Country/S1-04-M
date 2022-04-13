@@ -1,38 +1,21 @@
-
-import React/* , { useContext } */ from "react";
+import React /* , { useContext } */ from "react";
 /* import { useState } from "react"; */
 import "./NavBar.css";
 import { useNavigate } from "react-router-dom"; //hook
-
-export default function NavBar( { navigationStatus, setNavigationStatus }) {
-  
-  /* const [click, setClick] = useState(false); */
-
-   const navigate = useNavigate();
-
-   const handleClosesesion = () => {
-    sessionStorage.removeItem("user");
-    sessionStorage.removeItem("token");
-    setNavigationStatus(false);
-    navigate("/");
-  };
-
-  const goHome = () => {
-    navigate("/");
-  };
-
+import { Link } from "react-router-dom";
+import logo from "../img/logos/bankforyou.png";
+export default function NavBar({ navigationStatus, setNavigationStatus }) {
   return (
     <nav className="navbar navbar-expand-lg navbar-light  navbar-color ">
       <div className="container-fluid">
-        <a className="navbar-brand" href="#">
-          {" "}
+        <Link className="navbar-brand" to="/">
           <img
             className="logo"
-            src="https://images.vexels.com/media/users/3/129286/isolated/preview/f71f09d3aa7db678ee884a2cdea1a435-simbolo-del-edificio-del-banco.png"
+            style={{ marginBlockEnd: "0" }}
+            src={logo}
             alt="logo-banco"
-            onClick={goHome}
           />
-        </a>
+        </Link>
 
         <button
           className="navbar-toggler text-info"
@@ -45,53 +28,53 @@ export default function NavBar( { navigationStatus, setNavigationStatus }) {
         >
           <span className="navbar-toggler-icon "></span>
         </button>
+
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             <li class="nav-item dropdown">
-              <a
-                className="nav-link dropdown-toggle text-info"
-                href="#"
+              <Link
+                className="nav-link dropdown-toggle text-info nav-item-white"
+                to="/"
                 id="navbarDropdownMenuLink"
                 role="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
                 Transacciones
-              </a>
+              </Link>
               <ul
                 className="dropdown-menu"
                 aria-labelledby="navbarDropdownMenuLink"
               >
                 <li>
-                  <a className="dropdown-item" href="/newtransaction">
+                  <Link className="dropdown-item" to="/newtransaction">
                     Nueva Transacción
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a className="dropdown-item" href="#">
+                  <Link className="dropdown-item" to="/history">
                     Historia de Transacciones
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a className="dropdown-item" href="#">
+                  <Link className="dropdown-item" to="#">
                     Gráfica de Transacciones
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </li>
             <li className="nav-item">
-              <a className="nav-link text-info" href="#">
+              <a className="nav-link text-info nav-item-white" href="#">
                 Configuración de Cuenta
               </a>
             </li>
             <li className="nav-item">
-              <a
-                className="nav-link text-info"
-                onClick={handleClosesesion}
-                href="/"
+              <Link
+                className="nav-link text-info nav-item-white "
+                to="/closesesion"
               >
                 Cerrar Sesión
-              </a>
+              </Link>
             </li>
           </ul>
         </div>

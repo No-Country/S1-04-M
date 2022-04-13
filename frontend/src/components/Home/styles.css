@@ -16,13 +16,14 @@ body{
   padding: 1em;
   align-items: center;
   height: 100vh;
+  background-color: #fff;
   gap: 1em;
   margin: auto;
 }
 
 .login-container > form > img{
-  width: 45px;
-  height: 45px;
+  width: 65px;
+  height: 65px;
   margin-block-end: 1em;
 }
 

@@ -1,0 +1,37 @@
+.button{
+  border-radius: 11px;
+  background-color: #0070ba;
+  height: 2.5em;
+  font-size: 1em;
+  font-weight: bold;
+  padding: 0em 1em;
+  color: white;
+  border: none;
+  transition: background-color .2s;
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center
+}
+
+.button-orange{
+  background-color: rgb(255, 176, 29);
+}
+
+.button-orange:hover{
+  background-color: rgb(214, 140, 2);
+
+}
+
+.button:visited{
+  color: white;
+}
+
+.button-blue:hover{
+  background-color: rgb(0, 50, 186);
+}
+
+.button:disabled{
+  opacity: .5;
+}

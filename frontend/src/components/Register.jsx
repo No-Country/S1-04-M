@@ -10,6 +10,13 @@ export const Register = () => {
   useEffect(() => {
     dispatch(lastCardNumber());
   }, []);
+  const [card, setCard] = useState({
+    number: "",
+  });
+  const CardNumber = sessionStorage.getItem("CardNumber");
+  if (CardNumber) {
+    setCard({ number: CardNumber });
+  }
 
   const dispatch = useDispatch();
 
@@ -51,7 +58,7 @@ export const Register = () => {
 
   return (
     <section className="login-container">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} style={{ height: "100%" }}>
         <img
           src="https://images.vexels.com/media/users/3/129286/isolated/preview/f71f09d3aa7db678ee884a2cdea1a435-simbolo-del-edificio-del-banco.png"
           alt="logo-banco"
@@ -167,7 +174,9 @@ export const Register = () => {
 
         }
 
-        <button type="submit">Registrarse</button>
+        <button type="submit" className="button">
+          Registrarse
+        </button>
       </form>
     </section>
   );
