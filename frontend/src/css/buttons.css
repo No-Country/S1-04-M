@@ -1,0 +1,21 @@
+.button-blue{
+  border-radius: 11px;
+  background-color: #0070ba;
+  height: 2.5em;
+  font-size: 1em;
+  font-weight: bold;
+  padding: 0em 1em;
+  color: white;
+  border: none;
+  transition: background-color .2s;
+  cursor: pointer;
+}
+
+
+.button-blue:hover{
+  background-color: rgb(0, 50, 186);
+}
+
+.button-blue:disabled{
+  opacity: .5;
+}
