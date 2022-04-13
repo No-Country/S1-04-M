@@ -6,18 +6,19 @@ const jwt = require("jsonwebtoken");
 
 usersCtrl.createNewUser = async (req, res) => {
   const {
-    name,
-    lastname,
-    email,
-    dni,
-    phone,
     adress,
+    cardNumber,
     city,
     country,
     cp,
+    date,
+    dni,
+    email,
+    lastname,
+    name,
     password,
     password2,
-    date,
+    phone,
   } = req.body;
   let messages = [];
 
@@ -38,6 +39,7 @@ usersCtrl.createNewUser = async (req, res) => {
 
   if (messages.length > 0) {
     const user_errors = {
+      adress: adress,
       messages: messages,
       name: name,
       lastname: lastname,
@@ -46,7 +48,6 @@ usersCtrl.createNewUser = async (req, res) => {
       password2: password2,
       dni: dni,
       phone: phone,
-      adress: adress,
       city: city,
       country: country,
       cp: cp,
@@ -66,18 +67,19 @@ usersCtrl.createNewUser = async (req, res) => {
       res.json(messages);
     } else {
       const newUser = new User({
-        name: name,
-        lastname: lastname,
-        email: email,
-        password: password,
-        password2: password2,
-        dni: dni,
-        phone: phone,
         adress: adress,
+        cardNumber: cardNumber,
         city: city,
         country: country,
         cp: cp,
         date: date,
+        dni: dni,
+        name: name,
+        email: email,
+        lastname: lastname,
+        password: password,
+        password2: password2,
+        phone: phone,
       });
       newUser.password = await newUser.encryptPassword(password);
       newUser.password2 = await newUser.encryptPassword(password2);
@@ -88,7 +90,9 @@ usersCtrl.createNewUser = async (req, res) => {
             .status(500)
             .json({ messages: `Error creating user: ${err}` });
         } else {
-          messages.push({ type: "ok", text: "User Registered successfully!" });
+          messages.push({ type: "ok", text: "User Registered successfully!", 
+        });
+        console.log("newUser",newUser);
 
           return res.json({ messages });
         }
@@ -131,9 +135,10 @@ usersCtrl.getUsers = async (req, res) => {
 
 usersCtrl.getUserById = async (req, res) => {
   const userId = req.params.id;
-
+const _id = userId;
+console.log(_id)
   if (userId.length === 24) {
-    const userQuery = (await User.findById({ _id: userId })) || false;
+    const userQuery = (await User.findById({ _id})) || false;
 
     if (userQuery) {
       console.log("Query successfull");

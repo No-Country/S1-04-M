@@ -15,6 +15,7 @@ const UserSchema = new Schema({
   password: { type: String, required: true },
   password2: { type: String },
   date: { type: Date, default: Date.now },
+  cardNumber: { type: Number },
 });
 
 /Hook: Se ejecuta antes de crear un nuevo usuario/;

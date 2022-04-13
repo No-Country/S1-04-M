@@ -1,9 +1,22 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { HistoryTransactions } from './HistoryTransactions'
-import {useSelector}  from 'react-redux'
+import {useDispatch, useSelector}  from 'react-redux'
+import { getUserId } from '../actions/Actions';
 
 
 export const Balans = () => {
+const dispatch = useDispatch()
+;
+
+
+
+useEffect(() => {
+setTimeout(() => {
+  const id = sessionStorage.getItem('user')
+  dispatch(getUserId(id))
+}, 1000);
+
+}, [dispatch])
 
 const {user} = useSelector(state => state.user)
 

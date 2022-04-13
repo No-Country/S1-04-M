@@ -33,6 +33,7 @@ export const Reducer = (state = initialState, action) => {
                     data: action.payload,
                 }
                 case Types.getUserId:
+                    console.log(action.payload)
                     return {
                         ...state,
                         user: action.payload,
