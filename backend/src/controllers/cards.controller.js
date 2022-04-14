@@ -5,7 +5,37 @@ const DestinationCard = require("../models/cards");
 
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
-const auth = require("../middlewares/auth");
+const helpersCtrl = require("../middlewares/auth");
+
+
+
+cardsCtrl.createNew = async (req, res) => {
+  const { number, user_id, user_name, balance, active, internal, cvv, date } =
+    req.body;
+
+  const card = new Card.Card({
+    number,
+    user_id,
+    user_name,
+    balance,
+    active,
+    internal,
+    cvv,
+    date,
+  });
+
+  await card.save((err) => {
+    if (err)
+      return res.status(500).send({ message: `Error creating card: ${err}` });
+
+    return res.json({ message: `New card was created` });
+  });
+
+}
+
+
+
+
 
 cardsCtrl.getCards = async (req, res) => {
   const cards = await Card.Card.find();
@@ -79,7 +109,7 @@ cardsCtrl.deleteDestinationCardsbyId = async (req, res) => {
   const {id} = req.body;
   const filter = {"_id": id};
   const cards = await DestinationCard.DestinationCard.findByIdAndDelete(filter);
-  res.json("Destination Card deleted: " + filter);
+  res.json("Destination Card deleted");
 };
 
 
@@ -148,6 +178,8 @@ cardsCtrl.lastCardNumber = async (req, res) => {
 };
 
 cardsCtrl.createNew = async (req, res) => {
+
+  
   const { number, user_id, user_name, balance, active, internal, cvv, date } =
     req.body;
 
