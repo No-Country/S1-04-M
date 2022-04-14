@@ -1,6 +1,7 @@
+const Card = require("../models/cards");
 const NextCardNumber = require("../models/cards");
 
-const card_Generator = async function cardGenerator () {
+const card_Generator = async function () {
 
     let nextCardNumber = await NextCardNumber.NextCardNumber.find();
     let cardNumber = Number(nextCardNumber[0].nextCardNumber);
@@ -37,10 +38,32 @@ const card_Generator = async function cardGenerator () {
            
       }
     );
-    console.log ('numero de tarjeta: ' +  newCardNumber)
+    
     return newCardNumber;
    
   };
+
+
+  const newCard = async function (number, user_id, user_name, balance, active, internal, cvv, date) {
+
+
+    const card = new Card.Card({
+      number,
+      user_id,
+      user_name,
+      balance,
+      active,
+      internal,
+      cvv,
+      date,
+    });
   
-module.exports = {card_Generator}
+    const result = await card.save ();
+    return result._id;
+    
+  };
+
+
+
+module.exports = {card_Generator, newCard}
 

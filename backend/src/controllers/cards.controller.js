@@ -138,6 +138,17 @@ cardsCtrl.firstCardNumber = async (req, res) => {
   });
 };
 
+
+
+cardsCtrl.getLastCardNumber = async (req, res) => {
+  const lastcardnumber = await NextCardNumber.NextCardNumber.find();
+  res.json(lastcardnumber);
+};
+
+
+
+
+
 cardsCtrl.lastCardNumber = async (req, res) => {
   let nextCardNumber = await NextCardNumber.NextCardNumber.find();
   let cardNumber = Number(nextCardNumber[0].nextCardNumber);
