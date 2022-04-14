@@ -38,7 +38,7 @@ const card_Generator = async function () {
            
       }
     );
-    console.log ('numero de tarjeta: ' +  newCardNumber)
+    
     return newCardNumber;
    
   };

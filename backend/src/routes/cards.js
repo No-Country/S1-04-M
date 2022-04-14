@@ -12,6 +12,7 @@ const {
   getDestinationCards,
   deleteDestinationCards, 
   deleteDestinationCardsbyId,
+  getLastCardNumber
 } = require("../controllers/cards.controller");
 const auth = require("../middlewares/auth");
 const passport = require("passport");
@@ -26,12 +27,12 @@ router
 
 router
   .route("/lastCardNumber")
-
+  .get (getLastCardNumber)
   .post(lastCardNumber);
 
 router
   .route("/firstCardNumber")
-
+  
   .post(firstCardNumber);
 
 router
