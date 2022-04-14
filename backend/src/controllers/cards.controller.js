@@ -2,6 +2,7 @@ const cardsCtrl = {};
 const Card = require("../models/cards");
 const NextCardNumber = require("../models/cards");
 const DestinationCard = require("../models/cards");
+const {Transaction} = require("../models/transactions");
 
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
@@ -234,6 +235,51 @@ cardsCtrl.createNewDestinationCard = async (req, res) => {
 };
 
 
+cardsCtrl.addMoneytoCard = async (req, res) => {
+
+  const {card_id, amount} = req.body;
+
+
+  const filter = { _id: card_id};
+
+  const card = await Card.Card.find (filter);
+  console.log (card);
+  
+  let total = 0;
+    
+  if (card) {
+  
+    total = card[0].balance + amount
+  }
+  else {
+
+  }
+
+  const card_data = {
+    origin : "0", 
+    destiny : card_id, 
+    destiny_name : "TO ME", 
+    amount : amount, 
+    description : "External deposit" 
+ 
+  }
+  
+  const transaction = new Transaction(card_data);
+
+  await transaction.save((err) => {
+    if (err)
+      return res.status(500).send({ message: `Error creating transaction: ${err}` });
+   
+  });
+
+
+  const respuesta = await Card.Card.findOneAndUpdate(filter, {$inc: {balance:amount}});
+
+    
+  
+  console.log ("respuesta: " + respuesta) 
+  res.json({ message: ["Card balance updated"]});
+};
 
 
 
