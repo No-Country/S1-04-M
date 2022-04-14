@@ -1,20 +1,118 @@
 const cardsCtrl = {};
 const Card = require("../models/cards");
 const NextCardNumber = require("../models/cards");
+const DestinationCard = require("../models/cards");
 
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
-const auth = require("../middlewares/auth");
+const helpersCtrl = require("../middlewares/auth");
+
+
+
+cardsCtrl.createNew = async (req, res) => {
+  const { number, user_id, user_name, balance, active, internal, cvv, date } =
+    req.body;
+
+  const card = new Card.Card({
+    number,
+    user_id,
+    user_name,
+    balance,
+    active,
+    internal,
+    cvv,
+    date,
+  });
+
+  await card.save((err) => {
+    if (err)
+      return res.status(500).send({ message: `Error creating card: ${err}` });
+
+    return res.json({ message: `New card was created` });
+  });
+
+}
+
+
+
+
 
 cardsCtrl.getCards = async (req, res) => {
   const cards = await Card.Card.find();
   res.json(cards);
 };
 
+
+cardsCtrl.getDestinationCards = async (req, res) => {
+  const cards = await DestinationCard.DestinationCard.find();
+  res.json(cards);
+};
+
+
+cardsCtrl.getCardsbyUser = async (req, res) => {
+
+  try {
+  const { id } = req.body;
+  const filter = {"user_id": id};
+  if(id){ 
+  const cards = await Card.Card.find(filter);
+  if (cards.length > 0) res.json(cards)
+  else res.json({error: "Cards not found for this user"})
+  }
+  else {
+    res.json({error: "No name query found inside request"})
+  }
+}catch(error){
+  throw error
+}
+
+};
+
+
+
+cardsCtrl.getDestinationCardsbyUser = async (req, res) => {
+
+  try {
+  const { id } = req.body;
+  const filter = {"user_id": id};
+  if(id){ 
+  const cards = await DestinationCard.DestinationCard.find(filter);
+
+  if (cards.length > 0) res.json(cards)
+  else res.json({error: "Destinations not found for this user"})
+  }
+  else {
+    res.json({error: "No name query found inside request"})
+  }
+}catch(error){
+  throw error
+}
+
+};
+
+
 cardsCtrl.deleteCards = async (req, res) => {
   const cards = await Card.Card.deleteMany();
   res.json("Cards deleted");
 };
+
+
+
+cardsCtrl.deleteDestinationCards = async (req, res) => {
+  const cards = await DestinationCard.DestinationCard.deleteMany();
+  res.json("Destination Cards deleted");
+};
+
+
+cardsCtrl.deleteDestinationCardsbyId = async (req, res) => {
+
+  const {id} = req.body;
+  const filter = {"_id": id};
+  const cards = await DestinationCard.DestinationCard.findByIdAndDelete(filter);
+  res.json("Destination Card deleted");
+};
+
+
 
 //Este end-point es parte de la configuración inicial del sistema. Hay que llamarlo antes de su uso definitivo
 
@@ -80,6 +178,8 @@ cardsCtrl.lastCardNumber = async (req, res) => {
 };
 
 cardsCtrl.createNew = async (req, res) => {
+
+  
   const { number, user_id, user_name, balance, active, internal, cvv, date } =
     req.body;
 
@@ -101,5 +201,34 @@ cardsCtrl.createNew = async (req, res) => {
     return res.json({ message: `New card was created` });
   });
 };
+
+
+
+cardsCtrl.createNewDestinationCard = async (req, res) => {
+  const { user_id, card_number, destination_name, internal} = req.body;
+
+  const destinationCard = new DestinationCard.DestinationCard({
+  user_id,
+  card_number,
+  destination_name,
+  internal
+  });
+
+  await destinationCard.save((err) => {
+    if (err)
+      return res.status(500).send({ message: `Error creating destination card: ${err}` });
+
+    return res.json({ message: `New destination was created` });
+  });
+};
+
+
+
+
+
+
+
+
+
 
 module.exports = cardsCtrl;

@@ -4,20 +4,24 @@ const passport = require("passport");
 const auth = require("../middlewares/auth");
 const jwt = require("jsonwebtoken");
 
+const {card_Generator} = require("../controllers/helpers.controller");
+
+
 usersCtrl.createNewUser = async (req, res) => {
   const {
-    name,
-    lastname,
-    email,
-    dni,
-    phone,
-    adress,
+    address,
+    cardNumber,
     city,
     country,
     cp,
+    date,
+    dni,
+    email,
+    lastname,
+    name,
     password,
     password2,
-    date,
+    phone,
   } = req.body;
   let messages = [];
 
@@ -38,6 +42,7 @@ usersCtrl.createNewUser = async (req, res) => {
 
   if (messages.length > 0) {
     const user_errors = {
+      address: address,
       messages: messages,
       name: name,
       lastname: lastname,
@@ -46,7 +51,6 @@ usersCtrl.createNewUser = async (req, res) => {
       password2: password2,
       dni: dni,
       phone: phone,
-      adress: adress,
       city: city,
       country: country,
       cp: cp,
@@ -66,49 +70,73 @@ usersCtrl.createNewUser = async (req, res) => {
       res.json(messages);
     } else {
       const newUser = new User({
-        name: name,
-        lastname: lastname,
-        email: email,
-        password: password,
-        password2: password2,
-        dni: dni,
-        phone: phone,
-        adress: adress,
+        address: address,
+        cardNumber: cardNumber,
         city: city,
         country: country,
         cp: cp,
         date: date,
+        dni: dni,
+        name: name,
+        email: email,
+        lastname: lastname,
+        password: password,
+        password2: password2,
+        phone: phone,
       });
       newUser.password = await newUser.encryptPassword(password);
       newUser.password2 = await newUser.encryptPassword(password2);
 
-      await newUser.save((err) => {
+      await newUser.save( (err) => {
         if (err) {
           return res
             .status(500)
             .json({ messages: `Error creating user: ${err}` });
         } else {
-          messages.push({ type: "ok", text: "User Registered successfully!" });
-
-          return res.json({ messages });
+          console.log ('user' + newUser._id)   
+          messages.push({ type: "ok", text: "User Registered successfully!", user: newUser._id})
+          console.log (messages)  
         }
       });
+
+
+      let new_cardnumber= "Sin número";
+      try {
+        const result = await card_Generator();
+        console.log (result)
+        messages.push({ type: "ok", text: "New Card Number", new_cardnumber: result})
+        console.log (messages)  
+        return res.json({ messages });
+        
+      }
+      catch (error){
+        console.error(error);
+      } 
+   
+      
+    
+
+  
+
+
     }
   }
 };
 
 usersCtrl.login = async (req, res, next) => {
-  const { email, password } = req.body;
-
   passport.authenticate("login", async (err, user, info) => {
+
     try {
       if (err) {
         //return next(err); // will generate a 500 error
         return res.json({ error: "error" });
       }
+
       if (!user) {
-        // return res.send({ success : false, message : 'authentication failed' });
-        return res.json({ user: "user" });
+       // return res.send({ success : false, message : 'authentication failed' });
+        return res.json({error: "User not found" })
+
+      
       }
 
       //Passport exposes a login() function on req (also aliased as logIn()) that can be used to establish a login session.
@@ -129,11 +157,13 @@ usersCtrl.getUsers = async (req, res) => {
   res.json(users);
 };
 
+
 usersCtrl.getUserById = async (req, res) => {
   const userId = req.params.id;
+const _id = userId;
 
   if (userId.length === 24) {
-    const userQuery = (await User.findById({ _id: userId })) || false;
+    const userQuery = (await User.findById({ _id})) || false;
 
     if (userQuery) {
       console.log("Query successfull");
@@ -147,5 +177,6 @@ usersCtrl.getUserById = async (req, res) => {
     res.json({ type: "error", text: "User ID length not valid." });
   }
 };
+
 
 module.exports = usersCtrl;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Home/styles.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { lastCardNumber, register } from "../actions/Actions";
 
 export const Register = () => {
@@ -16,6 +16,7 @@ export const Register = () => {
   }
 
   const dispatch = useDispatch();
+
   const [user, setUser] = useState({
     name: "",
     lastname: "",
@@ -43,7 +44,6 @@ export const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(register(user));
-    console.log(user);
     navigate("/balans");
   };
 
@@ -151,14 +151,23 @@ export const Register = () => {
           name="password2"
           onChange={handleChange}
         />
-        <input
-          type="checkbox"
-          onClick={handleCreateCardNumber}
-          /* style={{ display: "none" }} */
-          value={card.number}
-          name="cardNumber"
-          checked={true}
-        />
+        <label>Acepto Terminos y condiciones</label>
+        {user.cardNumber !== "" ? (
+          <input
+            type="checkbox"
+            name="cardNumber"
+            value={user.cardNumber}
+            disabled
+            onChange={handleCreateCardNumber}
+            /*   onClick={handleCreateCardNumber} */
+          />
+        ) : (
+          <input
+            type="checkbox"
+            name="cardNumber"
+            onChange={handleCreateCardNumber}
+          />
+        )}
 
         <button type="submit" className="button">
           Registrarse

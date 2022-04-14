@@ -8,13 +8,14 @@ const UserSchema = new Schema({
   email: { type: String, required: true },
   dni: { type: String },
   phone: { type: Number },
-  adress: { type: String },
+  address: { type: String },
   city: { type: String },
   country: { type: String },
   cp: { type: Number },
   password: { type: String, required: true },
   password2: { type: String },
   date: { type: Date, default: Date.now },
+  cardNumber: { type: Number },
 });
 
 /Hook: Se ejecuta antes de crear un nuevo usuario/;
