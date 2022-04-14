@@ -5,7 +5,7 @@ const auth = require("../middlewares/auth");
 const jwt = require("jsonwebtoken");
 
 const {card_Generator} = require("../controllers/helpers.controller");
-
+const {newCard} = require("../controllers/helpers.controller");
 
 usersCtrl.createNewUser = async (req, res) => {
   const {
@@ -58,6 +58,7 @@ usersCtrl.createNewUser = async (req, res) => {
     };
 
     res.json(user_errors);
+
   } else {
     const userEmail = (await User.findOne({ email: email })) || false;
 
@@ -92,33 +93,35 @@ usersCtrl.createNewUser = async (req, res) => {
           return res
             .status(500)
             .json({ messages: `Error creating user: ${err}` });
-        } else {
-          console.log ('user' + newUser._id)   
-          messages.push({ type: "ok", text: "User Registered successfully!", user: newUser._id})
-          console.log (messages)  
-        }
+        } 
       });
 
 
       let new_cardnumber= "Sin número";
       try {
-        const result = await card_Generator();
-        console.log (result)
-        messages.push({ type: "ok", text: "New Card Number", new_cardnumber: result})
-        console.log (messages)  
-        return res.json({ messages });
-        
+        new_cardnumber = await card_Generator();
+             
       }
       catch (error){
         console.error(error);
       } 
    
-      
-    
-
+      let new_card = "Sin card";
+      try {
+        const fecha_vencimiento = new Date();
+        const name = newUser.name + ' ' +newUser.lastname;
+        const cvv = Math.random() * (999 - 0) + 0;
+        const card_cvv = cvv.toString().substring(0,3);
   
 
-
+        new_card = await newCard( new_cardnumber, newUser._id , name, 0, true, true, card_cvv, fecha_vencimiento);
+             
+      }
+      catch (error){
+        console.error(error);
+      } 
+      messages.push({ user_id: newUser._id, new_cardnumber_id: new_card._id,  })
+      return res.json({ messages });
     }
   }
 };
