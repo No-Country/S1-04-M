@@ -26,6 +26,10 @@ export const Home = () => {
     });
   };
 
+  const handleRedirectRegister = () => {
+    navigate("/register");
+  };
+
   return (
     <section className="login-container">
       <form onSubmit={handleSubmit}>
@@ -47,6 +51,10 @@ export const Home = () => {
         />
         <button className="button" type="submit">
           Iniciar Sesión
+        </button>
+
+        <button className="button" onClick={handleRedirectRegister}>
+          Registrarse
         </button>
       </form>
     </section>
