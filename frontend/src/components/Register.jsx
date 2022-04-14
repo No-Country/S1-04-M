@@ -10,6 +10,8 @@ export const Register = () => {
   
   const dispatch = useDispatch();
 
+const [error, setError] = useState(false);
+
   const [user, setUser] = useState({
     name: "",
     lastname: "",
@@ -26,6 +28,55 @@ export const Register = () => {
     date: "",
   });
 
+ const ifFormIsValid = () => {
+    if (user.name === "" ) {
+      setError("Falta el nombre")
+      return false;
+    }
+    if (user.lastname === "") {
+      setError("Falta el apellido")
+      return false;
+    }
+    if (user.email === "") {
+      setError("Falta el email")
+      return false;
+    }
+    if (user.dni === "") {
+      setError("Falta el dni")
+      return false;
+    }
+    if (user.phone === "") {
+      setError("Falta el numero de telefono")
+      return false;
+    }
+    if (user.adress === "") {
+      setError("Falta la direccion")
+      return false;
+    }
+    if (user.city === "") {
+      setError("Falta la ciudad")
+      return false;
+    }
+    if (user.country === "") {
+      setError("Falta el pais")
+      return false;
+    }
+    if (user.cp === "") {
+      setError("Falta el codigo postal")
+      return false;
+    }
+    if (user.password !== user.password2) {
+      setError("Las contraseñas no coinciden")
+      return false;
+    }
+    if (user.date === "") {
+      setError("Falta la fecha de nacimiento")
+      return false; 
+    } 
+    return true;
+  }
+
+
   const handleRedirect = (e) => {
     e.preventDefault();
     navigate("/");
@@ -33,8 +84,10 @@ export const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (ifFormIsValid()) {
     dispatch(register(user));
     navigate("/balans");
+    }
   };
 
   const handleChange = (e) => {
@@ -49,6 +102,7 @@ export const Register = () => {
       <form onSubmit={handleSubmit} style={{ height: "100%" }}>
         <img src={logo} alt="logo-banco" />
         <h1>Registrate</h1>
+        <h4 className="error">{error}</h4>
         <input
           type="text"
           placeholder="Nombre"
