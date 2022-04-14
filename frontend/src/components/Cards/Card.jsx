@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Cards from "react-credit-cards";
 import "react-credit-cards/es/styles-compiled.css";
-import "../css/estilos.css";
+import "../../css/estilos.css";
 
 export const Card = () => {
   const [state, setState] = useState({

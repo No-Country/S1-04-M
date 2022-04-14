@@ -13,7 +13,7 @@ import { Transactions } from "../components/Transactions";
 import NavBar from "../components/NavBar";
 import { useLocation } from "react-router-dom";
 import { Register } from "../components/Register";
-import { Card } from "../components/Card";
+import { Card } from "../components/Cards/Card";
 
 export const Pages = () => {
   let location = useLocation();
