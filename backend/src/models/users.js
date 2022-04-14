@@ -8,7 +8,7 @@ const UserSchema = new Schema({
   email: { type: String, required: true },
   dni: { type: String },
   phone: { type: Number },
-  adress: { type: String },
+  address: { type: String },
   city: { type: String },
   country: { type: String },
   cp: { type: Number },

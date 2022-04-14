@@ -4,9 +4,12 @@ const passport = require("passport");
 const auth = require("../middlewares/auth");
 const jwt = require("jsonwebtoken");
 
+const {card_Generator} = require("../controllers/helpers.controller");
+
+
 usersCtrl.createNewUser = async (req, res) => {
   const {
-    adress,
+    address,
     cardNumber,
     city,
     country,
@@ -39,7 +42,7 @@ usersCtrl.createNewUser = async (req, res) => {
 
   if (messages.length > 0) {
     const user_errors = {
-      adress: adress,
+      address: address,
       messages: messages,
       name: name,
       lastname: lastname,
@@ -67,7 +70,7 @@ usersCtrl.createNewUser = async (req, res) => {
       res.json(messages);
     } else {
       const newUser = new User({
-        adress: adress,
+        address: address,
         cardNumber: cardNumber,
         city: city,
         country: country,
@@ -84,29 +87,43 @@ usersCtrl.createNewUser = async (req, res) => {
       newUser.password = await newUser.encryptPassword(password);
       newUser.password2 = await newUser.encryptPassword(password2);
 
-      await newUser.save((err) => {
+      await newUser.save( (err) => {
         if (err) {
           return res
             .status(500)
             .json({ messages: `Error creating user: ${err}` });
         } else {
-          messages.push({ type: "ok", text: "User Registered successfully!", 
-          user: newUser._id
-        });
-
-          return res.json({ messages });
+          console.log ('user' + newUser._id)   
+          messages.push({ type: "ok", text: "User Registered successfully!", user: newUser._id})
+          console.log (messages)  
         }
       });
+
+
+      let new_cardnumber= "Sin número";
+      try {
+        const result = await card_Generator();
+        console.log (result)
+        messages.push({ type: "ok", text: "New Card Number", new_cardnumber: result})
+        console.log (messages)  
+        return res.json({ messages });
+        
+      }
+      catch (error){
+        console.error(error);
+      } 
+   
+      
+    
+
+  
+
+
     }
   }
 };
 
 usersCtrl.login = async (req, res, next) => {
-
-  
-
-
-
   passport.authenticate("login", async (err, user, info) => {
 
     try {
@@ -115,7 +132,7 @@ usersCtrl.login = async (req, res, next) => {
         return res.json({ error: "error" });
       }
 
-      if (! user) {
+      if (!user) {
        // return res.send({ success : false, message : 'authentication failed' });
         return res.json({error: "User not found" })
 
@@ -144,7 +161,7 @@ usersCtrl.getUsers = async (req, res) => {
 usersCtrl.getUserById = async (req, res) => {
   const userId = req.params.id;
 const _id = userId;
-console.log(_id)
+
   if (userId.length === 24) {
     const userQuery = (await User.findById({ _id})) || false;
 
