@@ -241,10 +241,7 @@ cardsCtrl.addMoneytoCard = async (req, res) => {
 
 
   const filter = { _id: card_id};
-
   const card = await Card.Card.find (filter);
-  console.log (card);
-  
   let total = 0;
     
   if (card) {
@@ -275,9 +272,6 @@ cardsCtrl.addMoneytoCard = async (req, res) => {
 
   const respuesta = await Card.Card.findOneAndUpdate(filter, {$inc: {balance:amount}});
 
-    
-  
-  console.log ("respuesta: " + respuesta) 
   res.json({ message: ["Card balance updated"]});
 };
 
