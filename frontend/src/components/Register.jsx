@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Home/styles.css";
 import { useDispatch} from "react-redux";
-import { lastCardNumber, register } from "../actions/Actions";
+import {register } from "../actions/Actions";
+import logo from "../img/logos/bankforyou.png";
 
 export const Register = () => {
   const navigate = useNavigate();
@@ -46,10 +47,7 @@ export const Register = () => {
   return (
     <section className="login-container">
       <form onSubmit={handleSubmit} style={{ height: "100%" }}>
-        <img
-          src="https://images.vexels.com/media/users/3/129286/isolated/preview/f71f09d3aa7db678ee884a2cdea1a435-simbolo-del-edificio-del-banco.png"
-          alt="logo-banco"
-        />
+        <img src={logo} alt="logo-banco" />
         <h1>Registrate</h1>
         <input
           type="text"
