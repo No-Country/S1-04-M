@@ -29,7 +29,7 @@ export const Pages = () => {
         <Route path="/history" element={<HistoryTransactions />} />
         <Route path="/confirm" element={<ConfirmTransaction />} />
         <Route path="/closesesion" element={<CloseSesion />} />
-        <Route path="/newtransaction" element={<NewTransaction />} />
+        <Route path="/newtransaction" element={<Transactions />} />
         <Route path="/newcard" element={<NewCard />} />
         <Route path="/register" element={<Register />} />
         <Route path="/card" element={<Card />} />|

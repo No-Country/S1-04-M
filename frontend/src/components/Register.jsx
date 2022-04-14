@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Home/styles.css";
 import { useDispatch} from "react-redux";
@@ -6,18 +6,7 @@ import { lastCardNumber, register } from "../actions/Actions";
 
 export const Register = () => {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    dispatch(lastCardNumber());
-  }, []);
-  const [card, setCard] = useState({
-    number: "",
-  });
-  const CardNumber = sessionStorage.getItem("CardNumber");
-  if (CardNumber) {
-    setCard({ number: CardNumber });
-  }
-
+  
   const dispatch = useDispatch();
 
   const [user, setUser] = useState({
@@ -36,11 +25,9 @@ export const Register = () => {
     date: "",
   });
 
-  const handleCreateCardNumber = (e) => {
+  const handleRedirect = (e) => {
     e.preventDefault();
-    dispatch(lastCardNumber()).then((res) => {
-      setUser({ ...user, cardNumber: res.payload.replace(/ /g, "")});
-    });
+    navigate("/");
   };
 
   const handleSubmit = (e) => {
@@ -152,30 +139,34 @@ export const Register = () => {
           value={user.password2}
           name="password2"
           onChange={handleChange}
+        />
+        {/* <label>Acepto Terminos y condiciones</label>
+        {user.cardNumber !== "" ? (
+          <input
+            type="checkbox"
+            name="cardNumber"
+            value={user.cardNumber}
+            disabled
+            style={{width: "20px", height: "20px"}}
+            onChange={handleCreateCardNumber}
+             onClick={handleCreateCardNumber} 
           />
-          <label>Acepto Terminos y condiciones</label>
-        {
-          user.cardNumber !== "" ? (
-            <input
-              type="checkbox"
-              name="cardNumber"
-              value={user.cardNumber}
-              disabled
-              onChange={handleCreateCardNumber}
-            /*   onClick={handleCreateCardNumber} */
-            />
-          ) : (
-            <input
-              type="checkbox"
-              name="cardNumber"
-              onChange={handleCreateCardNumber}
-            />
-          )
-
-        }
+        ) : (
+          <input
+            type="checkbox"
+            name="cardNumber"
+            value={user.cardNumber}
+            style={{width: "20px", height: "20px"}}
+            onChange={handleCreateCardNumber}
+          />
+        )} */}
 
         <button type="submit" className="button">
           Registrarse
+        </button>
+
+        <button type="button" className="button" onClick={handleRedirect}>
+          Ingresar
         </button>
       </form>
     </section>
