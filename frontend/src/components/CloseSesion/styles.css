@@ -1,0 +1,10 @@
+.section-close{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 5em;
+}
+.section-close > h2 {
+  text-align: center;
+  width: 80%;
+}

@@ -1,0 +1,8 @@
+.form-transactions{
+  display: flex;
+  gap: 1em;
+  padding: 1em;
+  flex-wrap: wrap;
+  background-color: white;
+  border: 1px solid #bbbb;
+}

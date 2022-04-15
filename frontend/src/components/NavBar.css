@@ -1,7 +1,7 @@
   
 :root {
   --firstblue: #0070ba;
-  --lightblue: #d1f1ff;
+  --lightblue: #f0faff;
 
 }
 
@@ -10,8 +10,8 @@
 }
 
 .logo {
-    width: 45px;
-    height: 45px;
+    width: 60px;
+    height: 60px;
     margin-block-end: 1em;
     color: white;
   }
@@ -23,3 +23,13 @@
  .navmenu-textcolor {
   color: var(--lightblue);
  } 
+
+ .nav-item-white{
+   color: white !important;
+   transition: background-color .5s;
+   border-radius: 3px ;
+ }
+
+ .nav-item-white:hover{
+   background-color: #007fd4;
+  }
