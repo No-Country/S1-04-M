@@ -53,7 +53,7 @@ cardsCtrl.getDestinationCards = async (req, res) => {
 cardsCtrl.getCardsbyUser = async (req, res) => {
 
   try {
-  const { id } = req.body;
+  const { id } = req.params;
   const filter = {"user_id": id};
   if(id){ 
   const cards = await Card.Card.find(filter);
@@ -107,7 +107,7 @@ cardsCtrl.deleteDestinationCards = async (req, res) => {
 
 cardsCtrl.deleteDestinationCardsbyId = async (req, res) => {
 
-  const {id} = req.body;
+  const {id} = req.params;
   const filter = {"_id": id};
   const cards = await DestinationCard.DestinationCard.findByIdAndDelete(filter);
   res.json("Destination Card deleted");

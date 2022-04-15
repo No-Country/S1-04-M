@@ -10,7 +10,6 @@ const {newCard} = require("../controllers/helpers.controller");
 usersCtrl.createNewUser = async (req, res) => {
   const {
     address,
-    cardNumber,
     city,
     country,
     cp,
@@ -72,7 +71,6 @@ usersCtrl.createNewUser = async (req, res) => {
     } else {
       const newUser = new User({
         address: address,
-        cardNumber: cardNumber,
         city: city,
         country: country,
         cp: cp,
@@ -82,7 +80,6 @@ usersCtrl.createNewUser = async (req, res) => {
         email: email,
         lastname: lastname,
         password: password,
-        password2: password2,
         phone: phone,
       });
      
@@ -109,18 +106,17 @@ usersCtrl.createNewUser = async (req, res) => {
       let new_card = "Sin card";
       try {
         const fecha_vencimiento = new Date();
-        const name = newUser.name + ' ' +newUser.lastname;
+        const name = newUser.name + " " + newUser.lastname;
         const cvv = Math.random() * (999 - 0) + 0;
         const card_cvv = cvv.toString().substring(0,3);
   
-
         new_card = await newCard( new_cardnumber, newUser._id , name, 0, true, true, card_cvv, fecha_vencimiento);
              
       }
       catch (error){
         console.error(error);
       } 
-      messages.push({ user_id: newUser._id, new_cardnumber_id: new_card._id,  })
+      messages.push({ user: newUser._id, new_cardnumber_id: new_card._id,  })
       return res.json({ messages });
     }
   }
@@ -170,14 +166,14 @@ const _id = userId;
     const userQuery = (await User.findById({ _id})) || false;
 
     if (userQuery) {
-      console.log("Query successfull");
+      /* console.log("Query successfull"); */
       res.json({ userQuery });
     } else {
-      console.log("User not found in db");
+     /*  console.log("User not found in db"); */
       res.json({ type: "error", text: "User not found in db." });
     }
   } else {
-    console.log("User ID length not valid.");
+    /* console.log("User ID length not valid."); */
     res.json({ type: "error", text: "User ID length not valid." });
   }
 };

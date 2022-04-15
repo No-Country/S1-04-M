@@ -27,7 +27,7 @@ router
   .delete(deleteCards);
 
 router
-  .route("/byUser")
+  .route("/byUser/:id")
   .get (getCardsbyUser)
 
 

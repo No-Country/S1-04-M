@@ -15,7 +15,6 @@ return dispatch({
 };
 
 export const login = (usuario) => async (dispatch) => {
-  console.log(usuario)
   const post = await axios.post(
     "http://localhost:4000/api/users/login",
     usuario
@@ -53,10 +52,10 @@ export const lastCardNumber = () => async (dispatch) => {
 
 
   export const getCardByIdUser = (id) => async (dispatch) => {
-    const get = await axios.get(`http://localhost:4000/api/cards/byUser/${id}}`,
+    const get = await axios.get(`http://localhost:4000/api/cards/byUser/${id}`,
   );
-  /* console.log(get) */
-    const json = get.data;
+   console.log(get)
+    const json = get.data[0];
     console.log("getCardByIdUser", json);
     return dispatch({
       type: Types.getCardByIdUser,

@@ -8,15 +8,17 @@ export const Balans = () => {
 
 const dispatch = useDispatch();
 
-  sessionStorage.removeItem("CardNumber");
-
   useEffect(() => {
+    setTimeout(() => {
 dispatch(getUserId(user))
-  }, [dispatch, user]);
+    }, 1000);
+}, [dispatch, user]);
 
 useEffect(() => {
+  setTimeout(() => {
   dispatch(getCardByIdUser(user))
-  }, [dispatch, user]);
+  }, 1000);
+}, [dispatch, user]);
 
   return (
     <div className="sections">
