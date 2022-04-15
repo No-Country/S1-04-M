@@ -85,8 +85,8 @@ usersCtrl.createNewUser = async (req, res) => {
         password2: password2,
         phone: phone,
       });
-      newUser.password = await newUser.encryptPassword(password);
-      newUser.password2 = await newUser.encryptPassword(password2);
+     
+
 
       await newUser.save( (err) => {
         if (err) {
@@ -127,7 +127,10 @@ usersCtrl.createNewUser = async (req, res) => {
 };
 
 usersCtrl.login = async (req, res, next) => {
-  passport.authenticate("login", async (err, user, info) => {
+
+  const {email, password} = req.body;
+
+ passport.authenticate("login", async (err, user, info) => {
 
     try {
       if (err) {
@@ -135,11 +138,9 @@ usersCtrl.login = async (req, res, next) => {
         return res.json({ error: "error" });
       }
 
-      if (!user) {
+      if (! user) {
        // return res.send({ success : false, message : 'authentication failed' });
-        return res.json({error: "User not found" })
-
-      
+        return res.json({error: "User not found *" })
       }
 
       //Passport exposes a login() function on req (also aliased as logIn()) that can be used to establish a login session.
@@ -179,6 +180,12 @@ const _id = userId;
     console.log("User ID length not valid.");
     res.json({ type: "error", text: "User ID length not valid." });
   }
+};
+
+
+usersCtrl.deleteUsers= async (req, res) => {
+  const users = await User.deleteMany();
+  res.json("Users deleted");
 };
 
 

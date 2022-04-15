@@ -12,7 +12,8 @@ const {
   getDestinationCards,
   deleteDestinationCards, 
   deleteDestinationCardsbyId,
-  getLastCardNumber
+  getLastCardNumber, 
+  addMoneytoCard,
 } = require("../controllers/cards.controller");
 const auth = require("../middlewares/auth");
 const passport = require("passport");
@@ -26,50 +27,40 @@ router
   .delete(deleteCards);
 
 router
+  .route("/byUser")
+  .get (getCardsbyUser)
+
+
+router
   .route("/lastCardNumber")
   .get (getLastCardNumber)
   .post(lastCardNumber);
 
 router
   .route("/firstCardNumber")
-  
   .post(firstCardNumber);
+  
+router
+  .route("/destinationCards")
+  .get (getDestinationCards) 
+  .post(createNewDestinationCard)
+  .delete(deleteDestinationCards)
 
 router
- 
-.route("/destinationCards/byUser")
-  
+  .route("/destinationCards/byUser")
   .get(getDestinationCardsbyUser);
-  
-  router
-  .route("/destinationCards")
-  .post(createNewDestinationCard);
-
 
 router
-  .route("/destinationCards")
-  .get (getDestinationCards);
-
-router
-  .route("/destinationCards")
-  .delete(deleteDestinationCards);
-
-  router
   .route("/destinationCards/byId")
   .delete(deleteDestinationCardsbyId);
 
 router
-  .route("/byUser")
-  .get (getCardsbyUser)
+  .route("/addMoney")
+  .post(addMoneytoCard);
 
- 
+  
 
-
-
-    
-
-
-//.get ( passport.authenticate('jwt', { session: false }), getCards)
+ //.get ( passport.authenticate('jwt', { session: false }), getCards)
 
 //.post (passport.authenticate('jwt', { session: false }), createCard )
 
