@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../actions/Actions";
 import "./styles.css";
 import logo from "../../img/logos/bankforyou.png";
+import PassVisible from "../PassVisible/PassVisible";
 
 export const Home = () => {
   const [user, setUser] = useState({
@@ -46,13 +47,8 @@ export const Home = () => {
           name="email"
           onChange={handleChange}
         />
-        <input
-          type="password"
-          name="password"
-          placeholder="Contraseña"
-          value={user.password}
-          onChange={handleChange}
-        />
+        <PassVisible handleChange={handleChange} value={user.password} />
+
         <button className="button" type="submit">
           Iniciar Sesión
         </button>
