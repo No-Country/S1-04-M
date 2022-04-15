@@ -4,7 +4,7 @@ const initialState = {
   isLoading: false,
   data: [],
   user: {},
-
+    card: {},
 };
 
 export const Reducer = (state = initialState, action) => {
@@ -33,12 +33,16 @@ export const Reducer = (state = initialState, action) => {
                     data: action.payload,
                 }
                 case Types.getUserId:
-                    console.log(action.payload)
                     return {
                         ...state,
                         user: action.payload,
                     }
-                
+                case Types.getCardByIdUser:
+                    return {
+                        ...state,
+                        card: action.payload,
+                    }
+
         default:
             return state
     }

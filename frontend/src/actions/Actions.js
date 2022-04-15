@@ -3,18 +3,19 @@ import axios from "axios";
 
 export const register = (usuario) => async (dispatch) => {
   const post = await axios.post("http://localhost:4000/api/users/signup", usuario)
-const json = post.data.messages[0]
+const json = post.data.messages[0];
 const user = json.user;
 sessionStorage.setItem("user", user)
 console.log(user)
 return dispatch({
     type: Types.register,
-    payload: json
+    payload: user
 })
 
 };
 
 export const login = (usuario) => async (dispatch) => {
+  console.log(usuario)
   const post = await axios.post(
     "http://localhost:4000/api/users/login",
     usuario
@@ -24,6 +25,7 @@ const user = json.user;
   const token = json.user_token;
   sessionStorage.setItem("token", token);
   sessionStorage.setItem("user",user); 
+  console.log(json)
   return dispatch({
     type: Types.login,
     payload: json,
@@ -48,3 +50,16 @@ export const lastCardNumber = () => async (dispatch) => {
             payload: json,
         })
         }
+
+
+  export const getCardByIdUser = (id) => async (dispatch) => {
+    const get = await axios.get(`http://localhost:4000/api/cards/byUser/${id}}`,
+  );
+  /* console.log(get) */
+    const json = get.data;
+    console.log("getCardByIdUser", json);
+    return dispatch({
+      type: Types.getCardByIdUser,
+      payload: json,
+    })
+  }

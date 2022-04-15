@@ -1,11 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { HistoryTransactions } from "../HistoryTransactions/HistoryTransactions";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getCardByIdUser, getUserId } from "../../actions/Actions";
 
 export const Balans = () => {
-  const { user } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.data); 
+
+const dispatch = useDispatch();
 
   sessionStorage.removeItem("CardNumber");
+
+  useEffect(() => {
+dispatch(getUserId(user))
+  }, [dispatch, user]);
+
+useEffect(() => {
+  dispatch(getCardByIdUser(user))
+  }, [dispatch, user]);
 
   return (
     <div className="sections">

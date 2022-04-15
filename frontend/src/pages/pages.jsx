@@ -20,7 +20,10 @@ export const Pages = () => {
 
   return (
     <div>
-      {location.pathname !== "/" && <NavBar />}
+      {location.pathname !== "/" && location.pathname !== "/register" &&
+        <NavBar />
+        }
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
