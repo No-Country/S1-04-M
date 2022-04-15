@@ -33,10 +33,8 @@ export const ConfirmTransaction = () => {
           </select>
         </label>
         <button className="button button-blue">Elegir</button>
-
-        <span className="label-special">DESTINARIO</span>
         <label>
-          <button className="button button-blue">Agregar</button>
+          <span className="label-special">DESTINARIO</span>
           <select
             className="input-special"
             value={count_destiny}
@@ -46,6 +44,9 @@ export const ConfirmTransaction = () => {
             <option value="2">Card 2</option>
             <option value="3">Card 3</option>
           </select>
+        </label>
+        <label>
+          <button className="button button-blue">Agregar</button>
         </label>
         <label>
           <input
