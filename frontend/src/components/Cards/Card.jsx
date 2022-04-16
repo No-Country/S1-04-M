@@ -3,12 +3,23 @@ import Cards from "react-credit-cards";
 import "react-credit-cards/es/styles-compiled.css";
 import "../../css/estilos.css";
 
-export const Card = () => {
+export const Card = ({ card }) => {
+  const { number, user_name, cvv, date } = card;
+
+  let date1 = new Date(date ? date?.replace(/-+/g, "/") : "");
+  let options = {
+    year: "numeric",
+    month: "numeric",
+  };
+
+  let date2 = date1.toLocaleDateString("es-ES", options);
+  
+
   const [state, setState] = useState({
-    number: "",
-    name: "",
-    expiry: "",
-    cvc: "",
+    number: number ? number : "",
+    name: user_name ? user_name : "",
+    expiry: date2 ? date2 : "",
+    cvc: cvv ? cvv : "",
     focus: "",
   });
 
@@ -20,16 +31,23 @@ export const Card = () => {
   };
 
   const handleFocusChange = (e) => {
-    setState({
+    const checked = document.getElementById("checkbox").checked;
+    if(checked === "true"){
+     setState({ ...state, focus: "cvc"})
+    }
+    else{
+      setState({ ...state, focus: "name" });
+    }
+    /* setState({
       ...state,
-      focus: e.target.name,
-    });
+      focus: e.target.name ?  "name" : e.target.name,
+    }); */
   };
 
-  
+    
 
   return (
-    <div className="contenedor">
+    <div className="container">
       <section className="tarjeta">
         <div className="card">
           <div className="card-body">
@@ -37,59 +55,29 @@ export const Card = () => {
               number={state.number}
               name={state.name}
               expiry={state.expiry}
-              cvc={state.cvc}
+              cvc={state.cvv}
               focused={state.focus}
             />
             <form>
-              <div className="form-group">
-                <label htmlFor="number">Número de la tarjeta</label>
+              <div className="form-group col-md-6">
+                <label htmlFor="cvc">CVV</label>
                 <input
                   type="text"
-                  name="number"
-                  id="number"
-                  maxLength="16"
                   className="form-control"
-                  onChange={handleInputChange}
-                  onFocus={handleFocusChange}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="name">Nombre</label>
-                <input
-                  type="text"
-                  name="name"
                   id="name"
-                  maxLength="30"
-                  className="form-control"
+                  name="name"
+              onFocus={handleFocusChange}
+              />
+
+              <input
+                  type="checkbox"
+                  name="cvc"
+                  id="cvc"
+                  value={cvv}
+                  checked={false}
                   onChange={handleInputChange}
                   onFocus={handleFocusChange}
                 />
-              </div>
-              <div className="form-row">
-                <div className="form-group col-md-6">
-                  <label htmlFor="expiry">Fecha de expiración</label>
-                  <input
-                    type="text"
-                    name="expiry"
-                    id="expiry"
-                    maxLength="4"
-                    className="form-control"
-                    onChange={handleInputChange}
-                    onFocus={handleFocusChange}
-                  />
-                </div>
-                <div className="form-group col-md-6">
-                  <label htmlFor="cvc">CVC</label>
-                  <input
-                    type="text"
-                    name="cvc"
-                    id="cvc"
-                    maxLength="4"
-                    className="form-control"
-                    onChange={handleInputChange}
-                    onFocus={handleFocusChange}
-                  />
-                </div>
               </div>
             </form>
           </div>

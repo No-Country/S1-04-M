@@ -3,7 +3,7 @@ import { Types } from "../actions/types"
 const initialState = {
   isLoading: false,
   data: [],
-  user: {},
+  users: {},
     card: {},
 };
 
@@ -35,7 +35,7 @@ export const Reducer = (state = initialState, action) => {
                 case Types.getUserId:
                     return {
                         ...state,
-                        user: action.payload,
+                        users: action.payload,
                     }
                 case Types.getCardByIdUser:
                     return {

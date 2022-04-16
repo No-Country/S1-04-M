@@ -76,6 +76,7 @@ const [error, setError] = useState(false);
     return true;
   }
 
+  const token = sessionStorage.getItem("token");
 
   const handleRedirect = (e) => {
     e.preventDefault();
@@ -86,8 +87,10 @@ const [error, setError] = useState(false);
     e.preventDefault();
     if (ifFormIsValid()) {
     dispatch(register(user));
+  }
+  if(token){ 
     navigate("/balans");
-    }
+  }
   };
 
   const handleChange = (e) => {
@@ -192,27 +195,6 @@ const [error, setError] = useState(false);
           name="password2"
           onChange={handleChange}
         />
-        {/* <label>Acepto Terminos y condiciones</label>
-        {user.cardNumber !== "" ? (
-          <input
-            type="checkbox"
-            name="cardNumber"
-            value={user.cardNumber}
-            disabled
-            style={{width: "20px", height: "20px"}}
-            onChange={handleCreateCardNumber}
-             onClick={handleCreateCardNumber} 
-          />
-        ) : (
-          <input
-            type="checkbox"
-            name="cardNumber"
-            value={user.cardNumber}
-            style={{width: "20px", height: "20px"}}
-            onChange={handleCreateCardNumber}
-          />
-        )} */}
-
         <button type="submit" className="button">
           Registrarse
         </button>

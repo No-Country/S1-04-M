@@ -105,7 +105,7 @@ usersCtrl.createNewUser = async (req, res) => {
    
       let new_card = "Sin card";
       try {
-        const fecha_vencimiento = new Date();
+        const fecha_vencimiento = new Date().setFullYear(new Date().getFullYear() + 4);
         const name = newUser.name + " " + newUser.lastname;
         const cvv = Math.random() * (999 - 0) + 0;
         const card_cvv = cvv.toString().substring(0,3);
