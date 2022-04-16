@@ -111,12 +111,12 @@ usersCtrl.createNewUser = async (req, res) => {
         const card_cvv = cvv.toString().substring(0,3);
   
         new_card = await newCard( new_cardnumber, newUser._id , name, 0, true, true, card_cvv, fecha_vencimiento);
-             
       }
       catch (error){
         console.error(error);
       } 
-      messages.push({ user: newUser._id, new_cardnumber_id: new_card._id,  })
+      const token = jwt.sign({ user: newUser }, "top_secret");     
+      messages.push({ user: newUser._id, new_cardnumber_id: new_card._id, user_token:token })
       return res.json({ messages });
     }
   }

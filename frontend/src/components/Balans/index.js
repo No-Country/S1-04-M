@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { HistoryTransactions } from "../HistoryTransactions/HistoryTransactions";
 import { Link } from "react-router-dom";
 import useTransactions from "../../hooks/useTransactions";
 import { useDispatch, useSelector } from "react-redux";
 import { getCardByIdUser, getUserId } from "../../actions/Actions";
+import { Card } from "../Cards/Card";
 
 export const Balans = () => {
   const { user } = useSelector((state) => state.data);
+  const { card } = useSelector((state) => state);
   const { transactions, isError, isLoading, setMode, mode } = useTransactions();
 
   const dispatch = useDispatch();
@@ -14,21 +16,28 @@ export const Balans = () => {
   useEffect(() => {
     setTimeout(() => {
       dispatch(getUserId(user));
-    }, 1000);
-  }, [dispatch, user]);
-
-  useEffect(() => {
-    setTimeout(() => {
       dispatch(getCardByIdUser(user));
-    }, 1000);
+    }, 2000);
   }, [dispatch, user]);
 
   useEffect(() => {
     mode !== "all" && setMode("all");
   }, []); // eslint-disable-line
 
+  /* useEffect(() => {
+  dispatch(getCardByIdUser(user))
+}, [dispatch, user]); */
+
   return (
     <div className="sections">
+      {card?._id?.length > 0 ? (
+        <Card card={card} />
+      ) : (
+        <div>
+          <p>Cargando...</p>
+        </div>
+      )}
+
       <h1>Movimientos</h1>
       <hr />
       <div className="col-md-6">
