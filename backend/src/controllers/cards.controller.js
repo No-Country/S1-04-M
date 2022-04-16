@@ -2,9 +2,11 @@ const cardsCtrl = {};
 const Card = require("../models/cards");
 const NextCardNumber = require("../models/cards");
 const DestinationCard = require("../models/cards");
+const {Transaction} = require("../models/transactions");
 
-const passport = require("passport");
+/* const passport = require("passport");
 const jwt = require("jsonwebtoken");
+const auth = require("../middlewares/auth"); */
 const helpersCtrl = require("../middlewares/auth");
 
 
@@ -52,7 +54,7 @@ cardsCtrl.getDestinationCards = async (req, res) => {
 cardsCtrl.getCardsbyUser = async (req, res) => {
 
   try {
-  const { id } = req.body;
+  const { id } = req.params;
   const filter = {"user_id": id};
   if(id){ 
   const cards = await Card.Card.find(filter);
@@ -106,7 +108,7 @@ cardsCtrl.deleteDestinationCards = async (req, res) => {
 
 cardsCtrl.deleteDestinationCardsbyId = async (req, res) => {
 
-  const {id} = req.body;
+  const {id} = req.params;
   const filter = {"_id": id};
   const cards = await DestinationCard.DestinationCard.findByIdAndDelete(filter);
   res.json("Destination Card deleted");
@@ -234,6 +236,45 @@ cardsCtrl.createNewDestinationCard = async (req, res) => {
 };
 
 
+cardsCtrl.addMoneytoCard = async (req, res) => {
+
+  const {card_id, amount} = req.body;
+
+
+  const filter = { _id: card_id};
+  const card = await Card.Card.find (filter);
+  let total = 0;
+    
+  if (card) {
+  
+    total = card[0].balance + amount
+  }
+  else {
+
+  }
+
+  const card_data = {
+    origin : "0", 
+    destiny : card_id, 
+    destiny_name : "TO ME", 
+    amount : amount, 
+    description : "External deposit" 
+ 
+  }
+  
+  const transaction = new Transaction(card_data);
+
+  await transaction.save((err) => {
+    if (err)
+      return res.status(500).send({ message: `Error creating transaction: ${err}` });
+   
+  });
+
+
+  const respuesta = await Card.Card.findOneAndUpdate(filter, {$inc: {balance:amount}});
+
+  res.json({ message: ["Card balance updated"]});
+};
 
 
 

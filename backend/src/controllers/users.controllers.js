@@ -10,7 +10,6 @@ const {newCard} = require("../controllers/helpers.controller");
 usersCtrl.createNewUser = async (req, res) => {
   const {
     address,
-    cardNumber,
     city,
     country,
     cp,
@@ -72,7 +71,6 @@ usersCtrl.createNewUser = async (req, res) => {
     } else {
       const newUser = new User({
         address: address,
-        cardNumber: cardNumber,
         city: city,
         country: country,
         cp: cp,
@@ -82,11 +80,10 @@ usersCtrl.createNewUser = async (req, res) => {
         email: email,
         lastname: lastname,
         password: password,
-        password2: password2,
         phone: phone,
       });
-      newUser.password = await newUser.encryptPassword(password);
-      newUser.password2 = await newUser.encryptPassword(password2);
+     
+
 
       await newUser.save( (err) => {
         if (err) {
@@ -109,25 +106,27 @@ usersCtrl.createNewUser = async (req, res) => {
       let new_card = "Sin card";
       try {
         const fecha_vencimiento = new Date();
-        const name = newUser.name + ' ' +newUser.lastname;
+        const name = newUser.name + " " + newUser.lastname;
         const cvv = Math.random() * (999 - 0) + 0;
         const card_cvv = cvv.toString().substring(0,3);
   
-
         new_card = await newCard( new_cardnumber, newUser._id , name, 0, true, true, card_cvv, fecha_vencimiento);
              
       }
       catch (error){
         console.error(error);
       } 
-      messages.push({ user_id: newUser._id, new_cardnumber_id: new_card._id,  })
+      messages.push({ user: newUser._id, new_cardnumber_id: new_card._id,  })
       return res.json({ messages });
     }
   }
 };
 
 usersCtrl.login = async (req, res, next) => {
-  passport.authenticate("login", async (err, user, info) => {
+
+  const {email, password} = req.body;
+
+ passport.authenticate("login", async (err, user, info) => {
 
     try {
       if (err) {
@@ -135,11 +134,9 @@ usersCtrl.login = async (req, res, next) => {
         return res.json({ error: "error" });
       }
 
-      if (!user) {
+      if (! user) {
        // return res.send({ success : false, message : 'authentication failed' });
-        return res.json({error: "User not found" })
-
-      
+        return res.json({error: "User not found *" })
       }
 
       //Passport exposes a login() function on req (also aliased as logIn()) that can be used to establish a login session.
@@ -169,16 +166,22 @@ const _id = userId;
     const userQuery = (await User.findById({ _id})) || false;
 
     if (userQuery) {
-      console.log("Query successfull");
+      /* console.log("Query successfull"); */
       res.json({ userQuery });
     } else {
-      console.log("User not found in db");
+     /*  console.log("User not found in db"); */
       res.json({ type: "error", text: "User not found in db." });
     }
   } else {
-    console.log("User ID length not valid.");
+    /* console.log("User ID length not valid."); */
     res.json({ type: "error", text: "User ID length not valid." });
   }
+};
+
+
+usersCtrl.deleteUsers= async (req, res) => {
+  const users = await User.deleteMany();
+  res.json("Users deleted");
 };
 
 

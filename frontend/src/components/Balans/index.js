@@ -1,14 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { HistoryTransactions } from "../HistoryTransactions/HistoryTransactions";
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import useTransactions from "../../hooks/useTransactions";
+import { useDispatch, useSelector } from "react-redux";
+import { getCardByIdUser, getUserId } from "../../actions/Actions";
 
 export const Balans = () => {
-  const { user } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.data);
   const { transactions, isError, isLoading, setMode } = useTransactions();
 
-  sessionStorage.removeItem("CardNumber");
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    setTimeout(() => {
+      dispatch(getUserId(user));
+    }, 1000);
+  }, [dispatch, user]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      dispatch(getCardByIdUser(user));
+    }, 1000);
+  }, [dispatch, user]);
 
   useEffect(() => {
     setMode("all");
