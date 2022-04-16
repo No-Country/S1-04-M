@@ -9,7 +9,9 @@ import { Card } from "../Cards/Card";
 export const Balans = () => {
   const { user } = useSelector((state) => state.data); 
 const {card} = useSelector((state) => state);
-  const { transactions, isError, isLoading, setMode } = useTransactions();
+  const { transactions, isError, isLoading, setMode, mode } = useTransactions();
+
+
 
   const dispatch = useDispatch();
 
