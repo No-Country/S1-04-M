@@ -1,12 +1,16 @@
 import Transaction from "../Transaction";
 import "./styles.css";
 
-export const HistoryTransactions = ({ transactions, isLoading, isError }) => {
+export const HistoryTransactions = ({
+  transactions = [],
+  isLoading,
+  isError,
+}) => {
   return (
     <div className="card">
       <section className="card-body">
         <ul className="transactions-list">
-          {!isLoading && transactions?.length ? (
+          {!isLoading && transactions.length ? (
             transactions.map((transaction) => (
               <Transaction
                 key={transaction._id}
@@ -21,7 +25,7 @@ export const HistoryTransactions = ({ transactions, isLoading, isError }) => {
             ))
           ) : isLoading ? (
             <span>Cargando...</span>
-          ) : !isError ? (
+          ) : !isError && isLoading ? (
             <span>No se encontraron resultados</span>
           ) : (
             <span>

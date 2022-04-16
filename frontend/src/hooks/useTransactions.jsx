@@ -9,6 +9,7 @@ export default function useTransactions() {
   const [date, setDate] = useState(undefined);
 
   useEffect(() => {
+<<<<<<< HEAD
     if (mode === "forMonth" && date !== undefined) {
       setUrlReport("");
       console.log(`http://localhost:4000/api/transactions/date/${date}`);
@@ -41,6 +42,32 @@ export default function useTransactions() {
           setIsError(true);
         });
     }
+=======
+    const url =
+      mode === "forMonth" && date !== undefined
+        ? `http://localhost:4000/api/transactions/date/${date}`
+        : mode === "all"
+        ? "http://localhost:4000/api/transactions/"
+        : "";
+
+    if (!url) return;
+
+    setUrlReport("");
+    setIsLoading(true);
+
+    fetch(url)
+      .then((res) => res.json())
+      .then((json) => {
+        setTransactions(json[0]);
+        setUrlReport(json[1]);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        setIsError(true);
+      });
+    return;
+>>>>>>> 14b0126a62424d630cbc96bdfc0b6fc8c63bb25b
   }, [date, mode]);
 
   return {
@@ -48,6 +75,7 @@ export default function useTransactions() {
     isError,
     isLoading,
     urlReport,
+    mode,
     setMode,
     setDate,
   };

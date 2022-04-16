@@ -6,9 +6,8 @@ export default function Transaction({ number, info }) {
       <span>Transacción {number || ""}</span>
       <h3>{info?.title || ""}</h3>
       <p>
-        <span>Date: {info?.date || ""}</span>
-        <span>Amount: {info?.amount || ""}</span>
-        <span>Status: {info?.status || ""}</span>
+        <span>Fecha: {info?.date || ""}</span>
+        <span>Monto: ${info?.amount || ""}</span>
       </p>
     </li>
   );

@@ -1,6 +1,7 @@
 import { HistoryTransactions } from "../HistoryTransactions/HistoryTransactions";
 import useTransactions from "../../hooks/useTransactions";
 import { useState } from "react";
+import JsFileDownloader from "js-file-downloader";
 
 export default function HistoryPage() {
   const { transactions, isError, isLoading, urlReport, setMode, setDate } =
@@ -24,6 +25,13 @@ export default function HistoryPage() {
 
   const handleClickShowAll = () => {
     setMode("all");
+  };
+
+  const handleClickDownlad = (e) => {
+    e.preventDefault();
+    new JsFileDownloader({ url: urlReport })
+      .then()
+      .catch((error) => console.error(error));
   };
 
   return (
@@ -56,19 +64,25 @@ export default function HistoryPage() {
           </select>
         </label>
         <br />
-        <button className="button" onClick={handleClickFilter}>
+        <button
+          className="button"
+          style={{ backgroundColor: "green" }}
+          onClick={handleClickFilter}
+        >
           Fitrar
         </button>
         <buton className="button" onClick={handleClickShowAll}>
           Todo
         </buton>
         <a
-          rel="noreferrer"
           className="button"
-          download={"reporte.pdf"}
-          target="_blank"
-          href={urlReport || "#"}
-          disabled={urlReport ? true : false}
+          href={urlReport ? urlReport : "#"}
+          onClick={handleClickDownlad}
+          style={{
+            pointerEvents: urlReport ? "auto" : "none",
+            backgroundColor: "rgb(255, 63, 63)",
+            opacity: urlReport ? "1" : ".3",
+          }}
         >
           Descargar Reporte
         </a>

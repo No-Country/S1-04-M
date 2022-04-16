@@ -20,9 +20,15 @@ dispatch(getCardByIdUser(user))
     }, 2000);
 }, [dispatch, user]);
 
-/* useEffect(() => {
-  dispatch(getCardByIdUser(user))
-}, [dispatch, user]); */
+  useEffect(() => {
+    setTimeout(() => {
+      dispatch(getCardByIdUser(user));
+    }, 1000);
+  }, [dispatch, user]);
+
+  useEffect(() => {
+    mode !== "all" && setMode("all");
+  }, []); // eslint-disable-line
 
   return (
     <div className="sections">
@@ -42,7 +48,7 @@ dispatch(getCardByIdUser(user))
           <div className="card-body">
             <h5 className="card-title">Historial de transacciones</h5>
             <HistoryTransactions
-              transactions={transactions.splice(0, 5)}
+              transactions={transactions.slice(0, 5)}
               isLoading={isLoading}
               isError={isError}
             />

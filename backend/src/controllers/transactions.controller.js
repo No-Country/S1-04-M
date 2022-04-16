@@ -1,6 +1,5 @@
 const transactionsCtrl = {};
 const { Transaction } = require("../models/transactions");
-const pdf = require("html-pdf");
 const meses = {
   "00": "Enero",
   "01": "Febrero",
@@ -16,6 +15,7 @@ const meses = {
   11: "Diciembre",
 };
 const Card = require("../models/cards");
+const makeReportHtml = require("../middlewares/makeReportHtml");
 
 transactionsCtrl.createNewTransaction = async (req, res) => {
   const { origin, destiny, destiny_name, amount, description } = req.body;
@@ -82,62 +82,10 @@ transactionsCtrl.getTransactionsMonth = async (req, res) => {
 
     let report;
     if (transactions.length) {
-      const head = `
-        <head>
-          <style>
-            ul{
-              list-style-type: none;
-            }
-          </style>
-        </head>
-      `;
-
-      const bodyInit = `
-        <body>
-          <h2>Transacciones de ${meses[month].toLowerCase()}</h2>
-          <ul>
-      `;
-      const transactionsHTML = transactions
-        .map(
-          (transaction) => `
-      <li>
-        <hr>
-        <p>Transacción</p>
-        <h3>${transaction.description}</h3>
-        <br>
-        <div>
-        <span>Fecha: ${
-          transaction.created_at ? `${transaction.created_at}`.slice(0, 10) : ""
-        }</span>
-        <span>Monto: $ ${transaction.amount || ""}</span>
-        </div>
-      </li>
-      `
-        )
-        .join("");
-
-      const bodyEnd = `
-            <hr>
-          </ul>
-        </body>
-      `;
-
-      const content = head + bodyInit + transactionsHTML + bodyEnd;
-
-      var fileNameGlobal = `transacciones-${
-        meses[month]
-      }-${new Date().getTime()}.pdf`;
-
-      pdf
-        .create(content)
-        .toFile(`./public/pdf/${fileNameGlobal}`, (err, res) => {
-          if (err) {
-            throw new Error(err.message);
-          }
-        });
+      report = await makeReportHtml.create(transactions, month);
     }
 
-    res.json([transactions, `http://localhost:4000/pdf/${fileNameGlobal}`]);
+    res.json([transactions, report ? report.url : ""]);
   } catch (error) {
     console.log(error);
     res.status(400).json({ error: error.stringValue });
@@ -145,8 +93,19 @@ transactionsCtrl.getTransactionsMonth = async (req, res) => {
 };
 
 transactionsCtrl.getTransactions = async (req, res) => {
-  const transactions = await Transaction.find();
-  res.json(transactions);
+  try {
+    const transactions = await Transaction.find();
+
+    let report;
+    if (transactions.length) {
+      report = await makeReportHtml.create(transactions);
+    }
+
+    res.json([transactions, report ? report.url : ""]);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json(error.message);
+  }
 };
 
 module.exports = transactionsCtrl;
