@@ -4,8 +4,9 @@ const NextCardNumber = require("../models/cards");
 const DestinationCard = require("../models/cards");
 const {Transaction} = require("../models/transactions");
 
-const passport = require("passport");
+/* const passport = require("passport");
 const jwt = require("jsonwebtoken");
+const auth = require("../middlewares/auth"); */
 const helpersCtrl = require("../middlewares/auth");
 
 

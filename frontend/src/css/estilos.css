@@ -32,7 +32,7 @@ body {
 	z-index: 2;
 }
 
-.tarjeta .active {
+/* .tarjeta .active {
 	transform: rotateY(180deg);
 }
 
@@ -46,7 +46,7 @@ body {
 	box-shadow: 0 10px 10px 0 rgba(90,116,148,0.3);
 }
 
-/* ---------- Tarjeta Delantera ----------*/
+
 
 .tarjeta .delantera {
 	width: 100%;
@@ -92,7 +92,7 @@ body {
 	margin-top: 20px;
 }
 
-/* ---------- Tarjeta Trasera ----------*/
+
 .trasera {
 	background: url(../img/bg-tarjeta/bg-tarjeta-02.jpg);
 	background-size: cover;
@@ -161,7 +161,7 @@ body {
 	color: #fff;
 }
 
-/* ---------- Contenedor Boton ----------*/
+
 .contenedor-btn .btn-abrir-formulario {
 	width: 50px;
 	height: 50px;
@@ -188,7 +188,7 @@ body {
 	transform: rotate(45deg);
 }
 
-/* ---------- Formulario Tarjeta ----------*/
+
 .formulario-tarjeta {
 	background: #fff;
 	width: 100%;
@@ -288,4 +288,4 @@ body {
 
 .formulario-tarjeta .btn-enviar:hover {
 	background: #1850b1;
-}
+} */

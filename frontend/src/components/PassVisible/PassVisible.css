@@ -1,0 +1,22 @@
+.container-pass-visible{
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.container-pass-visible > input {
+  height: 3em;
+  width: 100%;
+}
+
+.button-pass-visible{
+  object-fit: contain;
+  height: 1.8em;
+  width: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: .2em;
+  opacity: .8;
+  margin-left: -14%;
+}

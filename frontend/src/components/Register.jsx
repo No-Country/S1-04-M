@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Home/styles.css";
-import { useDispatch} from "react-redux";
-import {register } from "../actions/Actions";
+import { useDispatch } from "react-redux";
+import { register } from "../actions/Actions";
 import logo from "../img/logos/bankforyou.png";
 
 export const Register = () => {
   const navigate = useNavigate();
-  
+
   const dispatch = useDispatch();
 
 const [error, setError] = useState(false);

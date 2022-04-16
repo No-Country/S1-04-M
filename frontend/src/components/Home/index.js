@@ -1,21 +1,30 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../actions/Actions";
 import "./styles.css";
 import logo from "../../img/logos/bankforyou.png";
+import PassVisible from "../PassVisible/PassVisible";
 
 export const Home = () => {
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
+  const [isError, setIsError] = useState(false);
+  const isUser = useSelector((state) => state.data);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(login(user));
+    console.log(isUser);
+    if (isUser.hasOwnProperty("error")) {
+      setIsError(true);
+      // return;
+    }
+    if (isError) setIsError(false);
     navigate("/balans");
   };
 
@@ -24,10 +33,6 @@ export const Home = () => {
       ...user,
       [e.target.name]: e.target.value,
     });
-  };
-
-  const handleRedirectRegister = () => {
-    navigate("/register");
   };
 
   return (
@@ -42,20 +47,18 @@ export const Home = () => {
           name="email"
           onChange={handleChange}
         />
-        <input
-          type="password"
-          name="password"
-          placeholder="Contraseña"
-          value={user.password}
-          onChange={handleChange}
-        />
+        <PassVisible handleChange={handleChange} value={user.password} />
+
         <button className="button" type="submit">
           Iniciar Sesión
         </button>
 
-        <button className="button" onClick={handleRedirectRegister}>
+        <Link className="button" to="/register">
           Registrarse
-        </button>
+        </Link>
+        {isError && (
+          <span className="error">Email o contraseña incorrecta</span>
+        )}
       </form>
     </section>
   );
