@@ -7,7 +7,7 @@ import { getCardByIdUser, getUserId } from "../../actions/Actions";
 
 export const Balans = () => {
   const { user } = useSelector((state) => state.data);
-  const { transactions, isError, isLoading, setMode } = useTransactions();
+  const { transactions, isError, isLoading, setMode, mode } = useTransactions();
 
   const dispatch = useDispatch();
 
@@ -24,7 +24,7 @@ export const Balans = () => {
   }, [dispatch, user]);
 
   useEffect(() => {
-    setMode("all");
+    mode !== "all" && setMode("all");
   }, []); // eslint-disable-line
 
   return (
@@ -36,7 +36,7 @@ export const Balans = () => {
           <div className="card-body">
             <h5 className="card-title">Historial de transacciones</h5>
             <HistoryTransactions
-              transactions={transactions.splice(0, 5)}
+              transactions={transactions.slice(0, 5)}
               isLoading={isLoading}
               isError={isError}
             />
