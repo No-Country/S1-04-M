@@ -4,6 +4,7 @@ import "./Home/styles.css";
 import { useDispatch } from "react-redux";
 import { register } from "../actions/Actions";
 import logo from "../img/logos/bankforyou.png";
+import PassVisible from "./PassVisible/PassVisible";
 
 export const Register = () => {
   const navigate = useNavigate();
@@ -22,7 +23,6 @@ const [error, setError] = useState(false);
     city: "",
     country: "",
     cp: "",
-    cardNumber: "",
     password: "",
     password2: "",
     date: "",
@@ -86,11 +86,13 @@ const [error, setError] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
     if (ifFormIsValid()) {
+    
     dispatch(register(user));
   }
   if(token){ 
     navigate("/balans");
   }
+  console.log(user);
   };
 
   const handleChange = (e) => {
@@ -181,13 +183,7 @@ const [error, setError] = useState(false);
           name="cp"
           onChange={handleChange}
         />
-        <input
-          type="password"
-          placeholder="Contraseña"
-          value={user.password}
-          name="password"
-          onChange={handleChange}
-        />
+       <PassVisible handleChange={handleChange} value={user.password}/>
         <input
           type="password"
           placeholder="Confirmar Contraseña"

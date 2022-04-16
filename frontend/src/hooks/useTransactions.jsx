@@ -28,7 +28,7 @@ export default function useTransactions() {
     }
     if (mode === "all") {
       setUrlReport("");
-      console.log("http://localhost:4000/api/transactions/");
+     /*  console.log("http://localhost:4000/api/transactions/"); */
       setIsLoading(true);
       fetch("http://localhost:4000/api/transactions/")
         .then((res) => res.json())

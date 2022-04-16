@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Cards from "react-credit-cards";
 import "react-credit-cards/es/styles-compiled.css";
 import "../../css/estilos.css";
+import PassVisible from "../PassVisible/PassVisible";
 
 export const Card = ({ card }) => {
   const { number, user_name, cvv, date } = card;
@@ -30,19 +31,6 @@ export const Card = ({ card }) => {
     });
   };
 
-  const handleFocusChange = (e) => {
-    const checked = document.getElementById("checkbox").checked;
-    if(checked === "true"){
-     setState({ ...state, focus: "cvc"})
-    }
-    else{
-      setState({ ...state, focus: "name" });
-    }
-    /* setState({
-      ...state,
-      focus: e.target.name ?  "name" : e.target.name,
-    }); */
-  };
 
     
 
@@ -60,24 +48,17 @@ export const Card = ({ card }) => {
             />
             <form>
               <div className="form-group col-md-6">
-                <label htmlFor="cvc">CVV</label>
+                <label>Saldo</label>
                 <input
                   type="text"
                   className="form-control"
-                  id="name"
-                  name="name"
-              onFocus={handleFocusChange}
-              />
-
-              <input
-                  type="checkbox"
-                  name="cvc"
-                  id="cvc"
-                  value={cvv}
-                  checked={false}
-                  onChange={handleInputChange}
-                  onFocus={handleFocusChange}
+                  placeholder="Saldo"
+                  value={card.balance}
+                  disabled
                 />
+
+                <label>CVV</label>
+               <PassVisible handleChange={handleInputChange} value={cvv} name="cvc" id="cvc"/>
               </div>
             </form>
           </div>

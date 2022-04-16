@@ -5,8 +5,9 @@ export const register = (usuario) => async (dispatch) => {
   const post = await axios.post("http://localhost:4000/api/users/signup", usuario)
 const json = post.data.messages[0];
 const user = json.user;
+const token = json.user_token;
+sessionStorage.setItem("token", token);
 sessionStorage.setItem("user", user)
-console.log(user)
 return dispatch({
     type: Types.register,
     payload: user

@@ -14,7 +14,9 @@ const {card} = useSelector((state) => state);
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if(user?.length > 0){
 dispatch(getUserId(user))
+    }
 }, [dispatch, user]);
 
 useEffect(() => {
