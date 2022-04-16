@@ -14,17 +14,19 @@ const {card} = useSelector((state) => state);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if(user?.length > 0){
+    setTimeout(() => {
 dispatch(getUserId(user))
-    }
+dispatch(getCardByIdUser(user))
+    }, 2000);
 }, [dispatch, user]);
 
-useEffect(() => {
+/* useEffect(() => {
   dispatch(getCardByIdUser(user))
-}, [dispatch, user]);
+}, [dispatch, user]); */
 
   return (
     <div className="sections">
+
       {card?._id?.length > 0 ? (
         <Card card={card} />
       ) : (

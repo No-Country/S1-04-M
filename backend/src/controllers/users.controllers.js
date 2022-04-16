@@ -105,18 +105,18 @@ usersCtrl.createNewUser = async (req, res) => {
    
       let new_card = "Sin card";
       try {
-        const fecha_vencimiento = new Date().setFullYear(new Date().getFullYear() + 4);
+        const fecha_vencimiento = new Date();
         const name = newUser.name + " " + newUser.lastname;
         const cvv = Math.random() * (999 - 0) + 0;
         const card_cvv = cvv.toString().substring(0,3);
   
         new_card = await newCard( new_cardnumber, newUser._id , name, 0, true, true, card_cvv, fecha_vencimiento);
-             
       }
       catch (error){
         console.error(error);
       } 
-      messages.push({ user: newUser._id, new_cardnumber_id: new_card._id,  })
+      const token = jwt.sign({ user: newUser }, "top_secret");     
+      messages.push({ user: newUser._id, new_cardnumber_id: new_card._id, user_token:token })
       return res.json({ messages });
     }
   }

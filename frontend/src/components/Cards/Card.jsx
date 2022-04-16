@@ -6,7 +6,7 @@ import PassVisible from "../PassVisible/PassVisible";
 
 export const Card = ({ card }) => {
   const { number, user_name, cvv, date } = card;
-
+console.log(date)
   let date1 = new Date(date ? date?.replace(/-+/g, "/") : "");
   let options = {
     year: "numeric",
