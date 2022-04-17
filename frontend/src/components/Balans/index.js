@@ -30,17 +30,17 @@ export const Balans = () => {
 
   return (
     <div className="sections">
-      {card?._id?.length > 0 ? (
-        <Card card={card} />
-      ) : (
-        <div>
-          <p>Cargando...</p>
-        </div>
-      )}
-
       <h1>Movimientos</h1>
-      <hr />
-      <div className="col-md-6">
+      <div className="sections-grid">
+        {card?._id?.length > 0 ? (
+          <div className="container-card">
+            <Card card={card} />
+          </div>
+        ) : (
+          <div>
+            <p>Cargando...</p>
+          </div>
+        )}
         <div className="card">
           <div className="card-body">
             <h5 className="card-title">Historial de transacciones</h5>
