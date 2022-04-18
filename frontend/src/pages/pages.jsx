@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import { About } from "../components/About";
@@ -10,20 +10,33 @@ import { NewCard } from "../components/NewCard";
 import { CloseSesion } from "../components/CloseSesion";
 import { Transactions } from "../components/Transactions";
 import NavBar from "../components/NavBar";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Register } from "../components/Register";
 import { Card } from "../components/Cards/Card";
 import HistoryPage from "../components/HistoryPage/HistoryPage";
 import { DestinationCard } from "../components/DestinationCard";
+import Profile from "../components/Profile/Profile";
+import { useSelector } from "react-redux";
 
 export const Pages = () => {
   let location = useLocation();
+  const navigate = useNavigate();
+  const data = useSelector((state) => state);
+
+  useEffect(() => {
+    setTimeout(() => {
+      location.pathname !== "/" &&
+        location.pathname !== "/register" &&
+        !data.length &&
+        navigate("/closesesion");
+    }, 100);
+  }, []);
 
   return (
     <div>
-      {location.pathname !== "/" && location.pathname !== "/register" &&
+      {location.pathname !== "/" && location.pathname !== "/register" && (
         <NavBar />
-        }
+      )}
 
       <Routes>
         <Route path="/" element={<Home />} />
@@ -38,6 +51,8 @@ export const Pages = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/card" element={<Card />} />|
         <Route path="/addcardtransfer" element={<DestinationCard />} />
+        <Route path="/card" element={<Card />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </div>
   );

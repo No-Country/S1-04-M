@@ -33,3 +33,11 @@
  .nav-item-white:hover{
    background-color: #007fd4;
   }
+
+  .navbar-toggler-icon{
+    background-image: url("../img/menu-white.png") !important ;
+    background-repeat: no-repeat;
+    background-size: 1em;
+    background-position: center;
+  };
+  

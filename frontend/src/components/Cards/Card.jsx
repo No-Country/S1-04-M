@@ -5,8 +5,8 @@ import "../../css/estilos.css";
 import PassVisible from "../PassVisible/PassVisible";
 
 export const Card = ({ card }) => {
-   
-     const { number, user_name, cvv, date } = card;
+  const { number, user_name, cvv, date } = card;
+  console.log(date);
   let date1 = new Date(date ? date?.replace(/-+/g, "/") : "");
   let options = {
     year: "numeric",
@@ -14,7 +14,6 @@ export const Card = ({ card }) => {
   };
 
   let date2 = date1.toLocaleDateString("es-ES", options);
-  
 
  const [state, setState] = useState({
    number: number ? number : "",
@@ -31,15 +30,13 @@ export const Card = ({ card }) => {
     });
   };
 
-
-    
-
   return (
-    <div className="container">
+    <div>
       <section className="tarjeta">
         <div className="card">
           <div className="card-body">
             <Cards
+              className={{}}
               number={state.number}
               name={state.name}
               expiry={state.expiry}
@@ -58,7 +55,12 @@ export const Card = ({ card }) => {
                 />
 
                 <label>CVV</label>
-               <PassVisible handleChange={handleInputChange} value={cvv} name="cvc" id="cvc"/>
+                <PassVisible
+                  handleChange={handleInputChange}
+                  value={cvv}
+                  name="cvc"
+                  id="cvc"
+                />
               </div>
             </form>
           </div>

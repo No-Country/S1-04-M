@@ -64,9 +64,9 @@ export default function NavBar({ navigationStatus, setNavigationStatus }) {
               </ul>
             </li>
             <li className="nav-item">
-              <a className="nav-link text-info nav-item-white" href="#">
-                Configuración de Cuenta
-              </a>
+              <Link className="nav-link text-info nav-item-white" to="/profile">
+                Mi Cuenta
+              </Link>
             </li>
             <li className="nav-item">
               <Link
