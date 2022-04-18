@@ -19,7 +19,6 @@ export const Home = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(login(user));
-    console.log(isUser);
     if (isUser.hasOwnProperty("error")) {
       setIsError(true);
       // return;

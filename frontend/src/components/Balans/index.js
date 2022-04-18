@@ -15,33 +15,32 @@ const {card} = useSelector((state) => state);
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    setTimeout(() => {
-dispatch(getUserId(user))
-dispatch(getCardByIdUser(user))
-    }, 2000);
+useEffect(() => {
+  setTimeout(() => {
+    dispatch(getUserId(user));
+  }, 20);
 }, [dispatch, user]);
 
-  useEffect(() => {
-    setTimeout(() => {
-      dispatch(getCardByIdUser(user));
-    }, 1000);
-  }, [dispatch, user]);
+useEffect(() => {
+  setTimeout(() => {
+dispatch(getCardByIdUser(user));
+  }, 20);
+mode !== "all" && setMode("all");
+}, [mode, setMode,dispatch,user]);
 
-  useEffect(() => {
-    mode !== "all" && setMode("all");
-  }, []); // eslint-disable-line
+
 
   return (
     <div className="sections">
 
-      {card?._id?.length > 0 ? (
-        <Card card={card} />
+      {!card.length ? (
+        <span>Cargando...</span>
       ) : (
-        <div> 
-          <p>Cargando...</p>
-        </div>
+        card?.map((card) => (
+          <Card key={card.id} card={card} />
+        ))
       )}
+
 
       <h1>Movimientos</h1>
       <hr />

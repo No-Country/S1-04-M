@@ -7,7 +7,6 @@ import { ConfirmTransaction } from "../components/ConfirmTransaction";
 import { HistoryTransactions } from "../components/HistoryTransactions/HistoryTransactions";
 import { Home } from "../components/Home";
 import { NewCard } from "../components/NewCard";
-import NewTransaction from "../components/NewTransaction";
 import { CloseSesion } from "../components/CloseSesion";
 import { Transactions } from "../components/Transactions";
 import NavBar from "../components/NavBar";
@@ -15,6 +14,7 @@ import { useLocation } from "react-router-dom";
 import { Register } from "../components/Register";
 import { Card } from "../components/Cards/Card";
 import HistoryPage from "../components/HistoryPage/HistoryPage";
+import { DestinationCard } from "../components/DestinationCard";
 
 export const Pages = () => {
   let location = useLocation();
@@ -37,6 +37,7 @@ export const Pages = () => {
         <Route path="/newcard" element={<NewCard />} />
         <Route path="/register" element={<Register />} />
         <Route path="/card" element={<Card />} />|
+        <Route path="/addcardtransfer" element={<DestinationCard />} />
       </Routes>
     </div>
   );

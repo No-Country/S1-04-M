@@ -53,9 +53,46 @@ export const lastCardNumber = () => async (dispatch) => {
   export const getCardByIdUser = (id) => async (dispatch) => {
     const get = await axios.get(`http://localhost:4000/api/cards/byUser/${id}`,
   );
-    const json = get.data[0];
+    const json = get.data;
     return dispatch({
       type: Types.getCardByIdUser,
+      payload: json,
+    })
+  }
+
+  export const postDestinationCard = (card) => async (dispatch) => {
+    const post = await axios.post(
+      "http://localhost:4000/api/cards/destinationCards",
+      card
+    );
+    const json = post.data;
+    return dispatch({
+      type: Types.postDestinationCard,
+      payload: json,
+    })
+  }
+
+  export const getDestinationCardById = (id) => async (dispatch) => {
+    const get = await axios.get(
+      `http://localhost:4000/api/cards/destinationCards/byUser/${id}`
+    );
+    const json = get.data;
+    return dispatch({
+      type: Types.getDestinationCardById,
+      payload: json,
+    })
+  }
+
+  export const postTransactions = (transaction) => async (dispatch) => {
+    console.log(transaction)
+    const post = await axios.post(
+      "http://localhost:4000/api/transactions",
+      transaction
+    );
+    const json = post.data;
+    console.log(json)
+    return dispatch({
+      type: Types.postTransactions,
       payload: json,
     })
   }

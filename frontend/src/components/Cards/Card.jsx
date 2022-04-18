@@ -5,8 +5,8 @@ import "../../css/estilos.css";
 import PassVisible from "../PassVisible/PassVisible";
 
 export const Card = ({ card }) => {
-  const { number, user_name, cvv, date } = card;
-console.log(date)
+   
+     const { number, user_name, cvv, date } = card;
   let date1 = new Date(date ? date?.replace(/-+/g, "/") : "");
   let options = {
     year: "numeric",
@@ -16,13 +16,13 @@ console.log(date)
   let date2 = date1.toLocaleDateString("es-ES", options);
   
 
-  const [state, setState] = useState({
-    number: number ? number : "",
-    name: user_name ? user_name : "",
-    expiry: date2 ? date2 : "",
-    cvc: cvv ? cvv : "",
-    focus: "",
-  });
+ const [state, setState] = useState({
+   number: number ? number : "",
+   name: user_name ? user_name : "",
+   expiry: date2 ? date2 : "",
+   cvc: cvv ? cvv : "",
+   focus: "",
+ });
 
   const handleInputChange = (e) => {
     setState({
@@ -66,4 +66,4 @@ console.log(date)
       </section>
     </div>
   );
-};
+}

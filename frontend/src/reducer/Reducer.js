@@ -4,7 +4,9 @@ const initialState = {
   isLoading: false,
   data: [],
   users: {},
-  card: {},
+  card: [],
+  destinationCard: [],
+  transactions: {},
 };
 
 export const Reducer = (state = initialState, action) => {
@@ -42,7 +44,21 @@ export const Reducer = (state = initialState, action) => {
         ...state,
         card: action.payload,
       };
-
+    case Types.postDestinationCard:
+      return {
+        ...state,
+        destinationCard: action.payload,
+      };
+    case Types.getDestinationCardById:
+      return {
+        ...state,
+        destinationCard: action.payload,
+      };
+    case Types.postTransactions:
+      return {
+        ...state,
+        transactions: action.payload,
+      };
     default:
       return state;
   }
