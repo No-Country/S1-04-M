@@ -6,7 +6,7 @@ const transactionSchema = new Schema(
   {
     origin: { type: String, required: true }, //poner unique antes que required
     destiny: { type: String, required: true },
-    destiny_name: { type: String, required: true },
+    destiny_name: { type: String },
     amount: { type: Number, required: true },
     description: { type: String, required: true },
   },

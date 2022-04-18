@@ -27,40 +27,32 @@ export const Balans = () => {
 
   return (
     <div className="sections">
-      {!card.length ? (
-        <span>Cargando...</span>
-      ) : (
-        card?.map((card) => <Card key={card.id} card={card} />)
-      )}
-      return (
-      <div className="sections">
-        <h1>Movimientos</h1>
-        <div className="sections-grid">
-          {card?._id?.length > 0 ? (
-            <div className="container-card">
-              <Card card={card} />
-            </div>
-          ) : (
-            <div>
-              <p>Cargando...</p>
-            </div>
-          )}
-          <div className="card">
-            <div className="card-body">
-              <h5 className="card-title">Historial de transacciones</h5>
-              <HistoryTransactions
-                transactions={transactions.slice(0, 5)}
-                isLoading={isLoading}
-                isError={isError}
-              />
-              <Link
-                className="button"
-                style={{ backgroundColor: "rgb(72, 196, 58)" }}
-                to="/history"
-              >
-                Ver más
-              </Link>
-            </div>
+      <h1>Movimientos</h1>
+      <div className="sections-grid">
+        {!card.length ? (
+          <span>Cargando...</span>
+        ) : (
+          <div className="container-card">
+            {card?.map((card) => (
+              <Card key={card.id} card={card} />
+            ))}
+          </div>
+        )}
+        <div className="card">
+          <div className="card-body">
+            <h5 className="card-title">Historial de transacciones</h5>
+            <HistoryTransactions
+              transactions={transactions.slice(0, 5)}
+              isLoading={isLoading}
+              isError={isError}
+            />
+            <Link
+              className="button"
+              style={{ backgroundColor: "rgb(72, 196, 58)" }}
+              to="/history"
+            >
+              Ver más
+            </Link>
           </div>
         </div>
       </div>

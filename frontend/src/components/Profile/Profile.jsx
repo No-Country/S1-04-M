@@ -38,7 +38,15 @@ export default function Profile() {
         <div className="card">
           <h3 className="card-header">Mis tarjetas</h3>
           <div>
-            <Card card={card} />
+            {card ?
+              card?.map((card) => (
+                <Card
+                  key={card.id}
+                  card={card}
+                  />
+              )) : (
+                <p>No tienes tarjetas</p>
+              )}
           </div>
         </div>
       </div>

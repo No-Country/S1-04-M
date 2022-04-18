@@ -19,16 +19,53 @@ const makeReportHtml = require("../middlewares/makeReportHtml");
 
 transactionsCtrl.createNewTransaction = async (req, res) => {
   const { origin, destiny, destiny_name, amount, description } = req.body;
-console.log("transaction", destiny)
   const filter_origin = { _id: origin };
   const filter_destiny = { _id: destiny };
 
-  const card = await Card.Card.find(filter_origin);
+  const card = await Card.Card.findOne(filter_origin);
+  
+  if (card.balance < amount) {
+    return res.status(400).json({
+      error: "No hay suficiente saldo en la tarjeta",
+    });
+  }
+
+  const newTransaction = new Transaction({
+    origin,
+    destiny,
+    destiny_name,
+    amount,
+    description,
+  });
+
+  const transaction = await newTransaction.save();
+
+  const newBalance = await Card.Card.findOneAndUpdate(
+    filter_origin,
+    { $inc: { balance: -amount } },
+    { new: true }
+  );
+
+  const newDestinyCard = await Card.Card.findOneAndUpdate(
+    filter_destiny,
+    { $inc: { balance: amount } },
+    { new: true }
+  );
+
+  res.json({
+    transaction,
+    newBalance,
+    newDestinyCard,
+  });
+};
+/* 
 
   let total = 0;
 
   if (card) {
-    if (card[0]?.balance >= amount) {
+    console.log("card",card);
+    if (card?.balance >= amount) {
+    
       const transaction = new Transaction({
         origin,
         destiny,
@@ -44,7 +81,7 @@ console.log("transaction", destiny)
             .send({ error: `Error creating transaction: ${err}` });
       });
     } else {
-      return res.json({ error: `No cuentas con el saldo para esta operacion` });
+      return res.json({ error: `Not enough balance for this operation` });
     }
   } else {
     return res.json({ error: `Origin Card not found` });
@@ -57,10 +94,8 @@ console.log("transaction", destiny)
   const card_destiny = await Card.Card.findOneAndUpdate(filter_destiny, {
     $inc: { balance: amount },
   });
-
-
-  return res.json({ message: `Transferencia exitosa` });
-};
+  return res.json({ message: `New transaction was created` });
+}; */
 
 transactionsCtrl.getTransactions = async (req, res) => {
   const transactions = await Transaction.find();
