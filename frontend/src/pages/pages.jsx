@@ -7,7 +7,6 @@ import { ConfirmTransaction } from "../components/ConfirmTransaction";
 import { HistoryTransactions } from "../components/HistoryTransactions/HistoryTransactions";
 import { Home } from "../components/Home";
 import { NewCard } from "../components/NewCard";
-import NewTransaction from "../components/NewTransaction";
 import { CloseSesion } from "../components/CloseSesion";
 import { Transactions } from "../components/Transactions";
 import NavBar from "../components/NavBar";
@@ -17,6 +16,7 @@ import { Card } from "../components/Cards/Card";
 import HistoryPage from "../components/HistoryPage/HistoryPage";
 import Profile from "../components/Profile/Profile";
 import { useSelector } from "react-redux";
+import { DestinationCard } from "../components/DestinationCard";
 
 export const Pages = () => {
   let location = useLocation();
@@ -51,6 +51,7 @@ export const Pages = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/card" element={<Card />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/addcardtransfer" element={<DestinationCard />} />
       </Routes>
     </div>
   );

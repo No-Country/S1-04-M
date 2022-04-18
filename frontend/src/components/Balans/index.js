@@ -16,26 +16,26 @@ export const Balans = () => {
   useEffect(() => {
     setTimeout(() => {
       dispatch(getUserId(user));
+    }, 20);
+    setTimeout(() => {
       dispatch(getCardByIdUser(user));
-    }, 2000);
+    }, 20);
   }, [dispatch, user]);
 
   useEffect(() => {
     mode !== "all" && setMode("all");
   }, []); // eslint-disable-line
 
-  /* useEffect(() => {
-  dispatch(getCardByIdUser(user))
-}, [dispatch, user]); */
-
   return (
     <div className="sections">
       <h1>Movimientos</h1>
       <div className="sections-grid">
-        {card?._id?.length > 0 ? (
-          <div className="container-card">
-            <Card card={card} />
-          </div>
+        {card.length ? (
+          card.map((card) => (
+            <div className="container-card">
+              <Card key={card.id} card={card} />
+            </div>
+          ))
         ) : (
           <div>
             <p>Cargando...</p>

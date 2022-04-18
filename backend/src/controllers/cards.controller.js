@@ -75,7 +75,7 @@ cardsCtrl.getCardsbyUser = async (req, res) => {
 cardsCtrl.getDestinationCardsbyUser = async (req, res) => {
 
   try {
-  const { id } = req.body;
+  const { id } = req.params;
   const filter = {"user_id": id};
   if(id){ 
   const cards = await DestinationCard.DestinationCard.find(filter);
@@ -218,13 +218,14 @@ cardsCtrl.createNew = async (req, res) => {
 
 
 cardsCtrl.createNewDestinationCard = async (req, res) => {
-  const { user_id, card_number, destination_name, internal} = req.body;
+  const { user_id, card_number, destination_name, internal,alias} = req.body;
 
   const destinationCard = new DestinationCard.DestinationCard({
   user_id,
   card_number,
   destination_name,
-  internal
+  internal,
+  alias
   });
 
   await destinationCard.save((err) => {

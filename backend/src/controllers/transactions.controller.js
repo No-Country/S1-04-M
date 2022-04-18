@@ -19,7 +19,7 @@ const makeReportHtml = require("../middlewares/makeReportHtml");
 
 transactionsCtrl.createNewTransaction = async (req, res) => {
   const { origin, destiny, destiny_name, amount, description } = req.body;
-
+console.log("transaction", destiny)
   const filter_origin = { _id: origin };
   const filter_destiny = { _id: destiny };
 
@@ -28,7 +28,7 @@ transactionsCtrl.createNewTransaction = async (req, res) => {
   let total = 0;
 
   if (card) {
-    if (card[0].balance >= amount) {
+    if (card[0]?.balance >= amount) {
       const transaction = new Transaction({
         origin,
         destiny,
@@ -41,13 +41,13 @@ transactionsCtrl.createNewTransaction = async (req, res) => {
         if (err)
           return res
             .status(500)
-            .send({ message: `Error creating transaction: ${err}` });
+            .send({ error: `Error creating transaction: ${err}` });
       });
     } else {
-      return res.json({ message: `Not enough balance for this operation` });
+      return res.json({ error: `No cuentas con el saldo para esta operacion` });
     }
   } else {
-    return res.json({ message: `Origin Card not found` });
+    return res.json({ error: `Origin Card not found` });
   }
 
   const amount_dec = amount * -1;
@@ -57,7 +57,9 @@ transactionsCtrl.createNewTransaction = async (req, res) => {
   const card_destiny = await Card.Card.findOneAndUpdate(filter_destiny, {
     $inc: { balance: amount },
   });
-  return res.json({ message: `New transaction was created` });
+
+
+  return res.json({ message: `Transferencia exitosa` });
 };
 
 transactionsCtrl.getTransactions = async (req, res) => {

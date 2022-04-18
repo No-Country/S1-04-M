@@ -1,19 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { getDestinationCardById } from "../actions/Actions";
 
 export const Transactions = () => {
 
     const navigate = useNavigate();
 
-    /* const dispatch c= useDispatch() */
+    const dispatch = useDispatch() 
 
-    const [transaction, setTansaction] = React.useState({
+    const [transaction, setTansaction] = useState({
         count_user: "",
         count_destiny: "",
+        id_destiny: "",
         amount: "",
       description: "",
-      type: "",
     });
+    const {user} = useSelector(state => state.data);
+    const {card} = useSelector(state => state);
+    const {destinationCard}= useSelector(state => state);
+    useEffect(() => {
+      dispatch(getDestinationCardById(user));
+    }, [dispatch]);
+
 
     const handleChange = (event) => {
       setTansaction({
@@ -28,13 +37,17 @@ export const Transactions = () => {
       setTansaction({
         count_user: "",
         count_destiny: "",
+        id_destiny: "",
         amount: "",
         description: "",
-        type: "",
       });
       navigate("/confirm");
     };
 
+const handleRedirect = (e) => {
+  e.preventDefault();
+  navigate("/addcardtransfer");
+};
 
     return (
       <div>
@@ -44,27 +57,48 @@ export const Transactions = () => {
           <form className="form-transactions" onSubmit={handleSubmit}>
             <label>
               <span className="label-special">CUENTA ORIGEN</span>
-              <select className="input-special" value={transaction.count_user} name="count_user" onChange={handleChange}>
-                <option value="1">Card 1</option>
-                <option value="2">Card 2</option>
-                <option value="3">Card 3</option>
-              </select>
-            </label>
-            <button className="button button-blue">Elegir</button>
+              {card ? (
+                card?.map((card) => (
+                <select
+                  className="input-special"
+                  value={transaction.count_user}
+                  name="count_user"
+                  onChange={handleChange}
+                >
+                  <option>Selecciona tu tarjeta</option>
 
+                  <option value={card._id}>{card.number}</option>
+                </select>
+              ))): (
+                <span>No tienes cuentas</span>
+              )}
+              </label>
             <span className="label-special">DESTINARIO</span>
             <label>
-              <button className="button button-blue">Agregar</button>
-              <select
-                className="input-special"
-                value={transaction.count_destiny}
-                name="count_destiny"
-                onChange={handleChange}
-              >
-                <option value="1">Card 1</option>
-                <option value="2">Card 2</option>
-                <option value="3">Card 3</option>
-              </select>
+              <button className="button button-blue" onClick={handleRedirect}>
+                Agregar
+              </button>
+              {destinationCard.length > 0 ? (
+                destinationCard?.map((destinationCard) => (      
+                    <select
+                    className="input-special"
+                    value={transaction.count_destiny}
+                    name="count_destiny"
+                    onChange={handleChange}
+                  >
+                    <option value={destinationCard.id}>
+                      {destinationCard.alias}
+                    </option>
+                    <option value={destinationCard._id}>
+                      {destinationCard.card_number}
+                    </option>
+                  </select>
+
+                )) 
+                
+              ) : (
+                <span>No hay tarjetas de destino</span>
+              )}
             </label>
             <label>
               <input

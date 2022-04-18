@@ -22,6 +22,7 @@ const destinationCardSchema = new Schema({
   card_number: { type: String, unique: true, required: true }, //poner unique antes que required
   destination_name: { type: String, required: true },  
   internal: { type: Boolean, default: true },
+  alias: { type: String, required: true },
 });
 
 
