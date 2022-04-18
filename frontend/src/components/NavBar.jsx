@@ -8,7 +8,7 @@ export default function NavBar({ navigationStatus, setNavigationStatus }) {
   return (
     <nav className="navbar navbar-expand-lg navbar-light  navbar-color ">
       <div className="container-fluid">
-        <Link className="navbar-brand" to="/">
+        <Link className="navbar-brand" to="/balans">
           <img
             className="logo"
             style={{ marginBlockEnd: "0" }}
@@ -53,21 +53,22 @@ export default function NavBar({ navigationStatus, setNavigationStatus }) {
                 </li>
                 <li>
                   <Link className="dropdown-item" to="/history">
-                    Historia de Transacciones
-                  </Link>
-                </li>
-                <li>
-                  <Link className="dropdown-item" to="#">
-                    Gráfica de Transacciones
+                    Historial de Transacciones
                   </Link>
                 </li>
               </ul>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link text-info nav-item-white" to="/balans">
+                Movimientos
+              </Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link text-info nav-item-white" to="/profile">
                 Mi Cuenta
               </Link>
             </li>
+
             <li className="nav-item">
               <Link
                 className="nav-link text-info nav-item-white "

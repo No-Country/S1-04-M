@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Card } from "../Cards/Card";
+import "./Profile.css";
 
 export default function Profile() {
   const user = useSelector((state) => state.users.userQuery);
@@ -11,12 +12,10 @@ export default function Profile() {
       <h2>Cuenta</h2>
       <div className="sections-grid">
         <div className=" card">
-          <h3 className="card-header">Mis datos</h3>
-          <div className="card-body">
-            <p>
-              <h4>Nombre</h4>
-              <p>{user.name}</p>
-            </p>
+          <h3 className="card-header title-subgeneral">Mis datos</h3>
+          <div className="card-body profile-card">
+            <h4>Nombre</h4>
+            <p>{user.name}</p>
             <h4>Apellido</h4>
             <p>{user.lastname}</p>
             <h4>DNI</h4>
@@ -25,20 +24,22 @@ export default function Profile() {
             <p>{user.date.slice(0, 10)}</p>
             <h4>Correo</h4>
             <p>{user.email}</p>
-            <h4>Telefono</h4>
+            <h4>Teléfono</h4>
             <p>{user.phone}</p>
             <h4>País</h4>
             <p>{user.country}</p>
             <h4>Ciudad</h4>
             <p>{user.city}</p>
-            <h4>Cod. Postal</h4>
+            <h4>Cód. Postal</h4>
             <p>{user.cp}</p>
           </div>
         </div>
         <div className="card">
-          <h3 className="card-header">Mis tarjetas</h3>
+          <h3 className="card-header  title-subgeneral">Mis tarjetas</h3>
           <div>
-            <Card card={card} />
+            {card?.map((card) => {
+              return <Card key={card.id} card={card} />;
+            })}
           </div>
         </div>
       </div>
