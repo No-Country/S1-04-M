@@ -79,55 +79,7 @@ export const Transactions = () => {
             <button className="button button-blue" onClick={handleRedirect}>
               Agregar
             </button>
-            {destinationCard ? (
-              destinationCard?.map((destinationCard) => (
-                <select
-                  className="input-special"
-                  value={transaction.count_destiny}
-                  name="count_destiny"
-                  onChange={handleChange}
-                >
-                  <option>Selecciona tu tarjeta</option>
-                  <option value={destinationCard._id}>
-                    {destinationCard.card_number}
-                  </option>
-                </select>
-              ))
-            ) : (
-              <span>No hay tarjetas de destino</span>
-            )}
-          </label>
-          <label>
-            <span className="label-special">MONTO</span>
-            <input
-              className="input-special"
-              type="number"
-              name="amount"
-              value={transaction.amount}
-              onChange={handleChange}
-            />
-          </label>
-          <label>
-            <span className="label-special">DESCRIPCION</span>
-            <input
-
-              className="input-special"
-              type="text"
-              name="description"
-              value={transaction.description}
-              onChange={handleChange}
-            />
-          </label>
-          <button className="button button-blue">
-            <span>Enviar</span>
-          </button>
-        </form>
-      </section>
-    </div>
-  );
-};
-/* 
-            {destinationCard.length > 0 ? (
+                      {destinationCard.length > 0 ? (
               destinationCard?.map((destinationCard) => (
                 <select
                   className="input-special"
@@ -181,4 +133,3 @@ export const Transactions = () => {
     </div>
   );
 };
- */

@@ -90,13 +90,12 @@ export const lastCardNumber = () => async (dispatch) => {
       transaction
     );
     const json = post.data;
+    console.log(json)
     const newBalance = json.newBalance.map((item) => {
       return {
         ...item
       };
     });
-
-    console.log(newBalance)
     return dispatch({
       type: Types.postTransactions,
       payload: json,
