@@ -90,7 +90,7 @@ const [error, setError] = useState(false);
     dispatch(register(user));
   }
   setTimeout(() => {
-  if(token){ 
+  if(token !== null){ 
     navigate("/balans");
   }
   }, 100);

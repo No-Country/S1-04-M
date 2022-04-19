@@ -4,7 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import { About } from "../components/About";
 import { Balans } from "../components/Balans";
 import { ConfirmTransaction } from "../components/ConfirmTransaction";
-import { HistoryTransactions } from "../components/HistoryTransactions/HistoryTransactions";
+/* import { HistoryTransactions } from "../components/HistoryTransactions/HistoryTransactions"; */
 import { Home } from "../components/Home";
 import { NewCard } from "../components/NewCard";
 import { CloseSesion } from "../components/CloseSesion";
