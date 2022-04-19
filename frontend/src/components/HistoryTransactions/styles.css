@@ -1,0 +1,7 @@
+.transactions-list{
+  list-style: none;
+  padding: 0;
+  overflow-y: auto;
+  max-height: 50vh;
+  width: 100%;
+}

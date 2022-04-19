@@ -1,0 +1,30 @@
+.input-text{
+  height: 3em;
+  border-radius: 3px;
+  border: 1px solid #aaa;
+  padding: 0 .5em;
+}
+
+.input-text::placeholder{
+  font-weight: bold;
+  font-size: .8em;
+  color: rgb(110, 109, 109);
+}
+
+.input-special{
+  height: 1.5em;
+  transform: translate(.3em, .5em);
+}
+
+.label-special{
+  border-radius: 3px;
+  padding: 0 .5em;
+  width: 110%;
+  border: 1px solid #aaa;
+  margin-bottom: -3em;
+  display: block;
+  height: 4em;
+  font-size: .75em;
+  font-weight: bold;
+  background-color: white;
+}

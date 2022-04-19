@@ -1,0 +1,45 @@
+.sections{
+  padding: 1em;
+  background-color: rgb(250, 250, 250);
+  margin:  auto;
+  border: 1px solid #bbbb;
+  border-radius: 3px;
+  min-height: 100vh;
+}
+
+.sections > h1 {
+  color: rgb(116, 116, 116);
+}
+
+.sections-flex-row{
+  display: flex;
+  flex-wrap: wrap
+}
+
+.sections-grid{
+  display: grid;
+  padding: 0 1em;
+  gap: 1%;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr ));
+}
+
+.container-card{
+  max-width: 100%;
+  background-color: white;
+  border: 1px solid rgba(0,0,0,.125);
+}
+
+.container-card > div > .tarjeta,.container-card  > div > .tarjeta > .card, .container-card > div > .tarjeta > .card-body{
+  min-height: 100%;
+  max-width: 100%;
+  border: none !important;
+}
+
+
+.rccs{
+  max-width: 100%;
+}
+
+.rccs__card {
+  max-width: 100%;
+}

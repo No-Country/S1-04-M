@@ -1,0 +1,43 @@
+  
+:root {
+  --firstblue: #0070ba;
+  --lightblue: #f0faff;
+
+}
+
+.navbar-color{
+    background-color: var(--firstblue);
+}
+
+.logo {
+    width: 60px;
+    height: 60px;
+    margin-block-end: 1em;
+    color: white;
+  }
+
+.button:hover{
+    background-color: rgb(0, 50, 186);
+  }
+  
+ .navmenu-textcolor {
+  color: var(--lightblue);
+ } 
+
+ .nav-item-white{
+   color: white !important;
+   transition: background-color .5s;
+   border-radius: 3px ;
+ }
+
+ .nav-item-white:hover{
+   background-color: #007fd4;
+  }
+
+  .navbar-toggler-icon{
+    background-image: url("../img/menu-white.png") !important ;
+    background-repeat: no-repeat;
+    background-size: 1em;
+    background-position: center;
+  };
+  
