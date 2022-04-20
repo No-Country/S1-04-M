@@ -1,10 +1,12 @@
 import React /* , { useContext } */ from "react";
 /* import { useState } from "react"; */
 import "./NavBar.css";
-import { useNavigate } from "react-router-dom"; //hook
+/* import { useNavigate } from "react-router-dom"; //hook */
 import { Link } from "react-router-dom";
 import logo from "../img/logos/bankforyou.png";
 export default function NavBar({ navigationStatus, setNavigationStatus }) {
+  const token = sessionStorage.getItem("token");
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light  navbar-color ">
       <div className="container-fluid">

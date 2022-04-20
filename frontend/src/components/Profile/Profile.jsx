@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Card } from "../Cards/Card";
 import "./Profile.css";
@@ -37,9 +36,11 @@ export default function Profile() {
         <div className="card">
           <h3 className="card-header  title-subgeneral">Mis tarjetas</h3>
           <div>
-            {card?.map((card) => {
-              return <Card key={card.id} card={card} />;
-            })}
+            {card ? (
+              card?.map((card) => <Card key={card.id} card={card} />)
+            ) : (
+              <p>No tienes tarjetas</p>
+            )}
           </div>
         </div>
       </div>

@@ -6,7 +6,7 @@ const initialState = {
   users: {},
   card: [],
   destinationCard: [],
-  transactions: {},
+  transactions: [],
 };
 
 export const Reducer = (state = initialState, action) => {
@@ -58,6 +58,7 @@ export const Reducer = (state = initialState, action) => {
       return {
         ...state,
         transactions: action.payload,
+        card: action.newBalance,
       };
     default:
       return state;

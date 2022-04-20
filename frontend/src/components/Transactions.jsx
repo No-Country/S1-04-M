@@ -12,6 +12,7 @@ export const Transactions = () => {
     count_user: "",
     count_destiny: "",
     id_destiny: "",
+    destiny_name: "",
     amount: "",
     description: "",
   });
@@ -37,6 +38,7 @@ export const Transactions = () => {
       count_destiny: "",
       id_destiny: "",
       amount: "",
+      destiny_name: "",
       description: "",
     });
     navigate("/confirm");
@@ -50,7 +52,7 @@ export const Transactions = () => {
   return (
     <div>
       <section className="sections">
-        <h2>Transacciones</h2>
+        <h1>Transacciones</h1>
         <hr />
         <form className="form-transactions" onSubmit={handleSubmit}>
           <label>
@@ -84,7 +86,11 @@ export const Transactions = () => {
                 name="count_destiny"
                 onChange={handleChange}
               >
-                <option value={destinationCard.id}>
+                <option
+                  value={transaction.destination_name}
+                  onChange={handleChange}
+                  name="destiny_name"
+                >
                   {destinationCard.alias}
                 </option>
                 <option value={destinationCard._id}>
@@ -116,7 +122,7 @@ export const Transactions = () => {
               value={transaction.description}
             />
           </label>
-          <button className="button button-blue" type="onSubmit">
+          <button className="button button-blue" type="submit">
             Transferir
           </button>
         </form>

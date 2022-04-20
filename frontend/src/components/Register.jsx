@@ -90,11 +90,10 @@ const [error, setError] = useState(false);
     dispatch(register(user));
   }
   setTimeout(() => {
-  if(token){ 
+  if(token !== null){ 
     navigate("/balans");
   }
-  }, 100);
-  console.log(user);
+  }, 10);
   };
 
   const handleChange = (e) => {

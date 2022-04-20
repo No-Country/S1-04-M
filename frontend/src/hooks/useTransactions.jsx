@@ -7,13 +7,17 @@ export default function useTransactions() {
   const [isLoading, setIsLoading] = useState(false);
   const [mode, setMode] = useState("all");
   const [date, setDate] = useState(undefined);
+  const urls = {
+    urlLocal: "http://localhost:4000",
+    urlHeroku: "https://bankforyouback.herokuapp.com",
+  };
 
   useEffect(() => {
     const url =
       mode === "forMonth" && date !== undefined
-        ? `http://localhost:4000/api/transactions/date/${date}`
+        ? `${urls.urlHeroku}/api/transactions/date/${date}`
         : mode === "all"
-        ? "http://localhost:4000/api/transactions/"
+        ? `${urls.urlHeroku}/api/transactions/`
         : "";
 
     if (!url) return;

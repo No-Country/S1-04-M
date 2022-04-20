@@ -4,7 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import { About } from "../components/About";
 import { Balans } from "../components/Balans";
 import { ConfirmTransaction } from "../components/ConfirmTransaction";
-import { HistoryTransactions } from "../components/HistoryTransactions/HistoryTransactions";
+/* import { HistoryTransactions } from "../components/HistoryTransactions/HistoryTransactions"; */
 import { Home } from "../components/Home";
 import { NewCard } from "../components/NewCard";
 import { CloseSesion } from "../components/CloseSesion";
@@ -14,9 +14,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Register } from "../components/Register";
 import { Card } from "../components/Cards/Card";
 import HistoryPage from "../components/HistoryPage/HistoryPage";
+import { DestinationCard } from "../components/DestinationCard";
 import Profile from "../components/Profile/Profile";
 import { useSelector } from "react-redux";
-import { DestinationCard } from "../components/DestinationCard";
 
 export const Pages = () => {
   let location = useLocation();

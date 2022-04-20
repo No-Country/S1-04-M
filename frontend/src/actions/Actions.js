@@ -2,7 +2,10 @@ import { Types } from "./types";
 import axios from "axios";
 
 export const register = (usuario) => async (dispatch) => {
-  const post = await axios.post("http://localhost:4000/api/users/signup", usuario)
+  const post = await axios.post(
+    "https://bankforyouback.herokuapp.com/api/users/signup",
+    usuario
+  );
 const json = post.data.messages[0];
 const user = json.user;
 const token = json.user_token;
@@ -17,7 +20,7 @@ return dispatch({
 
 export const login = (usuario) => async (dispatch) => {
   const post = await axios.post(
-    "http://localhost:4000/api/users/login",
+    "https://bankforyouback.herokuapp.com/api/users/login",
     usuario
   );
   const json = post.data;
@@ -31,7 +34,9 @@ const user = json.user;
 };
 
 export const lastCardNumber = () => async (dispatch) => {
-    const post = await axios.post("http://localhost:4000/api/cards/lastCardNumber");
+    const post = await axios.post(
+      "https://bankforyouback.herokuapp.com/api/cards/lastCardNumber"
+    );
     const json = post.data;
     return dispatch({
         type: Types.lastCardNumber,
@@ -40,7 +45,9 @@ export const lastCardNumber = () => async (dispatch) => {
     }
 
     export const getUserId = (id) => async (dispatch) => {
-        const post = await axios.get(`http://localhost:4000/api/users/${id}`);
+        const post = await axios.get(
+          `https://bankforyouback.herokuapp.com/api/users/${id}`
+        );
         const json = post.data;
         sessionStorage.setItem("data",JSON.stringify(json));
         return dispatch({
@@ -51,8 +58,9 @@ export const lastCardNumber = () => async (dispatch) => {
 
 
   export const getCardByIdUser = (id) => async (dispatch) => {
-    const get = await axios.get(`http://localhost:4000/api/cards/byUser/${id}`,
-  );
+    const get = await axios.get(
+      `https://bankforyouback.herokuapp.com/api/cards/byUser/${id}`
+    );
     const json = get.data;
     return dispatch({
       type: Types.getCardByIdUser,
@@ -62,7 +70,7 @@ export const lastCardNumber = () => async (dispatch) => {
 
   export const postDestinationCard = (card) => async (dispatch) => {
     const post = await axios.post(
-      "http://localhost:4000/api/cards/destinationCards",
+      "https://bankforyouback.herokuapp.com/api/cards/destinationCards",
       card
     );
     const json = post.data;
@@ -74,8 +82,8 @@ export const lastCardNumber = () => async (dispatch) => {
 
   export const getDestinationCardById = (id) => async (dispatch) => {
     const get = await axios.get(
-      `http://localhost:4000/api/cards/destinationCards/byUser/${id}`
-    );
+      `https://bankforyouback.herokuapp.com/api/cards/destinationCards/byUser/${id}`
+    ); 
     const json = get.data;
     return dispatch({
       type: Types.getDestinationCardById,
@@ -86,13 +94,19 @@ export const lastCardNumber = () => async (dispatch) => {
   export const postTransactions = (transaction) => async (dispatch) => {
     console.log(transaction)
     const post = await axios.post(
-      "http://localhost:4000/api/transactions",
+      "https://bankforyouback.herokuapp.com/api/transactions",
       transaction
     );
     const json = post.data;
     console.log(json)
+    const newBalance = json.newBalance.map((item) => {
+      return {
+        ...item
+      };
+    });
     return dispatch({
       type: Types.postTransactions,
       payload: json,
+      newBalance: newBalance,
     })
   }

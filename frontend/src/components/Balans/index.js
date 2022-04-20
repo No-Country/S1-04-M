@@ -7,11 +7,10 @@ import { getCardByIdUser, getUserId } from "../../actions/Actions";
 import { Card } from "../Cards/Card";
 
 export const Balans = () => {
+  const dispatch = useDispatch();
   const { user } = useSelector((state) => state.data);
   const { card } = useSelector((state) => state);
   const { transactions, isError, isLoading, setMode, mode } = useTransactions();
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     setTimeout(() => {
@@ -30,17 +29,12 @@ export const Balans = () => {
     <div className="sections">
       <h2>Movimientos</h2>
       <div className="sections-grid">
-        {card.length ? (
+        {card.length &&
           card.map((card) => (
             <div className="container-card">
               <Card key={card.id} card={card} />
             </div>
-          ))
-        ) : (
-          <div>
-            <p>Cargando...</p>
-          </div>
-        )}
+          ))}
         <div className="card">
           <div className="card-body">
             <h5 className="card-title title-subgeneral">
