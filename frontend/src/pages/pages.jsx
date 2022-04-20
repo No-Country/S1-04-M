@@ -18,7 +18,7 @@ import Profile from "../components/Profile/Profile";
 import { useSelector } from "react-redux";
 import { DestinationCard } from "../components/DestinationCard";
 
-
+ 
 export const Pages = () => {
   let location = useLocation();
   const navigate = useNavigate();
