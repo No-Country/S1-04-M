@@ -69,10 +69,10 @@ export default function HistoryPage() {
           style={{ backgroundColor: "green" }}
           onClick={handleClickFilter}
         >
-          Fitrar
+          Filtrar
         </button>
         <buton className="button" onClick={handleClickShowAll}>
-          Todo
+          Buscar Todos
         </buton>
         <a
           className="button"

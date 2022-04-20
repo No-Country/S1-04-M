@@ -21,7 +21,7 @@ export const Home = () => {
     dispatch(login(user));
     if (isUser.hasOwnProperty("error")) {
       setIsError(true);
-      // return;
+      return;
     }
     if (isError) setIsError(false);
     navigate("/balans");

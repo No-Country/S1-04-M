@@ -14,9 +14,15 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Register } from "../components/Register";
 import { Card } from "../components/Cards/Card";
 import HistoryPage from "../components/HistoryPage/HistoryPage";
+<<<<<<< HEAD
 import { DestinationCard } from "../components/DestinationCard";
 import Profile from "../components/Profile/Profile";
 import { useSelector } from "react-redux";
+=======
+import Profile from "../components/Profile/Profile";
+import { useSelector } from "react-redux";
+import { DestinationCard } from "../components/DestinationCard";
+>>>>>>> b36f0f2f3f5fad27606878ed240c4ad95bba6e40
 
 export const Pages = () => {
   let location = useLocation();
@@ -49,10 +55,16 @@ export const Pages = () => {
         <Route path="/newtransaction" element={<Transactions />} />
         <Route path="/newcard" element={<NewCard />} />
         <Route path="/register" element={<Register />} />
+<<<<<<< HEAD
         <Route path="/card" element={<Card />} />|
         <Route path="/addcardtransfer" element={<DestinationCard />} />
         <Route path="/card" element={<Card />} />
         <Route path="/profile" element={<Profile />} />
+=======
+        <Route path="/card" element={<Card />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/addcardtransfer" element={<DestinationCard />} />
+>>>>>>> b36f0f2f3f5fad27606878ed240c4ad95bba6e40
       </Routes>
     </div>
   );

@@ -26,14 +26,6 @@ export default function NavBar({ navigationStatus, setNavigationStatus }) {
     </div>
   )
 }
-        {/* <Link className="navbar-brand" to="/">
-          <img
-            className="logo"
-            style={{ marginBlockEnd: "0" }}
-            src={logo}
-            alt="logo-banco"
-          />
-        </Link> */}
 
         <button
           className="navbar-toggler text-info"
@@ -71,21 +63,22 @@ export default function NavBar({ navigationStatus, setNavigationStatus }) {
                 </li>
                 <li>
                   <Link className="dropdown-item" to="/history">
-                    Historia de Transacciones
-                  </Link>
-                </li>
-                <li>
-                  <Link className="dropdown-item" to="#">
-                    Gráfica de Transacciones
+                    Historial de Transacciones
                   </Link>
                 </li>
               </ul>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link text-info nav-item-white" to="/balans">
+                Movimientos
+              </Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link text-info nav-item-white" to="/profile">
                 Mi Cuenta
               </Link>
             </li>
+
             <li className="nav-item">
               <Link
                 className="nav-link text-info nav-item-white "

@@ -23,14 +23,18 @@ export const Balans = () => {
       dispatch(getCardByIdUser(user));
     }, 20);
     mode !== "all" && setMode("all");
-  }, [mode, setMode, dispatch, user]);
+  }, []); // eslint-disable-line
 
   return (
     <div className="sections">
-      <h1>Movimientos</h1>
+      <h2>Movimientos</h2>
       <div className="sections-grid">
-        {!card.length ? (
-          <span>Cargando...</span>
+        {card.length ? (
+          card.map((card) => (
+            <div className="container-card">
+              <Card key={card.id} card={card} />
+            </div>
+          ))
         ) : (
           <div className="container-card">
             {card?.map((card) => (
@@ -40,7 +44,9 @@ export const Balans = () => {
         )}
         <div className="card">
           <div className="card-body">
-            <h5 className="card-title">Historial de transacciones</h5>
+            <h5 className="card-title title-subgeneral">
+              Historial de transacciones
+            </h5>
             <HistoryTransactions
               transactions={transactions.slice(0, 5)}
               isLoading={isLoading}
