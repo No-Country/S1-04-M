@@ -83,7 +83,7 @@ export const lastCardNumber = () => async (dispatch) => {
   export const getDestinationCardById = (id) => async (dispatch) => {
     const get = await axios.get(
       `https://bankforyouback.herokuapp.com/api/cards/destinationCards/byUser/${id}`
-    );
+    ); 
     const json = get.data;
     return dispatch({
       type: Types.getDestinationCardById,
