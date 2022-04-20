@@ -2,7 +2,10 @@ import { Types } from "./types";
 import axios from "axios";
 
 export const register = (usuario) => async (dispatch) => {
-  const post = await axios.post("https://bankforyouback.herokuapp.com/api/users/signup", usuario)
+  const post = await axios.post(
+    "https://bankforyouback.herokuapp.com/api/users/signup",
+    usuario
+  );
 const json = post.data.messages[0];
 const user = json.user;
 const token = json.user_token;
@@ -31,7 +34,9 @@ const user = json.user;
 };
 
 export const lastCardNumber = () => async (dispatch) => {
-    const post = await axios.post("https://bankforyouback.herokuapp.com/api/cards/lastCardNumber");
+    const post = await axios.post(
+      "https://bankforyouback.herokuapp.com/api/cards/lastCardNumber"
+    );
     const json = post.data;
     return dispatch({
         type: Types.lastCardNumber,
@@ -40,7 +45,9 @@ export const lastCardNumber = () => async (dispatch) => {
     }
 
     export const getUserId = (id) => async (dispatch) => {
-        const post = await axios.get(`https://bankforyouback.herokuapp.com/api/users/${id}`);
+        const post = await axios.get(
+          `https://bankforyouback.herokuapp.com/api/users/${id}`
+        );
         const json = post.data;
         sessionStorage.setItem("data",JSON.stringify(json));
         return dispatch({
@@ -51,8 +58,9 @@ export const lastCardNumber = () => async (dispatch) => {
 
 
   export const getCardByIdUser = (id) => async (dispatch) => {
-    const get = await axios.get(`https://bankforyouback.herokuapp.com/api/cards/byUser/${id}`,
-  );
+    const get = await axios.get(
+      `https://bankforyouback.herokuapp.com/api/cards/byUser/${id}`
+    );
     const json = get.data;
     return dispatch({
       type: Types.getCardByIdUser,
