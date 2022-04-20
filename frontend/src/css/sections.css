@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+body{
+  font-family: 'Roboto';
+}
+
 .sections{
   padding: 1em;
   background-color: rgb(250, 250, 250);
@@ -42,4 +48,29 @@
 
 .rccs__card {
   max-width: 100%;
+}
+
+.sections > h2 {
+  color: rgb(67, 67, 67);
+  padding-left: .6em;
+  padding-bottom: .5em;
+  font-weight: bold;
+  padding-top: .5em;
+}
+
+.title-subgeneral{
+  font-size: 1.3em;
+  color: rgb(84, 84, 84);
+  font-weight: 600;
+}
+
+.title-small{
+  font-size: 1.1em;
+  font-weight: 600;
+}
+
+.paragraph{
+  color: rgb(50, 50, 50);
+  font-size: 1em;
+  font-weight: bold;
 }

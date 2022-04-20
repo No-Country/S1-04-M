@@ -185,14 +185,14 @@ usersCtrl.getUserById = async (req, res) => {
     }
   
 
-  }  };
-
+  } 
+};
 
 
 usersCtrl.deleteUsers= async (req, res) => {
   const users = await User.deleteMany();
   res.json("Users deleted");
 };
-
+}
 
 module.exports = usersCtrl;

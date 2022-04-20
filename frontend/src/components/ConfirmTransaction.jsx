@@ -22,12 +22,14 @@ export const ConfirmTransaction = () => {
   const count_user = transaction.count_user;
   const count_destiny = transaction.count_destiny;
   const amount = transaction.amount;
+  const destiny_name = transaction.destiny_name;
   const description = transaction.description;
   
   const [transfer] = useState({
     amount: amount,
     origin: count_user,
     destiny: count_destiny,
+    destiny_name: destiny_name,
     description: description,
   });
   const handleSubmit = (e) => {
@@ -93,6 +95,13 @@ export const ConfirmTransaction = () => {
           )}
         </label>
         <label>
+          <input  
+          className="input-special"
+          value={destiny_name}
+          name="destiny_name"
+          disabled
+          />
+
           <input
             type="number"
             name="amount"

@@ -60,4 +60,7 @@ app.use("/api/users", users);
 app.use("/api/cards", cards);
 app.use("/api/transactions", transactions);
 
+//Para ocultar la ruta donde se alamacenan laas imágenes
+app.use("/public", express.static(`${__dirname}/storage/images`));
+
 module.exports = app;

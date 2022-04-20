@@ -6,5 +6,15 @@
 }
 .section-close > h2 {
   text-align: center;
-  width: 80%;
+  padding: 1em 10%;
+}
+
+@media (max-width: 470px) {
+  .section-close{
+    padding: 1em;
+  }
+  .section-close > h2 {
+    padding: 1em;
+    font-size: 1.3em;
+  }
 }
