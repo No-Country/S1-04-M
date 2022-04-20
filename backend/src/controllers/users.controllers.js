@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 
 const {card_Generator} = require("../controllers/helpers.controller");
 const {newCard} = require("../controllers/helpers.controller");
+const mongoose = require("mongoose");
 
 usersCtrl.createNewUser = async (req, res) => {
   const {
@@ -162,8 +163,18 @@ usersCtrl.getUserById = async (req, res) => {
   const userId = req.params.id;
 const _id = userId;
 
-  if (userId.length === 24) {
-    const userQuery = (await User.findById({ _id})) || false;
+usersCtrl.getUserById = async (req, res) => {
+  let userId = req.params.id;
+  let _id = userId;
+  
+  
+  if (!mongoose.Types.ObjectId.isValid(userId)) {
+     res.json({ type: "error", text: "Not a valid parameter." });
+  }
+
+  else {
+
+   const userQuery = (await User.findById({ _id})) || false;
 
     if (userQuery) {
       /* console.log("Query successfull"); */
@@ -172,11 +183,10 @@ const _id = userId;
      /*  console.log("User not found in db"); */
       res.json({ type: "error", text: "User not found in db." });
     }
-  } else {
-    /* console.log("User ID length not valid."); */
-    res.json({ type: "error", text: "User ID length not valid." });
-  }
-};
+  
+
+  }  };
+
 
 
 usersCtrl.deleteUsers= async (req, res) => {
