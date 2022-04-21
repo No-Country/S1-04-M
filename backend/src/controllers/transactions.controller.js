@@ -145,4 +145,11 @@ transactionsCtrl.getTransactions = async (req, res) => {
   }
 };
 
+
+transactionsCtrl.deleteTransactions = async (req, res) => {
+  const transactions = await Transaction.deleteMany();
+  res.json("Transaction deleted");
+};
+
+
 module.exports = transactionsCtrl;

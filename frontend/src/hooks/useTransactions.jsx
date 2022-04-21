@@ -15,9 +15,9 @@ export default function useTransactions() {
   useEffect(() => {
     const url =
       mode === "forMonth" && date !== undefined
-        ? `${urls.urlHeroku}/api/transactions/date/${date}`
+        ? `${urls.urlLocal}/api/transactions/date/${date}`
         : mode === "all"
-        ? `${urls.urlHeroku}/api/transactions/`
+        ? `${urls.urlLocal}/api/transactions/`
         : "";
 
     if (!url) return;

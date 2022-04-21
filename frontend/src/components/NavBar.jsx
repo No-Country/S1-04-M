@@ -70,7 +70,6 @@ export default function NavBar({ navigationStatus, setNavigationStatus }) {
                 Mi Cuenta
               </Link>
             </li>
-
             <li className="nav-item">
               <Link
                 className="nav-link text-info nav-item-white "

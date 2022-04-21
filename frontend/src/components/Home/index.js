@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../actions/Actions";
@@ -12,19 +12,32 @@ export const Home = () => {
     password: "",
   });
   const [isError, setIsError] = useState(false);
-  const isUser = useSelector((state) => state.data);
+  const [isLoading, setIsLoading] = useState(false);
+  const userID = useSelector((state) => state.data.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(login(user));
-    if (isUser.hasOwnProperty("error")) {
-      setIsError(true);
-      return;
-    }
-    if (isError) setIsError(false);
-    navigate("/balans");
+    setIsError(false);
+    setIsLoading(true);
+    const promiseLogin = new Promise((resolve, reject) => {
+      dispatch(login(user))
+        .then((res) =>
+          res.payload.hasOwnProperty("error") ? reject(false) : resolve(true)
+        )
+        .catch((error) => reject(error));
+    });
+    promiseLogin
+      .then(() => {
+        setIsLoading(false);
+        navigate("balans");
+      })
+      .catch(() => {
+        setIsLoading(false);
+        setIsError(true);
+        return;
+      });
   };
 
   const handleChange = (e) => {

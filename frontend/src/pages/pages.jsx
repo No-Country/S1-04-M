@@ -14,9 +14,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Register } from "../components/Register";
 import { Card } from "../components/Cards/Card";
 import HistoryPage from "../components/HistoryPage/HistoryPage";
-import { DestinationCard } from "../components/DestinationCard";
 import Profile from "../components/Profile/Profile";
 import { useSelector } from "react-redux";
+import { DestinationCard } from "../components/DestinationCard";
 
 export const Pages = () => {
   let location = useLocation();

@@ -13,17 +13,13 @@ export const Balans = () => {
   const { transactions, isError, isLoading, setMode, mode } = useTransactions();
 
   useEffect(() => {
-    setTimeout(() => {
-      dispatch(getUserId(user));
-    }, 20);
-    setTimeout(() => {
-      dispatch(getCardByIdUser(user));
-    }, 20);
-  }, [dispatch, user]);
+    dispatch(getUserId(user));
+    dispatch(getCardByIdUser(user));
+  }, [user]);
 
   useEffect(() => {
     mode !== "all" && setMode("all");
-  }, []); // eslint-disable-line
+  }, []);
 
   return (
     <div className="sections">
@@ -37,9 +33,7 @@ export const Balans = () => {
           ))}
         <div className="card">
           <div className="card-body">
-            <h5 className="card-title title-subgeneral">
-              Historial de transacciones
-            </h5>
+            <h5 className="title-subgeneral">Historial de transacciones</h5>
             <HistoryTransactions
               transactions={transactions.slice(0, 5)}
               isLoading={isLoading}

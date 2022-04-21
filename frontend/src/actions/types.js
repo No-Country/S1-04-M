@@ -1,4 +1,3 @@
-
 export const Types = {
   register: "REGISTER",
   login: "LOGIN",
@@ -9,4 +8,5 @@ export const Types = {
   postDestinationCard: "POST_DESTINATION_CARD",
   getDestinationCardById: "GET_DESTINATION_CARD_BY_ID",
   postTransactions: "POST_TRANSACTIONS",
+  resetState: "RESET_STATE",
 };

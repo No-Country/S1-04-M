@@ -3,7 +3,7 @@ import { Card } from "../Cards/Card";
 import "./Profile.css";
 
 export default function Profile() {
-  const user = useSelector((state) => state.users.userQuery);
+  const user = useSelector((state) => state.users);
   const { card } = useSelector((state) => state);
 
   return (
