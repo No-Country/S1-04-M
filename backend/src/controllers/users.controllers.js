@@ -156,12 +156,7 @@ usersCtrl.login = async (req, res, next) => {
 usersCtrl.getUsers = async (req, res) => {
   const users = await User.find();
   res.json(users);
-};
-
-
-usersCtrl.getUserById = async (req, res) => {
-  const userId = req.params.id;
-const _id = userId;
+}
 
 usersCtrl.getUserById = async (req, res) => {
   let userId = req.params.id;
