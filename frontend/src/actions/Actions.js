@@ -4,7 +4,7 @@ const urlServices = {
   local: "http://localhost:4000",
   heroku: "https://bankforyouback.herokuapp.com",
 };
-const serviceCurrent = urlServices.local;
+const serviceCurrent = urlServices.heroku;
 
 export const register = (usuario) => async (dispatch) => {
   const post = await axios.post(`${serviceCurrent}/api/users/signup`, usuario);

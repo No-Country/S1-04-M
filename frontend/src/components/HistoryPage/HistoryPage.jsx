@@ -7,6 +7,7 @@ const services = {
   local: "http://localhost:4000",
   heroku: "https://bankforyouback.herokuapp.com",
 };
+const serviceCurrent = services.heroku;
 
 export default function HistoryPage() {
   const { card } = useSelector((state) => state);
@@ -36,7 +37,7 @@ export default function HistoryPage() {
   const handleClickDownlad = async (e) => {
     e.preventDefault();
     console.log(transactions);
-    fetch(`${services.local}/api/transactions/user/pdf`, {
+    fetch(`${serviceCurrent}/api/transactions/user/pdf`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
