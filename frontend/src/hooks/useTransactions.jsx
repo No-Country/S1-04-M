@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function useTransactions() {
+export default function useTransactions(userID) {
   const [transactions, setTransactions] = useState([]);
   const [urlReport, setUrlReport] = useState("");
   const [isError, setIsError] = useState(false);
@@ -13,13 +13,15 @@ export default function useTransactions() {
   };
 
   useEffect(() => {
+    if (!userID) return;
     const url =
       mode === "forMonth" && date !== undefined
-        ? `${urls.urlLocal}/api/transactions/date/${date}`
+        ? `${urls.urlLocal}/api/transactions/${userID}/month/${date}`
         : mode === "all"
-        ? `${urls.urlLocal}/api/transactions/`
+        ? `${urls.urlLocal}/api/transactions/user/${userID}`
         : "";
 
+    console.log(url);
     if (!url) return;
 
     setUrlReport("");
@@ -37,7 +39,7 @@ export default function useTransactions() {
         setIsError(true);
       });
     return;
-  }, [date, mode]);
+  }, [date, mode, userID]);
 
   return {
     transactions,

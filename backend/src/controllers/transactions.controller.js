@@ -23,7 +23,7 @@ transactionsCtrl.createNewTransaction = async (req, res) => {
   const filter_destiny = { _id: destiny };
 
   const card = await Card.Card.findOne(filter_origin);
-  
+
   if (card.balance < amount) {
     return res.status(400).json({
       error: "No hay suficiente saldo en la tarjeta",
@@ -117,12 +117,7 @@ transactionsCtrl.getTransactionsMonth = async (req, res) => {
       created_at: { $gte: new Date(fechaInicial), $lt: new Date(fechaFinal) },
     });
 
-    let report;
-    if (transactions.length) {
-      report = await makeReportHtml.create(transactions, month);
-    }
-
-    res.json([transactions, report ? report.url : ""]);
+    res.json([transactions, ""]);
   } catch (error) {
     console.log(error);
     res.status(400).json({ error: error.stringValue });
@@ -133,23 +128,61 @@ transactionsCtrl.getTransactions = async (req, res) => {
   try {
     const transactions = await Transaction.find();
 
-    let report;
-    if (transactions.length) {
-      report = await makeReportHtml.create(transactions);
-    }
-
-    res.json([transactions, report ? report.url : ""]);
+    res.json([transactions, ""]);
   } catch (error) {
     console.log(error);
     res.status(400).json(error.message);
   }
 };
 
-
 transactionsCtrl.deleteTransactions = async (req, res) => {
   const transactions = await Transaction.deleteMany();
   res.json("Transaction deleted");
 };
 
+transactionsCtrl.getTransactionsOfUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const transactions = await Transaction.find({ origin: id });
+
+    res.json([transactions, ""]);
+  } catch (error) {
+    res.status(400).json(error.message);
+  }
+};
+
+transactionsCtrl.getTransactionsMonthOfUser = async (req, res) => {
+  try {
+    const { month, id } = req.params;
+    const fechaInicial = new Date("2022", month, "0");
+    const fechaFinal = new Date("2022", month, "31");
+    const transactions = await Transaction.find({
+      origin: id,
+      created_at: { $gte: new Date(fechaInicial), $lt: new Date(fechaFinal) },
+    });
+
+    res.json([transactions, ""]);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ error: error.stringValue });
+  }
+};
+
+transactionsCtrl.getPdf = async (req, res) => {
+  try {
+    const { transactions } = req.body;
+
+    let report;
+    if (transactions.length) {
+      report = await makeReportHtml.create(transactions);
+    }
+
+    if (!report) throw new Error("Error al crear pdf");
+    res.json({ url: report.url });
+  } catch (error) {
+    console.log({ ...error });
+    res.status(400).json({ error: error.stringValue });
+  }
+};
 
 module.exports = transactionsCtrl;

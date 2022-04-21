@@ -8,14 +8,16 @@ import { Card } from "../Cards/Card";
 
 export const Balans = () => {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.data);
+  const userID = useSelector((state) => state.data.user);
   const { card } = useSelector((state) => state);
-  const { transactions, isError, isLoading, setMode, mode } = useTransactions();
+  const { transactions, isError, isLoading, setMode, mode } = useTransactions(
+    card.length && card[0]._id
+  );
 
   useEffect(() => {
-    dispatch(getUserId(user));
-    dispatch(getCardByIdUser(user));
-  }, [user]);
+    dispatch(getUserId(userID));
+    dispatch(getCardByIdUser(userID));
+  }, [userID]);
 
   useEffect(() => {
     mode !== "all" && setMode("all");
