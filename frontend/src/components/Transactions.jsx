@@ -8,10 +8,10 @@ export const Transactions = () => {
 
   const dispatch = useDispatch();
 
+  const [countDestiny, setCountDestiny] = useState(undefined);
   const [transaction, setTansaction] = useState({
     count_user: "",
     count_destiny: "",
-    id_destiny: "",
     destiny_name: "",
     amount: "",
     description: "",
@@ -19,11 +19,29 @@ export const Transactions = () => {
   const { user } = useSelector((state) => state.data);
   const { card } = useSelector((state) => state);
   const { destinationCard } = useSelector((state) => state);
+
   useEffect(() => {
     dispatch(getDestinationCardById(user));
   }, [dispatch]);
 
+  useEffect(() => {
+    if (!countDestiny) return;
+    const user = destinationCard.length
+      ? destinationCard.find((cardEl) => cardEl._id === countDestiny)
+      : undefined;
+    console.log("hay user?", user);
+    if (user) {
+      setTansaction((prevState) => ({
+        ...prevState,
+        destiny_name: user.alias,
+      }));
+    }
+  }, [countDestiny]);
+
   const handleChange = (event) => {
+    if (event.target.name === "count_destiny" && event.target.value) {
+      setCountDestiny(event.target.value);
+    }
     setTansaction({
       ...transaction,
       [event.target.name]: event.target.value,
@@ -32,11 +50,11 @@ export const Transactions = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     sessionStorage.setItem("transaction", JSON.stringify(transaction));
     setTansaction({
       count_user: "",
       count_destiny: "",
-      id_destiny: "",
       amount: "",
       destiny_name: "",
       description: "",
@@ -52,59 +70,51 @@ export const Transactions = () => {
   return (
     <div>
       <section className="sections">
-        <h1>Transacciones</h1>
-        <hr />
+        <h2>Transacciones</h2>
         <form className="form-transactions" onSubmit={handleSubmit}>
           <label>
             <span className="label-special">CUENTA ORIGEN</span>
-            {card ? (
-              card?.map((card) => (
-                <select
-                  className="input-special"
-                  value={transaction.count_user}
-                  name="count_user"
-                  onChange={handleChange}
-                >
-                  <option>Selecciona tu tarjeta</option>
-
+            <select
+              className="input-special"
+              value={transaction.count_user}
+              name="count_user"
+              onChange={handleChange}
+            >
+              <option>Selecciona tu tarjeta</option>
+              {card ? (
+                card?.map((card) => (
                   <option value={card._id}>{card.number}</option>
-                </select>
-              ))
-            ) : (
-              <span>No tienes cuentas</span>
-            )}
+                ))
+              ) : (
+                <span>No tienes cuentas</span>
+              )}
+            </select>
           </label>
-          <span className="label-special">DESTINARIO</span>
+          <br />
+          <button className="button button-blue" onClick={handleRedirect}>
+            Agregar Destino
+          </button>
           <label>
-            <button className="button button-blue" onClick={handleRedirect}>
-              Agregar
-            </button>
-                      {destinationCard.length > 0 ? (
-              destinationCard?.map((destinationCard) => (
-                <select
-                  className="input-special"
-                  value={transaction.count_destiny}
-                  name="count_destiny"
-                  onChange={handleChange}
-                >
-                  <option
-                    value={transaction.destination_name}
-                    onChange={handleChange}
-                    name="destiny_name"
-                  >
-                    {destinationCard.alias}
-                  </option>
+            <span className="label-special">N° Cuenta Destinatario</span>
+            <select
+              className="input-special"
+              value={transaction.count_destiny}
+              name="count_destiny"
+              onChange={handleChange}
+            >
+              <option value="">Elegir cuenta de destino</option>
+              {destinationCard?.length > 0 ? (
+                destinationCard.map((destinationCard) => (
                   <option value={destinationCard._id}>
                     {destinationCard.card_number}
                   </option>
-                </select>
-              ))
-            ) : (
-              <span>No hay tarjetas de destino</span>
-            )}
+                ))
+              ) : (
+                <span>No hay tarjetas de destino</span>
+              )}
+            </select>
           </label>
           <label>
-          
             <input
               type="number"
               name="amount"

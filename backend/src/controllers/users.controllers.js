@@ -4,8 +4,8 @@ const passport = require("passport");
 const auth = require("../middlewares/auth");
 const jwt = require("jsonwebtoken");
 
-const {card_Generator} = require("../controllers/helpers.controller");
-const {newCard} = require("../controllers/helpers.controller");
+const { card_Generator } = require("../controllers/helpers.controller");
+const { newCard } = require("../controllers/helpers.controller");
 const mongoose = require("mongoose");
 
 usersCtrl.createNewUser = async (req, res) => {
@@ -58,7 +58,6 @@ usersCtrl.createNewUser = async (req, res) => {
     };
 
     res.json(user_errors);
-
   } else {
     const userEmail = (await User.findOne({ email: email })) || false;
 
@@ -83,61 +82,66 @@ usersCtrl.createNewUser = async (req, res) => {
         password: password,
         phone: phone,
       });
-     
 
-
-      await newUser.save( (err) => {
+      await newUser.save((err) => {
         if (err) {
           return res
             .status(500)
             .json({ messages: `Error creating user: ${err}` });
-        } 
+        }
       });
 
-
-      let new_cardnumber= "Sin número";
+      let new_cardnumber = "Sin número";
       try {
         new_cardnumber = await card_Generator();
-             
-      }
-      catch (error){
+      } catch (error) {
         console.error(error);
-      } 
-   
+      }
+
       let new_card = "Sin card";
       try {
         const fecha_vencimiento = new Date();
         const name = newUser.name + " " + newUser.lastname;
         const cvv = Math.random() * (999 - 0) + 0;
-        const card_cvv = cvv.toString().substring(0,3);
-  
-        new_card = await newCard( new_cardnumber, newUser._id , name, 0, true, true, card_cvv, fecha_vencimiento);
-      }
-      catch (error){
+        const card_cvv = cvv.toString().substring(0, 3);
+
+        new_card = await newCard(
+          new_cardnumber,
+          newUser._id,
+          name,
+          0,
+          true,
+          true,
+          card_cvv,
+          fecha_vencimiento
+        );
+      } catch (error) {
         console.error(error);
-      } 
-      const token = jwt.sign({ user: newUser }, "top_secret");     
-      messages.push({ user: newUser._id, new_cardnumber_id: new_card._id, user_token:token })
+      }
+      const token = jwt.sign({ user: newUser }, "top_secret");
+      messages.push({
+        user: newUser._id,
+        new_cardnumber_id: new_card._id,
+        user_token: token,
+      });
       return res.json({ messages });
     }
   }
 };
 
 usersCtrl.login = async (req, res, next) => {
+  const { email, password } = req.body;
 
-  const {email, password} = req.body;
-
- passport.authenticate("login", async (err, user, info) => {
-
+  passport.authenticate("login", async (err, user, info) => {
     try {
       if (err) {
         //return next(err); // will generate a 500 error
         return res.json({ error: "error" });
       }
 
-      if (! user) {
-       // return res.send({ success : false, message : 'authentication failed' });
-        return res.json({error: "User not found *" })
+      if (!user) {
+        // return res.send({ success : false, message : 'authentication failed' });
+        return res.json({ error: "User not found *" });
       }
 
       //Passport exposes a login() function on req (also aliased as logIn()) that can be used to establish a login session.
@@ -166,28 +170,11 @@ usersCtrl.getUserById = async (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(userId)) {
      res.json({ type: "error", text: "Not a valid parameter." });
   }
+};
 
-  else {
-
-   const userQuery = (await User.findById({ _id})) || false;
-
-    if (userQuery) {
-      /* console.log("Query successfull"); */
-      res.json({ userQuery });
-    } else {
-     /*  console.log("User not found in db"); */
-      res.json({ type: "error", text: "User not found in db." });
-    }
-  
-
-  }  };
-
-
-
-usersCtrl.deleteUsers= async (req, res) => {
+usersCtrl.deleteUsers = async (req, res) => {
   const users = await User.deleteMany();
   res.json("Users deleted");
 };
-
 
 module.exports = usersCtrl;

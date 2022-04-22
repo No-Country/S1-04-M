@@ -34,10 +34,12 @@ body{
   width: 100%;
   font-size: 1em;
   padding-left: 1em;
+  font-weight: bold;
 }
 
 .login-container > form > input::placeholder {
   color: gray;
+  font-weight: bold;
 }
 
 .login-container > form > input:focus-visible{

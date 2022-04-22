@@ -3,6 +3,7 @@ import Cards from "react-credit-cards";
 import "react-credit-cards/es/styles-compiled.css";
 import "../../css/estilos.css";
 import PassVisible from "../PassVisible/PassVisible";
+import "./Cards.css";
 
 export const Card = ({ card }) => {
   const { number, user_name, cvv, date } = card;
@@ -14,13 +15,13 @@ export const Card = ({ card }) => {
 
   let date2 = date1.toLocaleDateString("es-ES", options);
 
- const [state, setState] = useState({
-   number: number ? number : "",
-   name: user_name ? user_name : "",
-   expiry: date2 ? date2 : "",
-   cvc: cvv ? cvv : "",
-   focus: "",
- });
+  const [state, setState] = useState({
+    number: number ? number : "",
+    name: user_name ? user_name : "",
+    expiry: date2 ? date2 : "",
+    cvc: cvv ? cvv : "",
+    focus: "",
+  });
 
   const handleInputChange = (e) => {
     setState({
@@ -42,9 +43,12 @@ export const Card = ({ card }) => {
               cvc={state.cvv}
               focused={state.focus}
             />
+            <br />
+            <br />
             <form>
-              <div className="form-group col-md-6">
-                <label>Saldo</label>
+              <div className="form-group cards-container-inputs">
+                <br />
+                <label className="paragraph">Saldo</label>
                 <input
                   type="text"
                   className="form-control"
@@ -52,12 +56,14 @@ export const Card = ({ card }) => {
                   value={card.balance}
                   disabled
                 />
-
-                <label>CVV</label>
+                <br />
+                <label className="paragraph">CVV</label>
                 <PassVisible
                   handleChange={handleInputChange}
                   value={cvv}
-                  name="cvc"
+                  inputName="cvv"
+                  disabled={true}
+                  placeholder={"cvv"}
                   id="cvc"
                 />
               </div>
@@ -67,4 +73,4 @@ export const Card = ({ card }) => {
       </section>
     </div>
   );
-}
+};

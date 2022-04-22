@@ -93,8 +93,7 @@ const [error, setError] = useState(false);
   if(token !== null){ 
     navigate("/balans");
   }
-  }, 100);
-  console.log(user);
+  }, 10);
   };
 
   const handleChange = (e) => {
