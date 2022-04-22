@@ -27,12 +27,17 @@ export const Balans = () => {
     <div className="sections">
       <h2>Movimientos</h2>
       <div className="sections-grid">
-        {card.length &&
-          card.map((card) => (
-            <div className="container-card">
-              <Card key={card.id} card={card} />
-            </div>
-          ))}
+        {card.length
+          ? card.map((card) => (
+              <div className="container-card">
+                <Card key={card.id} card={card} />
+              </div>
+            ))
+          : card && (
+              <div className="container-card">
+                <Card key={card.id} card={card} />
+              </div>
+            )}
         <div className="card">
           <div className="card-body">
             <h5 className="title-subgeneral">Historial de transacciones</h5>
