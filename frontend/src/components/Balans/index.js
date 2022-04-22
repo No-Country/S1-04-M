@@ -8,45 +8,34 @@ import { Card } from "../Cards/Card";
 
 export const Balans = () => {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.data);
+  const userID = useSelector((state) => state.data.user);
   const { card } = useSelector((state) => state);
-  const { transactions, isError, isLoading, setMode, mode } = useTransactions();
+  const { transactions, isError, isLoading, setMode, mode } = useTransactions(
+    card.length && card[0]._id
+  );
 
   useEffect(() => {
-    setTimeout(() => {
-      dispatch(getUserId(user));
-    }, 20);
-  }, [dispatch, user]);
+    dispatch(getUserId(userID));
+    dispatch(getCardByIdUser(userID));
+  }, [userID]);
 
   useEffect(() => {
-    setTimeout(() => {
-      dispatch(getCardByIdUser(user));
-    }, 20);
     mode !== "all" && setMode("all");
-  }, []); // eslint-disable-line
+  }, []);
 
   return (
     <div className="sections">
       <h2>Movimientos</h2>
       <div className="sections-grid">
-        {card.length ? (
+        {card.length &&
           card.map((card) => (
             <div className="container-card">
               <Card key={card.id} card={card} />
             </div>
-          ))
-        ) : (
-          <div className="container-card">
-            {card?.map((card) => (
-              <Card key={card.id} card={card} />
-            ))}
-          </div>
-        )}
+          ))}
         <div className="card">
           <div className="card-body">
-            <h5 className="card-title title-subgeneral">
-              Historial de transacciones
-            </h5>
+            <h5 className="title-subgeneral">Historial de transacciones</h5>
             <HistoryTransactions
               transactions={transactions.slice(0, 5)}
               isLoading={isLoading}

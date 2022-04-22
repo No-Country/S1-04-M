@@ -5,27 +5,19 @@ import "./NavBar.css";
 import { Link } from "react-router-dom";
 import logo from "../img/logos/bankforyou.png";
 export default function NavBar({ navigationStatus, setNavigationStatus }) {
-
   const token = sessionStorage.getItem("token");
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light  navbar-color ">
       <div className="container-fluid">
-{
-  token ? (
-    <div className="navbar-header">
-      <Link to="/balans">
-        <img src={logo} alt="logo" className="logo" />
-      </Link>
-    </div>
-  ) : (
-    <div className="navbar-header">
-      <Link to="/">
-        <img src={logo} alt="logo" className="logo" />
-      </Link>
-    </div>
-  )
-}
+        <Link className="navbar-brand" to="/balans">
+          <img
+            className="logo"
+            style={{ marginBlockEnd: "0" }}
+            src={logo}
+            alt="logo-banco"
+          />
+        </Link>
 
         <button
           className="navbar-toggler text-info"
@@ -78,7 +70,6 @@ export default function NavBar({ navigationStatus, setNavigationStatus }) {
                 Mi Cuenta
               </Link>
             </li>
-
             <li className="nav-item">
               <Link
                 className="nav-link text-info nav-item-white "

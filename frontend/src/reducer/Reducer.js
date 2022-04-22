@@ -60,6 +60,8 @@ export const Reducer = (state = initialState, action) => {
         transactions: action.payload,
         card: action.newBalance,
       };
+    case Types.resetState:
+      return initialState;
     default:
       return state;
   }

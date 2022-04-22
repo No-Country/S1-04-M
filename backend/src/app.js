@@ -7,7 +7,16 @@ const bodyParser = require("body-parser");
 app.set("port", process.env.PORT || 4000);
 
 //middlewares
-app.use(cors()); //cors hace q dos servidores se conecten entre ellos (back y front por ej)
+app.use(
+  cors({
+    origin: [
+      "https://bankforyou.vercel.app",
+      "http://localhost:3000",
+      "https://localhost:3000",
+      "http://192.168.2.205:3000",
+    ],
+  })
+); //cors hace q dos servidores se conecten entre ellos (back y front por ej)
 app.use(express.json()); //para q las rutas entiendan json y strings
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

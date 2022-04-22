@@ -1,21 +1,27 @@
 import { useEffect, useState } from "react";
 
-export default function useTransactions() {
+export default function useTransactions(userID) {
   const [transactions, setTransactions] = useState([]);
   const [urlReport, setUrlReport] = useState("");
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [mode, setMode] = useState("all");
   const [date, setDate] = useState(undefined);
+  const urls = {
+    urlLocal: "http://localhost:4000",
+    urlHeroku: "https://bankforyouback.herokuapp.com",
+  };
 
   useEffect(() => {
+    if (!userID) return;
     const url =
       mode === "forMonth" && date !== undefined
-        ? `http://localhost:4000/api/transactions/date/${date}`
+        ? `${urls.urlLocal}/api/transactions/${userID}/month/${date}`
         : mode === "all"
-        ? "http://localhost:4000/api/transactions/"
+        ? `${urls.urlLocal}/api/transactions/user/${userID}`
         : "";
 
+    console.log(url);
     if (!url) return;
 
     setUrlReport("");
@@ -33,7 +39,7 @@ export default function useTransactions() {
         setIsError(true);
       });
     return;
-  }, [date, mode]);
+  }, [date, mode, userID]);
 
   return {
     transactions,

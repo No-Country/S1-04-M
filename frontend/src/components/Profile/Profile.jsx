@@ -3,7 +3,7 @@ import { Card } from "../Cards/Card";
 import "./Profile.css";
 
 export default function Profile() {
-  const user = useSelector((state) => state.users.userQuery);
+  const user = useSelector((state) => state.users);
   const { card } = useSelector((state) => state);
 
   return (
@@ -36,15 +36,11 @@ export default function Profile() {
         <div className="card">
           <h3 className="card-header  title-subgeneral">Mis tarjetas</h3>
           <div>
-            {card ?
-              card?.map((card) => (
-                <Card
-                  key={card.id}
-                  card={card}
-                  />
-              )) : (
-                <p>No tienes tarjetas</p>
-              )}
+            {card ? (
+              card?.map((card) => <Card key={card.id} card={card} />)
+            ) : (
+              <p>No tienes tarjetas</p>
+            )}
           </div>
         </div>
       </div>

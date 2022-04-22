@@ -14,6 +14,7 @@ const {
   deleteDestinationCardsbyId,
   getLastCardNumber, 
   addMoneytoCard,
+  getCardsById,
 } = require("../controllers/cards.controller");
 const auth = require("../middlewares/auth");
 const passport = require("passport");
@@ -57,6 +58,10 @@ router
 router
   .route("/addMoney")
   .post(addMoneytoCard);
+
+  router  
+   .route ("/byId/:id")
+   .get (getCardsById) 
 
   
 

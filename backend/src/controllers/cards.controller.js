@@ -70,6 +70,15 @@ cardsCtrl.getCardsbyUser = async (req, res) => {
 
 };
 
+cardsCtrl.getCardsById = async (req, res) => {
+  const {id} = req.params;
+  console.log (id)
+  const cards = await Card.Card.find({ _id: id });
+  res.json(cards);
+};
+
+
+
 
 
 cardsCtrl.getDestinationCardsbyUser = async (req, res) => {
