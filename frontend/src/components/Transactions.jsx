@@ -117,6 +117,7 @@ export const Transactions = () => {
             />
           </label>
         </form>
+      </section>
     </div>
   );
 };
