@@ -3,7 +3,7 @@ import { Card } from "../Cards/Card";
 import "./Profile.css";
 
 export default function Profile() {
-  const user = useSelector((state) => state.users);
+  const user = useSelector((state) => state.users.userQuery);
   const { card } = useSelector((state) => state);
 
   return (
@@ -14,29 +14,29 @@ export default function Profile() {
           <h3 className="card-header title-subgeneral">Mis datos</h3>
           <div className="card-body profile-card">
             <h4>Nombre</h4>
-            <p>{user.name}</p>
+            <p>{user?.name || ""}</p>
             <h4>Apellido</h4>
-            <p>{user.lastname}</p>
+            <p>{user?.lastname || ""}</p>
             <h4>DNI</h4>
-            <p>{user.dni}</p>
+            <p>{user?.dni || ""}</p>
             <h4>Fecha de nacimiento</h4>
-            <p>{user.date.slice(0, 10)}</p>
+            <p>{user?.date?.slice(0, 10)}</p>
             <h4>Correo</h4>
-            <p>{user.email}</p>
+            <p>{user?.email || ""}</p>
             <h4>Teléfono</h4>
-            <p>{user.phone}</p>
+            <p>{user?.phone || ""}</p>
             <h4>País</h4>
-            <p>{user.country}</p>
+            <p>{user?.country || ""}</p>
             <h4>Ciudad</h4>
-            <p>{user.city}</p>
+            <p>{user?.city || ""}</p>
             <h4>Cód. Postal</h4>
-            <p>{user.cp}</p>
+            <p>{user?.cp || ""}</p>
           </div>
         </div>
         <div className="card">
           <h3 className="card-header  title-subgeneral">Mis tarjetas</h3>
           <div>
-            {card ? (
+            {card.length ? (
               card?.map((card) => <Card key={card.id} card={card} />)
             ) : (
               <p>No tienes tarjetas</p>
