@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+
 export default function useTransactions(userID) {
   const [transactions, setTransactions] = useState([]);
   const [urlReport, setUrlReport] = useState("");
@@ -16,9 +17,9 @@ export default function useTransactions(userID) {
     if (!userID) return;
     const url =
       mode === "forMonth" && date !== undefined
-        ? `${urls.urlLocal}/api/transactions/${userID}/month/${date}`
+        ? `${urls.urlHeroku}/api/transactions/${userID}/month/${date}`
         : mode === "all"
-        ? `${urls.urlLocal}/api/transactions/user/${userID}`
+        ? `${urls.urlHeroku}/api/transactions/user/${userID}`
         : "";
 
     console.log(url);
