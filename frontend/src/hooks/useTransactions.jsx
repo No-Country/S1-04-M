@@ -9,7 +9,7 @@ export default function useTransactions(userID) {
   const [date, setDate] = useState(undefined);
   const urls = {
     urlLocal: "http://localhost:4000",
-    urlHeroku: "https://bankforyouback.herokuapp.com",
+    urlHeroku: "https://bankforyoufront.herokuapp.com/",
   };
   const currentService = urls.urlHeroku;
 
