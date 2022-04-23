@@ -19,7 +19,7 @@ const nextCardNumberSchema = new Schema({
 
 const destinationCardSchema = new Schema({
   user_id: { type: String, required: true },
-  card_number: { type: String, unique: true, required: true }, //poner unique antes que required
+  card_number: { type: String, required: true }, //poner unique antes que required
   destination_name: { type: String, required: true },  
   internal: { type: Boolean, default: true },
   alias: { type: String, required: true },

@@ -239,7 +239,7 @@ cardsCtrl.createNewDestinationCard = async (req, res) => {
 
   await destinationCard.save((err) => {
     if (err)
-      return res.status(500).send({ message: `Error creating destination card: ${err}` });
+      return res.send({ message: `Error creating destination card: ${err}` });
 
     return res.json({ message: `New destination was created` });
   });

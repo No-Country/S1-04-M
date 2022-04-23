@@ -26,6 +26,7 @@ export const login = (usuario) => async (dispatch) => {
   const user = json.user;
   const token = json.user_token;
   sessionStorage.setItem("token", token);
+  sessionStorage.setItem("user", user);
   return dispatch({
     type: Types.login,
     payload: json,
@@ -66,6 +67,7 @@ export const postDestinationCard = (card) => async (dispatch) => {
     card
   );
   const json = post.data;
+  console.log(json)
   return dispatch({
     type: Types.postDestinationCard,
     payload: json,

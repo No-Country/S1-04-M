@@ -22,7 +22,7 @@ export const Transactions = () => {
 
   useEffect(() => {
     dispatch(getDestinationCardById(user));
-  }, [dispatch]);
+  }, [dispatch,destinationCard]);
 
   useEffect(() => {
     if (!countDestiny) return;
@@ -83,7 +83,7 @@ export const Transactions = () => {
               <option>Selecciona tu tarjeta</option>
               {card ? (
                 card?.map((card) => (
-                  <option value={card._id}>{card.number}</option>
+                  <option value={card?._id}>{card.number}</option>
                 ))
               ) : (
                 <span>No tienes cuentas</span>
@@ -104,9 +104,9 @@ export const Transactions = () => {
             >
               <option value="">Elegir cuenta de destino</option>
               {destinationCard?.length > 0 ? (
-                destinationCard.map((destinationCard) => (
+                destinationCard?.map((destinationCard) => (
                   <option value={destinationCard._id}>
-                    {destinationCard.card_number}
+                    {destinationCard.destination_name}
                   </option>
                 ))
               ) : (

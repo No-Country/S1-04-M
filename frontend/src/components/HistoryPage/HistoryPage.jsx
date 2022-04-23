@@ -37,7 +37,7 @@ export default function HistoryPage() {
   const handleClickDownlad = async (e) => {
     e.preventDefault();
     console.log(transactions);
-    fetch(`${serviceCurrent}/api/transactions/pdf`, {
+    fetch(`${serviceCurrent}/api/transactions2/pdf`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

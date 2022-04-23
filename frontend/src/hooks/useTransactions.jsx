@@ -12,18 +12,17 @@ export default function useTransactions(userID) {
     urlLocal: "http://localhost:4000",
     urlHeroku: "https://bankforyoufront.herokuapp.com",
   };
-  const currentService = urls.urlLocal;
+  const currentService = urls.urlHeroku;
 
   useEffect(() => {
     if (!userID) return;
     const url =
       mode === "forMonth" && date !== undefined
-        ? `${currentService}/api/transactions/user/date/${userID}/${date}`
+        ? `${currentService}/api/transactions2/user/date/${userID}/${date}`
         : mode === "all"
-        ? `${currentService}/api/transactions/user/byId/${userID}`
+        ? `${currentService}/api/transactions2/user/byId/${userID}`
         : "";
 
-    console.log(url);
     if (!url) return;
 
     setUrlReport("");

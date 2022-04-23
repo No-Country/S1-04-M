@@ -16,7 +16,7 @@ export const HistoryTransactions = ({
                 key={transaction._id}
                 info={{
                   date: transaction.created_at
-                    ? transaction.created_at.slice(0, 10)
+                    ? transaction.created_at?.slice(0, 10)
                     : "",
                   title: transaction.description,
                   amount: transaction.amount,
