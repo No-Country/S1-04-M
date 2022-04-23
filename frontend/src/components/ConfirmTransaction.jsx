@@ -46,80 +46,71 @@ export const ConfirmTransaction = () => {
 
   return (
     <div>
-      <h1 >Confirmar Transaccion</h1>
+      <h1>Confirmar Transaccion</h1>
 
       <form onSubmit={handleSubmit} className="form-transactions">
-        <label>
-          <span className="label-special">CUENTA ORIGEN</span>
-          {
-          card.length > 0 ? (
-            card?.map((card) => (
-              <select
-                className="input-special"
-                value={count_user}
-                name="count_user"
-                disabled
-              >
-                <option value={card._id}>{card.number}</option>
-              </select>
-            ))
-          ) : (
-            <span>No tienes cuentas</span>
-          )}
-        </label>
-        <span className="label-special">DESTINARIO</span>
-        <label>
-          <button className="button button-blue" >
-            Agregar
+          <label>
+            <span className="label-special">CUENTA ORIGEN</span>
+            <select
+              className="input-special"
+              value={count_user}
+              name="count_user"
+            >
+              <option>Selecciona tu tarjeta</option>
+              {card ? (
+                card?.map((card) => (
+                  <option value={card?._id}>{card.number}</option>
+                ))
+              ) : (
+                <span>No tienes cuentas</span>
+              )}
+            </select>
+          </label>
+          <br />
+          <button className="button button-blue" onClick={handleRedirect}>
+            Agregar Destino
           </button>
-          {destinationCard.length > 0 ? (
-            destinationCard?.map((destinationCard) => (
-              <select
-                className="input-special"
-                value={count_destiny}
-                name="count_destiny"
-                disabled
-              >
-                <option value={destinationCard.id}>
-                  {destinationCard.alias}
-                </option>
-                <option value={destinationCard._id}>
-                  {destinationCard.card_number}
-                </option>
-              </select>
-            ))
-          ) : (
-            <span>No hay tarjetas de destino</span>
-          )}
-        </label>
-        <label>
-
-          <input
-            type="number"
-            name="amount"
-            min={0}
-            className="input-text"
-            placeholder="Cantidad"
-            value={amount}
-            disabled
-          />
-        </label>
-        <label>
-          <input
-            type="text"
-            name="description"
-            placeholder="CONCEPTO"
-            className="input-text"
-            value={description}
-            disabled
-          />
-        </label>
-        <button className="button button-blue" type="onSubmit">
-          Transferir
-        </button>
-        <button className="button button-blue" onClick={handleRedirect}>
-          Cancelar
-        </button>
+          <label>
+            <span className="label-special">N° Cuenta Destinatario</span>
+            <select
+              className="input-special"
+              value={count_destiny}
+              name="count_destiny"
+            >
+              <option value="">Elegir cuenta de destino</option>
+              {destinationCard?.length > 0 ? (
+                destinationCard?.map((destinationCard) => (
+                  <option value={destinationCard._id}>
+                    {destinationCard.destination_name}
+                  </option>
+                ))
+              ) : (
+                <span>No hay tarjetas de destino</span>
+              )}
+            </select>
+          </label>
+          <label>
+            <input
+              type="number"
+              name="amount"
+              min={0}
+              className="input-text"
+              placeholder="Cantidad"
+              value={amount}
+            />
+          </label>
+          <label>
+            <input
+              type="text"
+              name="description"
+              placeholder="CONCEPTO"
+              className="input-text"
+              value={description}
+            />
+          </label>
+          <button className="button button-blue" type="submit">
+            Transferir
+          </button>
       </form>
     </div>
   );
