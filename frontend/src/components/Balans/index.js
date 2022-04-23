@@ -16,7 +16,10 @@ export const Balans = () => {
 
   useEffect(() => {
     dispatch(getUserId(userID));
-    dispatch(getCardByIdUser(userID));
+  }, [userID]);
+
+  useEffect(() => {
+     dispatch(getCardByIdUser(userID));
   }, [userID]);
 
   useEffect(() => {
