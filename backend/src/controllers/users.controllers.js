@@ -160,17 +160,15 @@ usersCtrl.login = async (req, res, next) => {
 usersCtrl.getUsers = async (req, res) => {
   const users = await User.find();
   res.json(users);
-};
+}
 
 usersCtrl.getUserById = async (req, res) => {
-  try {
-    const userId = req.params.id;
-    const user = await User.findById(userId);
-    if (!user) throw new Error("email or password invalid");
-    res.status(200).json(user);
-  } catch (error) {
-    console.log(error);
-    res.status(400).json(error.message);
+  let userId = req.params.id;
+  let _id = userId;
+  
+  
+  if (!mongoose.Types.ObjectId.isValid(userId)) {
+     res.json({ type: "error", text: "Not a valid parameter." });
   }
 };
 
