@@ -37,7 +37,7 @@ export default function HistoryPage() {
   const handleClickDownlad = async (e) => {
     e.preventDefault();
     console.log(transactions);
-    fetch(`${serviceCurrent}/api/transactions/user/pdf`, {
+    fetch(`${serviceCurrent}/api/transactions/pdf`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -96,7 +96,7 @@ export default function HistoryPage() {
         </buton>
         <a
           className="button"
-          href={urlReport ? urlReport : "#"}
+          href={"#"}
           onClick={handleClickDownlad}
           style={
             {

@@ -63,11 +63,13 @@ const index = require("./routes/index");
 const users = require("./routes/users");
 const cards = require("./routes/cards");
 const transactions = require("./routes/transactions");
+const transactions2 = require("./routes/transactions2");
 
 app.use("/api/index", index);
 app.use("/api/users", users);
 app.use("/api/cards", cards);
 app.use("/api/transactions", transactions);
+app.use("/api/transactions2", transactions2);
 
 //Para ocultar la ruta donde se alamacenan laas imágenes
 app.use("/public", express.static(`${__dirname}/storage/images`));
