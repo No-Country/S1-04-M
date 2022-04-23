@@ -28,7 +28,7 @@ export const Balans = () => {
       <h2>Movimientos</h2>
       <div className="sections-grid">
         {card.length
-          ? card.map((card) => (
+          ? card?.map((card) => (
               <div className="container-card">
                 <Card key={card.id} card={card} />
               </div>
