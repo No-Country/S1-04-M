@@ -19,7 +19,9 @@ export const Balans = () => {
   }, [userID]);
 
   useEffect(() => {
+    setTimeout(() => {
      dispatch(getCardByIdUser(userID));
+    }, 100);
   }, [userID]);
 
   useEffect(() => {
