@@ -18,9 +18,9 @@ export default function useTransactions(userID) {
     if (!userID) return;
     const url =
       mode === "forMonth" && date !== undefined
-        ? `${currentService}/api/transactions2/user/byId/${userID}/date/${date}`
+        ? `${currentService}/api/transactions/user/date/${userID}/${date}`
         : mode === "all"
-        ? `${currentService}/api/transactions2/user/byId/${userID}`
+        ? `${currentService}/api/transactions/user/byId/${userID}`
         : "";
 
     console.log(url);
